@@ -17,7 +17,7 @@ html {
     font-family: Arial, sans-serif;
     height: 134mm;
     width: 218mm;
-    background-image: url(/images/4.jpg);
+    background-image: url(/images/backgroud.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -55,7 +55,7 @@ html {
     background-color: white;
     border-radius: 50%;
     border: 3px solid goldenrod;
-    background-image: url(/images/DCA\ LOGO.png);
+    background-image: url(/images/DCA.png);
     background-size: 2.2rem;
     background-position: center;
     background-repeat: no-repeat;
