@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Managers</title>
+    <link rel="stylesheet" href="../css/inventory.css">
+</head>
+<body>
+    <header>
+            <button type="button" class="ui_btn hamburger" data-nav-toggler="io">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false"><path d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z"></path></svg>
+            </button>
+            <span>Add Inventory</span>
+            <!-- <button type="button" class="ui_btn active">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#5F6368"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+            <ul>
+                <li><a href="#">Delete account</a></li>
+            </ul> -->
+    </header>
+    <form action="#" name="inventory">
+        <section>
+            <p>Please,<b>&nbsp;first&nbsp;</b>select a category to begin.</p>
+            <select name="category" id="category" required>
+                <option value="">Category</option>
+                <option value="accessory">Accessories</option>
+                <option value="exercise">Exercise Books</option>
+                <option value="literature">Literature</option>
+                <option value="stationery">Stationeries</option>
+                <option value="textbook">Textbook</option>
+            </select>
+            <!-- <input type="number" name="quantity" placeholder="Quantity">
+            <input type="number" name="price" placeholder="Price"> -->
+        </section>
+        <div class="screen" data-screen="4">
+            <select name="item" id="item">
+                <option value="">Item</option>
+                <option value="brownpaper" data-opt="0">Brown Paper</option>
+                <option value="cardboard">Cardboard Paper</option>
+                <option value="eraser">Eraser</option>
+                <option value="gum">Gum</option>
+                <option value="pen">Pen</option>
+                <option value="ruler" data-opt="1">Ruler</option>
+                <option value="stapler">Stapler</option>
+                <option value="sticglue">Stic Glue</option>
+                <option value="sugarpaper" data-opt="0">Sugar Paper</option>
+            </select>
+            <select name="color" id="color" class="opt">
+                <option value="">Color</option>
+                <option value="grey" data-hex="grey">Grey</option>
+                <option value="purple" data-hex="purple">Purple</option>
+                <option value="orange" data-hex="orange">Orange</option>
+                <option value="red" data-hex="red">Red</option>
+                <option value="white" data-hex="white">White</option>
+            </select>
+            <select name="type" id="type" class="opt">
+                <option value="">Type</option>
+                <option value="board">Board</option>
+                <option value="plastic">Plastic</option>
+                <option value="wooden">Wooden</option>
+            </select>
+            <div class="opt_group paper_color">
+            </div>
+            <div class="opt_group ruler">
+                <label for="board">Board</label>
+                <input type="radio" name="ruler" id="board" value="board">
+                <label for="desk">Desk</label>
+                <input type="radio" name="ruler" id="desk" value="desk">
+            </div>
+        </div>
+        <div class="screen" data-screen="2">
+            <input type="text" placeholder="Name" class="acc">
+            <input type="text" placeholder="Quantity" class="gen acc">
+        </div>
+        <input type="text" name="brand" placeholder="Brand (optional)">
+        <input type="text" placeholder="Quantity" class="gen acc">
+        <input type="number" name="price" id="price" placeholder="Price">
+        <section>
+            <input type="reset" value="Clear">
+            <input type="submit" value="Submit">
+        </section>
+    </form>
+    <script>
+        const hd = document.querySelector("header");
+        hd.addEventListener("click", () => {
+            document.parent.document.querySelector("nav").classList.toggle("active");
+        });
+    </script>
+    <script src="../js/inventory.js"></script>
+</body>
+</html>

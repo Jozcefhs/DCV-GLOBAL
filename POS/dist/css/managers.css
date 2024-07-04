@@ -1,0 +1,229 @@
+* {
+    padding: 0;margin: 0;box-sizing: border-box;
+}
+:root {
+    --rgba-dark5: rgba(0, 0, 0, .5);
+    --bx-shdw: 0px 0px 5px #ccc;
+}
+html, body {
+    font: 14px 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+a {
+    text-decoration: none;
+    color: initial;
+}
+ul {
+    list-style-type: none;
+}
+button {
+    cursor: pointer;
+    font-size: 1em;
+}
+input, button {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+}
+body {
+    height: 100vh;
+    height: 100dvh;
+    color: #555;
+    position: relative;
+}
+.screen {
+    border: 1px solid orange;
+    /* height: 100%; */
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+
+}
+.screen.on {
+    display: initial;
+}
+/* header::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background: #ccc;
+    width: 85%;
+    margin: 0 auto 20px;
+} */
+header > div {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin: 20px;
+    background: #f5f5f5;
+    border-radius: 40px;
+    padding: 5px;
+    transition: background 250ms ease, box-shadow 250ms ease;
+}
+header > div:has(input#search:focus) {
+    background: #fff;
+    box-shadow: var(--bx-shdw);
+}
+button.ui_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid #ccc; */
+    border-radius: 50%;
+    padding: 5px;
+}
+button.hamburger {
+    z-index: 2;
+}
+button.ui_btn > svg,
+.info > svg {
+    width: 24px;
+    height: 24px;
+    fill: #777;
+}
+input#search {
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+    border-radius: 10px;
+    flex: 1;
+}
+button.add {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    padding: 10px !important;
+    border: 1px solid #ccc;
+}
+.notice {
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    position: absolute;
+    bottom: 15%;
+    right: 5%;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #57f;
+    color: #fff;
+}
+.notice::after {
+    content: '';
+    border: 10px solid;
+    border-color: #57f transparent transparent transparent;
+    position: absolute;
+    right: 14px;
+    top: 100%;
+}
+.notice > div:nth-child(1) {
+    padding: 0 7px 7px;
+}
+button.ex {
+    height: 27px;
+    aspect-ratio: 1;
+    color: #fff;
+    padding: 0 !important;
+    border-radius: 5px;
+    font-size: 1.5em;
+    font-weight: bold;
+    transition: background-color 200ms ease;
+}
+button.ex:hover {
+    background-color: rgb(78, 110, 236);
+}
+.notice > div:nth-child(2) {
+    padding: 10px;
+}
+.card {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    transition: box-shadow 200ms ease;
+}
+.card:first-of-type {
+    border-top: 1px solid #ddd;
+}
+.card > * {
+    cursor: pointer;
+}
+.card:hover {
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+}
+.card > img[alt="user-img"] {
+    flex-basis: 3em;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: rgba(78, 110, 236, .2);
+}
+.card > .content {
+    flex: 1 0 65%;
+    padding: 0 15px;
+}
+.card > .content > div:first-child {
+    font-weight: bold;
+}
+.card > .content > div:not(:first-child) {
+    font-size: .8em;
+}
+header#profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    position: relative;
+}
+header#profile > span {
+    font-weight: bold;
+    margin-right: auto;
+}
+header#profile > button.active:last-of-type + ul {
+    display: initial;
+}
+header#profile > ul {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 45px;
+    width: 150px;
+    padding: 5px 0;
+    box-shadow: 0 0 5px #ccc;
+    background-color: #fff;
+}
+header#profile > ul li a {
+    display: block;
+    padding: 8px 16px;
+    transition: background-color 150ms ease;
+}
+header#profile > ul li a:hover {
+    background-color: rgba(0, 0, 0, .1);
+}
+header#profile + .content img {
+    display: block;
+    margin: 5px auto;
+    width: 10em;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: rgba(78, 110, 236, .2);
+}
+.person {
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+}
+.person > span {
+    font-size: 0.8em;
+    color: #777;
+}
+.person + div {
+    margin-top: 40px;
+}
+.info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 8px 16px;
+}

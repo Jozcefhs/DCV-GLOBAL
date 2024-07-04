@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Managers</title>
+    <link rel="stylesheet" href="../css/managers.css">
+</head>
+<body>
+    <div class="screen on">
+        <header>
+            <div>
+                <button type="button" class="ui_btn hamburger" data-nav-toggler="io">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false"><path d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z"></path></svg>
+                </button>
+                <input type="search" name="search" id="search" placeholder="Search 'Managers'">
+                <button type="button" class="ui_btn">
+                    <svg viewBox="0 0 20 20"><path d="M8.5 3a5.5 5.5 0 014.23 9.02l4.12 4.13a.5.5 0 01-.63.76l-.07-.06-4.13-4.12A5.5 5.5 0 118.5 3zm0 1a4.5 4.5 0 100 9 4.5 4.5 0 000-9z" fill-rule="nonzero"></path></svg>
+                </button>
+            </div>
+        </header>
+        <div class="content">
+            <div class="card">
+                <img src="#" alt="user-img">
+                <div class="content">
+                    <div>Abraham Laboriel</div>
+                    <div>7 staffers</div>
+                    <div>Location 1</div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="#" alt="user-img">
+                <div class="content">
+                    <div>Abraham Laboriel</div>
+                    <div>7 staffers</div>
+                    <div>Location 1</div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="#" alt="user-img">
+                <div class="content">
+                    <div>Abraham Laboriel</div>
+                    <div>7 staffers</div>
+                    <div>Location 1</div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="ui_btn add">
+            <svg xmlns="http://www.w3.org/2000/svg"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+        </button>
+        <div class="notice">
+            <div>Click here to add a new manager.</div>
+            <button type="button" class="ui_btn ex">
+                <span>&times</span>
+            </button>
+        </div>
+    </div>
+    <div class="screen">
+        <header id="profile">
+                <button type="button" class="ui_btn hamburger" data-nav-toggler="io">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false"><path d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z"></path></svg>
+                </button>
+                <span>Profile</span>
+                <button type="button" class="ui_btn active">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#5F6368"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                </button>
+                <ul>
+                    <li><a href="#">Delete account</a></li>
+                </ul>
+        </header>
+        <div class="content">
+            <img src="#" alt="user-img">
+            <div class="person">Jacob Laramel Jacob Laramel<br><span>Foreman</span></div>
+            <div class="info">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#5F6368"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                <span>08075603122</span>
+            </div>
+            <div class="info">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#5F6368"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                <span>Location II</span>
+            </div>
+            staffers (7) view all
+        </div>
+    </div>
+    <script>
+        const hd = document.querySelector("header");
+        hd.addEventListener("click", () => {
+            document.parent.document.querySelector("nav").classList.toggle("active");
+        });
+    </script>
+</body>
+</html>

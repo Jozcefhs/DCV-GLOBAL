@@ -1,0 +1,158 @@
+* {
+    padding: 0;margin: 0;box-sizing: border-box;
+}
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #777;
+}
+:root {
+    --rgba-dark5: rgba(0, 0, 0, .5);
+    --bx-shdw: 0px 0px 5px #ccc;
+}
+html, body {
+    font: 14px 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+a {
+    text-decoration: none;
+    color: initial;
+}
+ul {
+    list-style-type: none;
+}
+button, select {
+    cursor: pointer;
+    font-size: 1em;
+}
+button, input, select {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+}
+input, select {
+    font-size: 1em;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+}
+body {
+    height: 100vh;
+    height: 100dvh;
+    color: #555;
+    position: relative;
+}
+header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    position: relative;
+}
+button.ui_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 5px;
+}
+button.hamburger {
+    z-index: 2;
+}
+button.ui_btn > svg,
+.info > svg {
+    width: 24px;
+    height: 24px;
+    fill: #777;
+}
+header > span {
+    font-weight: bold;
+    margin-right: auto;
+}
+form {
+    /* border: 1px solid; */
+    height: calc(100vh - 64px);
+    position: relative;
+    /* padding: 20px; */
+}
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    width: 100%;
+    background-color: inherit;
+    box-shadow: 0 3px 3px #ddd;
+    padding: 20px;
+}
+section:first-of-type {
+    /* flex-direction: column; */
+}
+section:last-of-type {
+    border-top: 1px solid #ccc;
+}
+section:first-of-type > input {
+    display: none;
+    text-align: center;
+    width: 45%;
+}
+section:last-of-type {
+    position: sticky;
+    top: 100%;
+}
+select#category {
+    flex: 1 0 100%;
+}
+select#category:valid ~ input {
+    display: initial;
+}
+/* .screen {
+    border: 1px solid orange;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: none;
+}
+*/
+.screen {
+    display: none;
+    /* border: 1px solid green; */
+    height: calc(100vh - 240px);
+    padding: 20px;
+    overflow-y: scroll;
+}
+.screen.on {
+    display: block;
+}
+select.opt {
+    display: none;
+}
+select.opt.on {
+    display: block;
+}
+.grey {
+    background-color: #555;
+    color: #fff;
+}
+.orange {
+    background-color: #ffa500;
+    color: #fff;
+}
+.purple {
+    background-color: #800080;
+    color: #fff;
+}
+.red {
+    background-color: rgb(182, 50, 3);
+    color: #fff;
+}
+.white {
+    background-color: #fff;
+    color: #555;
+}
