@@ -18,10 +18,14 @@
                         <line x1="11.0607" y1="11" x2="15" y2="14.9393" stroke="#ffa500" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </button>
-                <button type="button" class="ui_btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" width="30px" height="30px">
-                        <circle cx="6.5" cy="6.5" r="5.75" stroke="#ffa500" stroke-width="1.5"/>
-                        <line x1="11.0607" y1="11" x2="15" y2="14.9393" stroke="#ffa500" stroke-width="1.5" stroke-linecap="round"/>
+                <button type="button" class="ui_btn cart-svg"><span></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24" fill="none">
+                        <path d="M11.25 18.75C11.25 19.58 10.58 20.25 9.75 20.25C8.92 20.25 8.25 19.58 8.25 18.75C8.25 17.92 8.92 17.25 9.75 17.25C10.58 17.25 11.25 17.92 11.25 18.75ZM16.25 17.25C15.42 17.25 14.75 17.92 14.75 18.75C14.75 19.58 15.42 20.25 16.25 20.25C17.08 20.25 17.75 19.58 17.75 18.75C17.75 17.92 17.08 17.25 16.25 17.25ZM20.73 7.68L18.73 15.68C18.65 16.01 18.35 16.25 18 16.25H8C7.64 16.25 7.33 15.99 7.26 15.63L5.37 5.25H4C3.59 5.25 3.25 4.91 3.25 4.5C3.25 4.09 3.59 3.75 4 3.75H6C6.36 3.75 6.67 4.01 6.74 4.37L7.17 6.75H20C20.23 6.75 20.45 6.86 20.59 7.04C20.73 7.22 20.78 7.46 20.73 7.68ZM19.04 8.25H7.44L8.62 14.75H17.41L19.04 8.25Z" fill="#ffa500"/>
+                    </svg>
+                </button>
+                <button type="button" class="ui_btn wishlist-svg"><span></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 64 64" stroke-width="3" fill="#ffa500">
+                        <path d="M9.06,25C7.68,17.3,12.78,10.63,20.73,10c7-.55,10.47,7.93,11.17,9.55a.13.13,0,0,0,.25,0c3.25-8.91,9.17-9.29,11.25-9.5C49,9.45,56.51,13.78,55,23.87c-2.16,14-23.12,29.81-23.12,29.81S11.79,40.05,9.06,25Z"/>
                     </svg>
                 </button>
                 <a href="profile.html">
@@ -43,9 +47,9 @@
                 </div>
                 <ul>
                     <li><a href="/" id="">HOME</a></li>
-                    <li class="active"><a href="#" id="">STATIONERY</a></li>
-                    <li><a href="#" id="">TEXTBOOKS</a></li>
-                    <li><a href="#" id="">EXERCISE BOOKS</a></li>
+                    <li class="active"><a href="#stationery" id="">STATIONERY</a></li>
+                    <li><a href="#textbooks" id="">TEXTBOOKS</a></li>
+                    <li><a href="#notebooks" id="">NOTEBOOKS</a></li>
                 </ul>
                 <!-- <div id="backdrop"></div> -->
             </nav>
@@ -75,46 +79,234 @@
                     <line x1="11.0607" y1="11" x2="15" y2="14.9393" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
             </button>
+            <section id="search-result">
+                <div class="result_item"></div>
+                <div class="result_item"></div>
+                <div class="result_item"></div>
+            </section>
         </form>
         <div class="banner">
+            <div class="billboard">
+                <div>
+                    <div class="title">YouTube Logo &trade;</div>
+                    <div class="desc">YouTube trademark logo, now available under open-source license order.</div>
+                </div>
+                <div>
+                    <img src="../img/favicon2_.png">
+                </div>
+            </div>
             <div class="billboard show">
                 <div>
                     <div class="title">HP LaserJet Toner</div>
                     <div class="desc">Original HD toner ink, suitable for M30 - P10 HP LaserJet printers.</div>
                 </div>
                 <div>
-                    <img src="../img/favicon2_.png">
+                    <img src="../img/HPW1340X.webp">
                 </div>
             </div>
             <div class="billboard">
                 <div>
-                    <div class="title">HP LaserJet Toner</div>
-                    <div class="desc">Original HD toner ink, suitable for M30 - P10 HP LaserJet printers.</div>
+                    <div class="title">Decorative Paper</div>
+                    <div class="desc">Sugar Papers available in multiple colors and various sizes. Comes with two textural variations (matted and sheeny).</div>
                 </div>
                 <div>
-                    <img src="../img/favicon2_.png">
+                    <img src="../img/sugar-paper-3.jpg">
                 </div>
-            </div>
-            <div class="billboard">
-                <div></div>
-                <div></div>
             </div>
             <button type="button" class="add_cart">SHOP
                 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 16 16" fill="none">
-                    <path d="M3 5.5L8 10.5L13 5.5" stroke="brown" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M3 5.5L8 10.5L13 5.5" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
             </button>
-            <button class="ui_btn play_pause"><i class="play"></i></button>
+            <button class="ui_btn play_btn"><i class="play"></i></button>
         </div>
     </div>
-    <main>sth</main>
+    <main>
+        <!-- MOST POPULAR CATEGORIES COME HERE -->
+        <h2 id="stationery">STATIONERY</h2>
+        <div class="category_track">
+            <span class="item">
+                <img src="../img/sugar-paper-3.jpg" alt="item1">
+                <div>
+                    <h4>Kangaroo Stapler</h4>
+                    <span class="price">$7.55</span>
+                </div>
+                <svg><use href="#wishlist-svg"></use></svg>
+                <svg><use href="#cart-svg"></use></svg>
+            </span>
+            <span class="item">
+                <img src="../img/sugar-paper-3.jpg" alt="item1">
+                <div>
+                    <h4>Kangaroo Stapler</h4>
+                    <span class="price">$7.55</span>
+                </div>
+                <svg><use href="#wishlist-svg"></use></svg>
+                <svg><use href="#cart-svg"></use></svg>
+            </span>
+            <span class="item">
+                <img src="../img/sugar-paper-3.jpg" alt="item1">
+                <div>
+                    <h4>Kangaroo Stapler</h4>
+                    <span class="price">$7.55</span>
+                </div>
+                <svg><use href="#wishlist-svg"></use></svg>
+                <svg><use href="#cart-svg"></use></svg>
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+        </div>
+        <h2 id="textbooks">TEXTBOOKS</h2>
+        <div class="category_track">
+            <span class="item">
+                
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+            <span class="item">
+
+            </span>
+        </div>
+        <h2 id="notebooks">OTHERS</h2>
+        <div class="category_track">
+            <button type="button" class="item">
+                Accessories
+            </button>
+            <button type="button" class="item">
+
+            </button>
+            <button type="button" class="item">
+
+            </button>
+            <button button="button" class="item">
+
+            </button>
+        </div>
+        <button type="button" class="left_btn ui_btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 16 16" fill="none">
+                <path d="M3 5.5L8 10.5L13 5.5" stroke="orange" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <button type="button" class="right_btn ui_btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 16 16" fill="none">
+                <path d="M3 5.5L8 10.5L13 5.5" stroke="orange" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+        </button>
+    </main>
     <footer></footer>
+    <div class="svgs">
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="wishlist-svg" viewBox="0 0 64 64" stroke-width="3">
+                <path d="M9.06,25C7.68,17.3,12.78,10.63,20.73,10c7-.55,10.47,7.93,11.17,9.55a.13.13,0,0,0,.25,0c3.25-8.91,9.17-9.29,11.25-9.5C49,9.45,56.51,13.78,55,23.87c-2.16,14-23.12,29.81-23.12,29.81S11.79,40.05,9.06,25Z"/>
+            </symbol>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="cart-svg" viewBox="0 0 24 24" stroke-width="3">
+                <path d="M11.25 18.75C11.25 19.58 10.58 20.25 9.75 20.25C8.92 20.25 8.25 19.58 8.25 18.75C8.25 17.92 8.92 17.25 9.75 17.25C10.58 17.25 11.25 17.92 11.25 18.75ZM16.25 17.25C15.42 17.25 14.75 17.92 14.75 18.75C14.75 19.58 15.42 20.25 16.25 20.25C17.08 20.25 17.75 19.58 17.75 18.75C17.75 17.92 17.08 17.25 16.25 17.25ZM20.73 7.68L18.73 15.68C18.65 16.01 18.35 16.25 18 16.25H8C7.64 16.25 7.33 15.99 7.26 15.63L5.37 5.25H4C3.59 5.25 3.25 4.91 3.25 4.5C3.25 4.09 3.59 3.75 4 3.75H6C6.36 3.75 6.67 4.01 6.74 4.37L7.17 6.75H20C20.23 6.75 20.45 6.86 20.59 7.04C20.73 7.22 20.78 7.46 20.73 7.68ZM19.04 8.25H7.44L8.62 14.75H17.41L19.04 8.25Z"/>
+            </symbol>
+        </svg>
+    </div>
     <script>
         const toggleSearch = document.querySelectorAll("[data-toggle-search]");
         const searchHeader = document.querySelector("header"); //which is also the regular header
         toggleSearch.forEach(toggler => {
             toggler.addEventListener("click", function() {
                 searchHeader.classList.toggle("search", Number(toggler.dataset.toggleSearch))
+            });
+        });
+
+        //update billboard
+        const playBtn = document.querySelector(".play_btn");
+        playBtn.onclick = () => playBillboard();
+        let counter = 0;
+        function playBillboard() {
+            let status = playBtn.querySelector("i").classList.replace("play", "pause");
+            let intervalId;
+            if (!status) { //stop playing 
+                return playBtn.querySelector("i").classList.replace("pause", "play");
+                // clearInterval(intervalId);
+            }
+            const billboards = document.querySelectorAll(".billboard");
+            let iteration = 0;
+            intervalId = setInterval((e) => {
+                billboards.forEach((board, idx) => board.classList.toggle("show", idx == counter));
+                if (counter == 2) counter = -1;
+                if (iteration > 5 || !status) {
+                    clearInterval(intervalId);
+                    playBtn.querySelector("i").classList.replace("pause", "play");
+                }
+                counter++
+                iteration++;
+            }, 3000);
+        };
+        // playBillboard();
+
+        //scroll left or right by...
+        const categoryTracks = document.querySelectorAll(".category_track");
+        const leftBtns = document.querySelectorAll(".left_btn");
+        leftBtns.forEach((btn, idx) => {
+            btn.addEventListener("click", (e) => {
+                categoryTracks[idx].scrollBy({top:0,left:-800})
+            })
+        })
+        const rightBtns = document.querySelectorAll(".right_btn");
+        rightBtns.forEach((btn, idx) => {
+            btn.addEventListener("click", (e) => {
+                categoryTracks[idx].scrollBy({top:0,left:800})
+            });
+        });
+
+        const items = document.querySelectorAll(".item");        
+        items.forEach(item => {
+            item.addEventListener("click", (e) => {
+                const outOfStock = item.classList.contains("all_out");
+                if (outOfStock) return window.alert("location.href = 'product.html';");
+                const targetName = e.target.localName;
+
+                if (!(targetName == "svg")) return location.href = 'product.html';
+                const svg = e.target.children[0].href?.animVal.replace("#",".");
+                
+                const shoppingCart = document.querySelector(svg + " > span");
+                const toggled = e.target.children[0].classList.toggle("fill");
+                toggled ? shoppingCart.innerText = Number(shoppingCart.innerText) + 1 : shoppingCart.innerText = Number(shoppingCart.innerText) - 1;
+
             });
         });
     </script>

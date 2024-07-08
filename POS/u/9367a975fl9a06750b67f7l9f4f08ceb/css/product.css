@@ -1,0 +1,283 @@
+* {margin: 0;padding: 0;box-sizing: border-box;}
+html, body {
+    font: 16px system-ui;
+    background-color: #f5f5f5;
+}
+button {
+    cursor: pointer;
+}
+button, input {
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    color: #777;
+    font-size: 1.2em;
+}
+header {
+    min-height: 70px;
+    position: sticky;
+    top: -1px;
+    z-index: 10;
+    background-color: inherit;
+}
+.container {
+    width: 600px;
+    margin: auto;
+}
+section {
+    min-height: 200px;
+    padding: 2em;
+    /* text-align: center; */
+    direction: rtl;
+    position: relative;
+}
+section > i {
+    width: 3em;
+    height: 3em;
+    bottom: 5%;
+    border: 2px solid;
+    border-color: #aaa #aaa #aaa transparent;
+    border-radius: 50%;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    /* animation-fill-mode: forwards; */
+    animation-iteration-count: infinite;
+    visibility: hidden;
+}
+@keyframes spin {
+    from {
+        transform: translateX(-50%) rotate(0deg);
+    }
+    to {
+        transform: translateX(-50%) rotate(360deg);
+    }
+}
+section.wish > i {
+    animation-name: spin;
+    visibility: visible;
+}
+section.wishing > i {
+    animation-name: spin;
+    border-color: #1a73e8ff #1a73e8ff #1a73e8ff transparent;
+    visibility: visible;
+}
+section.wished > svg > path {
+    fill: #1a73e8ff;
+}
+section.wished > svg {
+    animation-name: zoom-in-out;
+}
+@keyframes zoom-in-out {
+    from {
+        transform: translateX(-50%) scale(1.4);
+    }
+    to {
+        transform: translateX(-50%) scale(1);
+    }
+}
+section > svg {
+    cursor: pointer;
+    bottom: 6%;
+    transition: fill 200ms ease-out 2s;
+    animation-duration: 500ms;
+    animation-timing-function: ease;
+    /* position: relative; */
+}
+section > i,
+section > svg {
+    position: absolute;
+    left: 90%;
+    transform: translateX(-50%);
+}
+/* section.wishing > svg::before {
+    content: "";
+    animation-name: rt;
+} */
+section > svg.wished {
+    fill: #ffa500;
+}
+section > img {
+    display: block;
+    width: 50%;
+    margin: auto;
+    aspect-ratio: 9/7;
+    transform: rotate(5deg)
+}
+main {
+    padding: 40px;
+    color: #555;
+    background-color: #fff;
+    box-shadow: 0 0 7px #ccc;
+    min-height: 400px;
+}
+.product {
+    font-weight: bold;
+    color: #555;
+}
+.product > div {
+    position: relative;
+    padding: 10px 0;
+}
+.product > div:first-of-type {
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.product > div:first-of-type::before {
+    content: "Price";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: .5em;
+    margin-right: 10px;
+    padding: 7px 30px;
+    border-radius: 10px 20px;
+    background-color: #f5f5f5;
+}
+.product > div:last-of-type {
+    font-size: 1.5em;
+}
+.description {
+    padding: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.description > div:nth-child(odd) {
+    flex-basis: 17%;
+    font-weight: bold;
+}
+.description > div:nth-child(even) {
+    flex-basis: 60%;
+}
+.description > div {
+    line-height: 1.5;
+    flex-grow: 1;
+}
+form {
+    min-height: 50px;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+}
+form > *:not(#add-to-cart, input) {
+    width: 40px;
+    aspect-ratio: 1/1;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 1.7em;
+}
+form > input[type="text"] {
+    width: 50px;
+    border: 1px solid;
+    text-align: center;
+    display: block;
+    font-size: 1.5em;
+    padding: 7px 0;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+}
+button {
+    font-weight: bold;
+}
+#minus {
+    background-color: #555;
+    color: #fff;
+}
+#plus {
+    background-color: #1a73e8ff;
+    color: #fff;
+}
+.added {
+    cursor: default;
+}
+#add-to-cart {
+    margin-left: auto;
+    padding: 10px 20px;
+    background-color: #1a73e8ff;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 1em;
+    /* display: inline-flex; */
+    text-align: center;
+    position: relative;
+    /* transition: padding-right 200ms ease; */
+    animation-duration: 200ms;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+}
+#add-to-cart.unload {
+    animation-name: unload;
+    animation-delay: 400ms;
+}
+ #add-to-cart.load {
+    animation-name: load;
+ }
+ @keyframes load {
+    from {
+        padding-right: 20px;
+    }
+    to {
+        padding-right: 3em;
+    }
+}
+@keyframes unload {
+    from {
+        padding-right: 3em;
+    }
+    to {
+        padding-right: 20px;
+    }
+}
+#add-to-cart.load > span.loading {
+    opacity: 1;
+    animation-name: rt;
+}
+span.loading {
+    vertical-align: text-top;
+    opacity: 0;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 3px solid;
+    border-color: #1a73e8aa #fff #fff #fff;
+    border-radius: 50%;
+    position: absolute;
+    right: 17px;
+    transition: opacity 200ms ease 200ms;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+@keyframes rt {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+#total {
+    text-align: center;
+    font-family: cursive;
+    color: #555;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    font-weight: bold;
+}
+#checkout {
+    display: block;
+    width: 70%;
+    margin: 40px auto;
+    background-color: #29ac51;
+    color: #fff;
+    padding: 16px 20px;
+    border-radius: 10px;
+}
+@media screen and (max-width: 667px) {
+    .container {
+        width: 100%;
+    }
+}

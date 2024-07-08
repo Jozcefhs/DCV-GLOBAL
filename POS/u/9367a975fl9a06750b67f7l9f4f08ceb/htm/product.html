@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <link rel="stylesheet" href="../css/product.css">
+</head>
+<body>
+    <header></header>
+    <div class="container">
+        <section>
+            <img src="../img/sugar-paper-3.jpg" alt="product">
+            <i></i>
+            <svg xmlns="http://www.w3.org/2000/svg" id="wishlist" viewBox="0 0 64 64" width="40px" height="40px">
+                <path d="M9.06,25C7.68,17.3,12.78,10.63,20.73,10c7-.55,10.47,7.93,11.17,9.55a.13.13,0,0,0,.25,0c3.25-8.91,9.17-9.29,11.25-9.5C49,9.45,56.51,13.78,55,23.87c-2.16,14-23.12,29.81-23.12,29.81S11.79,40.05,9.06,25Z" fill="#aaa"/>
+            </svg>
+        </section>
+        <main>
+            <div class="product">
+                <!-- <span>Price</span> -->
+                <div>$ 122,090.60</div>
+                <div>Sugar Paper - Multiple Color Decorative Paper</div>
+            </div>
+            <div class="description">
+                <div>Stock and more stock</div>
+                <div>ipsum dolor sit amet consectetur adipisicing elit. Nemo est, eos pariatur corrupti, illo facere nulla rerum unde voluptatibus commodi labore maxime earum eveniet incidunt voluptas eum nam dicta modi.</div>
+                <div>In Stock</div>
+                <div>Available</div>
+                <!-- <div></div> -->
+            </div>
+            <form action="#" name="cart-form">
+                <button type="button" id="minus" data-counter>&minus;</button>
+                <input type="text" value="1" placeholder="#">
+                <button type="button" id="plus" data-counter>&plus;</button>
+                <button id="add-to-cart" class="unload"><span>Add to bag</span><span class="loading"></span></button>
+            </form>
+            <div id="total">$ 122,090.60</div>
+        </main>
+        <button type="button" id="checkout">Checkout</button>
+    </div>
+    <script>
+        // window.addEventListener("click", e => {
+            //console.log(e)
+        // })
+    </script>
+    <script type="module" src="../js/product.js"></script>
+</body>
+</html>
