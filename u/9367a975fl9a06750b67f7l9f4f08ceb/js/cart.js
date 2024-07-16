@@ -2,10 +2,11 @@
 //On cart page, fetch the current state of each document, including price and quantity available
 
 //the Blob API
-// let myblob = new Blob(["An image data array buffer."]);
-// const promise = await myblob.arrayBuffer().then(res => {
-//     console.log(res.byteLength, res.slice(0,7))
-// });
+let myblob = new Blob(["An image data array buffer."]);
+const promise = await myblob.text().then(res => {
+    console.log(res);
+});
+
 // console.log(promise.Int8Array);
 //
 const blob = Object.values({
@@ -28,9 +29,9 @@ const blob = Object.values({
     "16": 108
 });
 
-const fr = new FileReader();
-fr.onload = () => {
-    console.log(fr.result)
-}
-fr.readAsArrayBuffer([...blob]);
+// const fr = new FileReader();
+// fr.onload = () => {
+//     console.log(fr.result)
+// }
+// fr.readAsArrayBuffer([...blob]);
 // console.log(blob)

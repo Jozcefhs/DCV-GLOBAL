@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - User</title>
+    <link rel="stylesheet" href="../css/homer.css">
+</head>
+<body class="">
+    <header>
+        <div class="top">
+            <a href="#"><img src="../../../img/picture-image-svgrepo-com (1).svg" alt="default"></a>
+            <div class="topnav">
+                <a href="#" class="active">Orders</a>
+                <svg width=".5em" height="1em"><use href="#separator-line" xlink:href="#separator-line"></use></svg>
+                <!-- <img src="../../../img/seperator_line.svg" alt="separator-line"> -->
+                <a href="#">Wishlist</a>
+            </div>
+            <div class="svg link">
+                <i>0</i>
+                <svg width="2em" height="2em"><use href="#wish" xlink:href="#wish"></use></svg>
+            </div>
+            <div class="svg link">
+                <i>0</i>
+                <svg width="2em" height="2em"><use href="#cart" xlink:href="#cart"></use></svg>
+            </div>
+            <div id="user_pic">
+                <img src="../../../img/user-profile-circle-svgrepo-com.svg" alt="user_pic">
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="svg menu_btn jsbtn">
+                <svg width="2em" height="2em"><use href="#menu" xlink:href="#menu"></use></svg>
+            </div>
+            <div class="link chevron left">
+                <svg width="1em" height="1em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
+            </div>
+            <nav>
+                <div class="link arrow jsbtn">
+                    <svg width="2em" height="2em"><use href="#arrow" xlink:href="#arrow"></use></svg>
+                </div>
+                <a href="#" class="active">All</a>
+                <a href="#">Textbooks</a>
+                <a href="#">Textbooks</a>
+                <a href="#">Notebooks</a>
+                <a href="#">Accessories</a>
+                <a href="#">Stationery</a>
+            </nav>
+            <div class="link chevron right">
+                <svg width="1em" height="1em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
+            </div>
+            <!-- <div class="page_title">All</div> -->
+            <div class="link filter" onclick="discloseForm(this);">
+                <img src="../../../img/filter.97c596624d8d10e6722d.svg" alt="filter">
+            </div>
+            <form action="#" name="form-filter" id="form-filter">
+                <input type="text" placeholder="Filter...">
+                <button type="submit" class="svg">
+                    <svg width="2em" height="2em"><use href="#arrow" xlink:href="#arrow"></use></svg>
+                </button>
+            </form>
+            <div class="link search" onclick="discloseForm(this);">
+                <img src="../../../img/search.cebfd63a204ba9fefa74.svg" alt="search">
+            </div>
+            <form action="#" name="form-search" id="form-search">
+                <input type="search" name="search" id="search" placeholder="Search...">
+                <button type="submit" class="svg">
+                    <svg width="2em" height="2em"><use href="#arrow" xlink:href="#arrow"></use></svg>
+                </button>
+            </form>
+        </div>
+    </header>
+    <main>
+        <template>
+            <div class="card">
+                <img src="../../../img/picture-image-svgrepo-com (1).svg">
+                <div class="title"></div>
+                <div class="price"></div>
+                <div class="footer">
+                    <div class="link wish">
+                        <img src="../../../img/wishlist-svgrepo-com.svg" alt="wish">
+                        <!-- <svg width="30" height="30"><use href="#wish" xlink:href="#wish"></use></svg> -->
+                    </div>
+                    <div class="link cart">
+                        <img src="../../../img/shopping-cart-svgrepo-com.svg" alt="cart">
+                        <!-- <svg width="30" height="30"><use href="#cart" xlink:href="#cart"></use></svg> -->
+                    </div>
+                </div>
+            </div>
+        </template>
+    </main>
+    <aside class="">
+        <div class="head">
+            <div class="link close">
+                <svg width="1em" height="1em"><use href="#close" xlink:href="#close"></use></svg>
+            </div>
+        </div>
+        <img src="../img/HPW1340X.webp" alt="aside-img">
+        <div class="body">
+            <div class="title">Title 1</div>
+            <div class="price">&#8358; 50000</div>
+            <div class="desc">quam incidunt culpa repudiandae numquam. Consequatur pariatur totam veritatis odit obcaecati blanditiis eaque?</div>
+        </div>
+        <div class="footer">
+            <div class="link chevron left">
+                <svg width="1.5em" height="1.5em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
+            </div>
+            <span id="qty">12</span>
+            <div class="link chevron right">
+                <svg width="1.5em" height="1.5em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
+            </div>
+        </div>
+        <button type="button" id="add-to-cart">Add to cart &ndash;&nbsp; <span>&#8358; 200000000</span></button>
+        <button type="button" class="link check">
+            <span>&checkmark;</span>
+        </button>
+    </aside>
+    <div class="svgrepo" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="separator-line" viewBox="0 0 1 13" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.571726 11.6904V0.875681V11.6904Z" fill="#FF1C1C"/>
+                <path d="M0.571726 11.6904V0.875681" stroke="#aaa" stroke-width="0.866667" stroke-linecap="square"/>
+            </symbol>
+        </svg>            
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="wish" width="2em" height="2em" viewBox="0 0 64 64" stroke-width="3" stroke="#1a73e8" fill="#1a73e8">
+                <path d="M9.06,25C7.68,17.3,12.78,10.63,20.73,10c7-.55,10.47,7.93,11.17,9.55a.13.13,0,0,0,.25,0c3.25-8.91,9.17-9.29,11.25-9.5C49,9.45,56.51,13.78,55,23.87c-2.16,14-23.12,29.81-23.12,29.81S11.79,40.05,9.06,25Z"/>
+            </symbol>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="cart" width="2em" height="2em" viewBox="0 0 24 24" fill="none">
+                <path d="M11.25 18.75C11.25 19.58 10.58 20.25 9.75 20.25C8.92 20.25 8.25 19.58 8.25 18.75C8.25 17.92 8.92 17.25 9.75 17.25C10.58 17.25 11.25 17.92 11.25 18.75ZM16.25 17.25C15.42 17.25 14.75 17.92 14.75 18.75C14.75 19.58 15.42 20.25 16.25 20.25C17.08 20.25 17.75 19.58 17.75 18.75C17.75 17.92 17.08 17.25 16.25 17.25ZM20.73 7.68L18.73 15.68C18.65 16.01 18.35 16.25 18 16.25H8C7.64 16.25 7.33 15.99 7.26 15.63L5.37 5.25H4C3.59 5.25 3.25 4.91 3.25 4.5C3.25 4.09 3.59 3.75 4 3.75H6C6.36 3.75 6.67 4.01 6.74 4.37L7.17 6.75H20C20.23 6.75 20.45 6.86 20.59 7.04C20.73 7.22 20.78 7.46 20.73 7.68ZM19.04 8.25H7.44L8.62 14.75H17.41L19.04 8.25Z" fill="#1a73e8"/>
+            </symbol>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="chevvy" viewBox="0 0 16 16" fill="none">
+                <path d="M3 5.5L8 10.5L13 5.5" stroke="#777" stroke-width="1.5" stroke-linecap="round"/>
+            </symbol>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="menu" viewBox="0 0 24 24" fill="none">
+                <g id="Menu / Menu_Alt_01">
+                    <path id="Vector" d="M12 17H19M5 12H19M5 7H19" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+            </symbol>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <symbol id="arrow" viewBox="0 0 512 512" version="1.1" xml:space="preserve">
+                <g id="Layer_1"/>
+                <g id="Layer_2">
+                    <g>
+                        <path class="st0" d="M217,129.88c-6.25-6.25-16.38-6.25-22.63,0L79.61,244.64c-0.39,0.39-0.76,0.8-1.11,1.23    c-0.11,0.13-0.2,0.27-0.31,0.41c-0.21,0.28-0.42,0.55-0.62,0.84c-0.14,0.21-0.26,0.43-0.39,0.64c-0.14,0.23-0.28,0.46-0.41,0.7    c-0.13,0.24-0.24,0.48-0.35,0.73c-0.11,0.23-0.22,0.45-0.32,0.68c-0.11,0.26-0.19,0.52-0.28,0.78c-0.08,0.23-0.17,0.46-0.24,0.69    c-0.09,0.29-0.15,0.58-0.22,0.86c-0.05,0.22-0.11,0.43-0.16,0.65c-0.08,0.38-0.13,0.76-0.17,1.14c-0.02,0.14-0.04,0.27-0.06,0.41    c-0.11,1.07-0.11,2.15,0,3.22c0.01,0.06,0.02,0.12,0.03,0.18c0.05,0.46,0.12,0.92,0.21,1.37c0.03,0.13,0.07,0.26,0.1,0.39    c0.09,0.38,0.18,0.76,0.29,1.13c0.04,0.13,0.09,0.26,0.14,0.4c0.12,0.36,0.25,0.73,0.4,1.09c0.05,0.11,0.1,0.21,0.15,0.32    c0.17,0.37,0.34,0.74,0.53,1.1c0.04,0.07,0.09,0.14,0.13,0.21c0.21,0.38,0.44,0.76,0.68,1.13c0.02,0.03,0.04,0.06,0.06,0.09    c0.55,0.81,1.18,1.58,1.89,2.29l114.81,114.81c3.12,3.12,7.22,4.69,11.31,4.69s8.19-1.56,11.31-4.69c6.25-6.25,6.25-16.38,0-22.63    l-87.5-87.5h291.62c8.84,0,16-7.16,16-16s-7.16-16-16-16H129.51L217,152.5C223.25,146.26,223.25,136.13,217,129.88z"/>
+                    </g>
+                </g>
+            </symbol>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="close" viewBox="0 0 12 12" fill="none">
+                <path d="M11.4671 1.1549L10.3122 0L5.73355 4.57865L1.1549 0L0 1.1549L4.57865 5.73355L0 10.3122L1.1549 11.4671L5.73355 6.88845L10.3122 11.4671L11.4671 10.3122L6.88845 5.73355L11.4671 1.1549Z" fill="#6E6E6E"/>
+            </symbol>
+        </svg>            
+    </div>
+    <script type="module" src="../js/homer.js"></script>
+    <script>
+        
+        //window.scrollTop 105.5 is the exact height of the header
+        
+        const nav = document.querySelector("nav");
+        const chevrons = document.querySelectorAll(".chevron");
+        chevrons.forEach(chevron => {
+            chevron.addEventListener("click", () => {
+                chevron.classList.contains("left") ? nav.scrollBy(-100,0) : nav.scrollBy(100,0);
+            });
+        });
+        const jsbtns = document.querySelectorAll(".jsbtn");
+        jsbtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                nav.classList.toggle("show");
+            })
+        })
+        function discloseForm(button) {
+            button.nextElementSibling.classList.toggle("show");
+        }
+    </script>
+</body>
+</html>

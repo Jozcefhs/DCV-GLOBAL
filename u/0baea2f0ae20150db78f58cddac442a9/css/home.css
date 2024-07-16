@@ -1,0 +1,206 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+:root {
+    --bg-color: #f5f5f5;
+}
+html, body {
+    font: 18px system-ui;
+    color: #555;
+}
+.card, .bar_btn {
+    cursor: pointer;
+}
+header, .content, .order > .number, #bar, .bar_btn {
+    display: flex;
+}
+.header, .content, .order > .number, #bar, .bar_btn {
+    align-items: center;
+}
+.order > .number, .bar_btn {
+    justify-content: center;
+}
+header {
+    justify-content: space-between;
+    padding: .5em 2em;
+    position: absolute;
+    width: 100%;
+}
+header img[alt="logo"] {
+    width: 3em;
+    aspect-ratio: 1;
+    border-radius: 17px / 12px;
+    background-color: #f3f3f3;
+}
+#user-photo {
+    width: 2em;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 48 48" fill="%23555"><g id="Layer_2" data-name="Layer 2"><g id="invisible_box" data-name="invisible box"><rect width="48" height="48" fill="none"/></g><g id="icons_Q2" data-name="icons Q2"><g><path d="M24,10a8,8,0,1,0,8,8A8,8,0,0,0,24,10Zm0,12a4,4,0,1,1,4-4A4,4,0,0,1,24,22Z"/><path d="M24,2A22,22,0,1,0,46,24,21.9,21.9,0,0,0,24,2ZM11.8,37.2A26.4,26.4,0,0,1,24,34a26.4,26.4,0,0,1,12.2,3.2,17.9,17.9,0,0,1-24.4,0Zm27.1-3.1h0A30.7,30.7,0,0,0,24,30,30.7,30.7,0,0,0,9.1,34.1h0A17.7,17.7,0,0,1,6,24a18,18,0,0,1,36,0,17.7,17.7,0,0,1-3.1,10.1Z"/></g></g></g></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+main {
+    position: relative;
+    padding-top: 7em;
+}
+section {
+    max-width: 900px;
+    margin: auto;
+    box-shadow: 0 0 5px #ccc;
+    border-radius: 17px / 12px;
+    overflow: hidden;
+}
+section > div.heading {
+    padding: .5em;
+    /* margin: 0 .5em; */
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    font-weight: bold;
+}
+.section_content_wrapper {
+    padding: 1em;
+}
+.content_wrapper > h3 {
+    padding: 0 2em;
+    font-size: .9em;
+}
+.content {
+    flex-wrap: wrap;
+    gap: 2em;
+    padding: 2em;
+}
+.card {
+    font-size: .8em;
+    width: 8em;
+    aspect-ratio: 1;
+    padding: .3em 1em;
+    border-radius: 17px / 12px;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: 20%;
+    /* background-size: 50%; */
+    position: relative;
+    overflow: hidden;
+    transition: background-color 200ms ease-out;
+}
+.card:hover, .card.on {
+    background-color: var(--bg-color);
+}
+.card > p {
+    width: 90%;
+    text-align: center;
+    font-weight: 500;
+    margin: 70% auto 0;
+}
+.order > .number {
+    height: 2em;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    font-weight: 500;
+    transform: rotate(0deg);
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #fff;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: backwards;
+}
+@keyframes searcher {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.number.searching {
+    animation-name: searcher;
+    border: 2px solid;
+    border-color: #777 #777 transparent #777;
+}
+.number.searched {
+    background-color: #1a73e8ff;
+}
+.card.order {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 24 24" fill="none"><path d="M11.25 18.75C11.25 19.58 10.58 20.25 9.75 20.25C8.92 20.25 8.25 19.58 8.25 18.75C8.25 17.92 8.92 17.25 9.75 17.25C10.58 17.25 11.25 17.92 11.25 18.75ZM16.25 17.25C15.42 17.25 14.75 17.92 14.75 18.75C14.75 19.58 15.42 20.25 16.25 20.25C17.08 20.25 17.75 19.58 17.75 18.75C17.75 17.92 17.08 17.25 16.25 17.25ZM20.73 7.68L18.73 15.68C18.65 16.01 18.35 16.25 18 16.25H8C7.64 16.25 7.33 15.99 7.26 15.63L5.37 5.25H4C3.59 5.25 3.25 4.91 3.25 4.5C3.25 4.09 3.59 3.75 4 3.75H6C6.36 3.75 6.67 4.01 6.74 4.37L7.17 6.75H20C20.23 6.75 20.45 6.86 20.59 7.04C20.73 7.22 20.78 7.46 20.73 7.68ZM19.04 8.25H7.44L8.62 14.75H17.41L19.04 8.25Z" fill="%23555"/></svg>');
+}
+.card.inventory {
+    background-image: url('data:image/svg+xml,<svg fill="%23555" width="3em" height="3em" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><title>inventory-management</title><rect x="19" y="24" width="4" height="4"/><rect x="26" y="24" width="4" height="4"/><rect x="19" y="17" width="4" height="4"/><rect x="26" y="17" width="4" height="4"/><path d="M17,24H4V10H28v5h2V10a2.0023,2.0023,0,0,0-2-2H22V4a2.0023,2.0023,0,0,0-2-2H12a2.002,2.002,0,0,0-2,2V8H4a2.002,2.002,0,0,0-2,2V24a2.0023,2.0023,0,0,0,2,2H17ZM12,4h8V8H12Z"/><rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"/></svg>');
+}
+.card.costing {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" viewBox="-9.5 0 67 67" version="1.1"  width="3em" height="3em"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Money-bag-dollar" sketch:type="MSLayerGroup" transform="translate(1.000000, 3.000000)" stroke="%236B6C6E" stroke-width="2"><path d="M14.2,2.5 C14.2,2.5 24.4,-4.4 26.1,5.9" id="Shape" sketch:type="MSShapeGroup"></path><path d="M25.2,3.1 C25.2,3.1 27.2,-0.3 36,0.1 C36,2.9 33.4,10 29.5,11.3 C39,16.9 46,33.5 46,43.5 C46,55.6 35.7,62.1 23,62.1 C10.3,62.1 0,55.6 0,43.5 C0,33.6 6.9,16.9 16.5,11.3 C12.6,10 10,2.9 10,0.1 C10,0.1 14.4,4 20,4" id="Shape" sketch:type="MSShapeGroup"></path><path d="M15.8,11 L31.1,11" id="Shape" sketch:type="MSShapeGroup"></path><path d="M31.1,12.3 C31.1,12.3 42.3,12 42.3,18.3" id="Shape" sketch:type="MSShapeGroup"></path><path d="M31.3,10.4 C31.3,10.4 40.1,10.9 45.2,7.6" id="Shape" sketch:type="MSShapeGroup"></path><path d="M19,44.2 C19,46.8 21.2,48.8 24,48.8 C26.7,48.8 29,46.7 29,44.2 C29,40.4 24,38.7 24,38.7 C24,38.7 19,36.8 19,33.2 C19,30.6 21.2,28.6 24,28.6 C26.7,28.6 29,30.7 29,33.2" id="Shape" sketch:type="MSShapeGroup"></path><path d="M24.1,23.5 L24.1,53.9" id="Shape" sketch:type="MSShapeGroup"></path></g></g></svg>');
+}
+.card.products {
+    background-image: url('data:image/svg+xml,<svg fill="%23555" width="3em" height="3em" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="m74 42a2 2 0 0 1 2 1.85v28.15a6 6 0 0 1 -5.78 6h-40.22a6 6 0 0 1 -6-5.78v-28.22a2 2 0 0 1 1.85-2zm-15.5 8.34-.12.1-11.45 12.41-5.2-5a1.51 1.51 0 0 0 -2-.1l-.11.1-2.14 1.92a1.2 1.2 0 0 0 -.1 1.81l.1.11 7.33 6.94a3.07 3.07 0 0 0 2.14.89 2.81 2.81 0 0 0 2.13-.89l5.92-6.29.43-.44.42-.45.55-.58.21-.22.42-.44 5.62-5.93a1.54 1.54 0 0 0 .08-1.82l-.08-.1-2.14-1.92a1.51 1.51 0 0 0 -2.01-.1zm15.5-28.34a6 6 0 0 1 6 6v6a2 2 0 0 1 -2 2h-56a2 2 0 0 1 -2-2v-6a6 6 0 0 1 6-6z"/></svg>');
+}
+.card.category {
+    background-image: url('data:image/svg+xml,<svg fill="%23555" width="3em" height="3em" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><rect id="Icons" x="-384" y="-320" width="1280" height="800" style="fill:none;"/><g id="Icons1" serif:id="Icons"><g id="Strike"></g><g id="H1"></g><g id="H2"></g><g id="H3"></g><g id="list-ul"></g><g id="hamburger-1"></g><g id="hamburger-2"></g><g id="list-ol"></g><g id="list-task"></g><g id="trash"></g><g id="vertical-menu"></g><g id="horizontal-menu"></g><g id="sidebar-2"></g><g id="Pen"></g><g id="Pen1" serif:id="Pen"></g><g id="clock"></g><g id="external-link"></g><g id="hr"></g><g id="info"></g><g id="warning"></g><g id="plus-circle"></g><g id="minus-circle"></g><g id="vue"></g><g id="cog"></g><g id="logo"></g><g id="radio-check"></g><g id="eye-slash"></g><g id="eye"></g><g id="toggle-off"></g><g id="shredder"></g><g><path d="M9.89,30.496c-1.14,1.122 -1.784,2.653 -1.791,4.252c-0.006,1.599 0.627,3.135 1.758,4.266c3.028,3.028 7.071,7.071 10.081,10.082c2.327,2.326 6.093,2.349 8.448,0.051c5.91,-5.768 16.235,-15.846 19.334,-18.871c0.578,-0.564 0.905,-1.338 0.905,-2.146c0,-4.228 0,-17.607 0,-17.607l-17.22,0c-0.788,0 -1.544,0.309 -2.105,0.862c-3.065,3.018 -13.447,13.239 -19.41,19.111Zm34.735,-15.973l0,11.945c0,0.811 -0.329,1.587 -0.91,2.152c-3.069,2.981 -13.093,12.718 -17.485,16.984c-1.161,1.127 -3.012,1.114 -4.157,-0.031c-2.387,-2.386 -6.296,-6.296 -8.709,-8.709c-0.562,-0.562 -0.876,-1.325 -0.872,-2.12c0.003,-0.795 0.324,-1.555 0.892,-2.112c4.455,-4.373 14.545,-14.278 17.573,-17.25c0.561,-0.551 1.316,-0.859 2.102,-0.859c3.202,0 11.566,0 11.566,0Zm-7.907,2.462c-1.751,0.015 -3.45,1.017 -4.266,2.553c-0.708,1.331 -0.75,2.987 -0.118,4.356c0.836,1.812 2.851,3.021 4.882,2.809c2.042,-0.212 3.899,-1.835 4.304,-3.896c0.296,-1.503 -0.162,-3.136 -1.213,-4.251c-0.899,-0.953 -2.18,-1.548 -3.495,-1.57c-0.031,-0.001 -0.062,-0.001 -0.094,-0.001Zm0.008,2.519c1.105,0.007 2.142,0.849 2.343,1.961c0.069,0.384 0.043,0.786 -0.09,1.154c-0.393,1.079 -1.62,1.811 -2.764,1.536c-1.139,-0.274 -1.997,-1.489 -1.802,-2.67c0.177,-1.069 1.146,-1.963 2.27,-1.981c0.014,0 0.029,0 0.043,0Z"/><path d="M48.625,13.137l0,4.001l3.362,0l0,11.945c0,0.811 -0.328,1.587 -0.909,2.152c-3.069,2.981 -13.093,12.717 -17.485,16.983c-1.161,1.128 -3.013,1.114 -4.157,-0.03l-0.034,-0.034l-1.016,0.993c-0.663,0.646 -1.437,1.109 -2.259,1.389l1.174,1.174c2.327,2.327 6.093,2.35 8.447,0.051c5.91,-5.768 16.235,-15.845 19.335,-18.87c0.578,-0.565 0.904,-1.339 0.904,-2.147c0,-4.227 0,-17.607 0,-17.607l-7.362,0Z"/></g><g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"></g><g id="react"></g><g id="check-selected"></g><g id="turn-off"></g><g id="code-block"></g><g id="user"></g><g id="coffee-bean"></g><g id="coffee-beans"><g id="coffee-bean1" serif:id="coffee-bean"></g></g><g id="coffee-bean-filled"></g><g id="coffee-beans-filled"><g id="coffee-bean2" serif:id="coffee-bean"></g></g><g id="clipboard"></g><g id="clipboard-paste"></g><g id="clipboard-copy"></g><g id="Layer1"></g></g></svg>');
+}
+.card.employees {
+    background-image: url('data:image/svg+xml,<svg fill="%23555" width="3em" height="3em" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><title>users</title><path d="M16 21.916c-4.797 0.020-8.806 3.369-9.837 7.856l-0.013 0.068c-0.011 0.048-0.017 0.103-0.017 0.16 0 0.414 0.336 0.75 0.75 0.75 0.357 0 0.656-0.25 0.731-0.585l0.001-0.005c0.875-3.885 4.297-6.744 8.386-6.744s7.511 2.859 8.375 6.687l0.011 0.057c0.076 0.34 0.374 0.59 0.732 0.59 0 0 0.001 0 0.001 0h-0c0.057-0 0.112-0.007 0.165-0.019l-0.005 0.001c0.34-0.076 0.59-0.375 0.59-0.733 0-0.057-0.006-0.112-0.018-0.165l0.001 0.005c-1.045-4.554-5.055-7.903-9.849-7.924h-0.002zM9.164 10.602c0 0 0 0 0 0 2.582 0 4.676-2.093 4.676-4.676s-2.093-4.676-4.676-4.676c-2.582 0-4.676 2.093-4.676 4.676v0c0.003 2.581 2.095 4.673 4.675 4.676h0zM9.164 2.75c0 0 0 0 0 0 1.754 0 3.176 1.422 3.176 3.176s-1.422 3.176-3.176 3.176c-1.754 0-3.176-1.422-3.176-3.176v0c0.002-1.753 1.423-3.174 3.175-3.176h0zM22.926 10.602c2.582 0 4.676-2.093 4.676-4.676s-2.093-4.676-4.676-4.676c-2.582 0-4.676 2.093-4.676 4.676v0c0.003 2.581 2.095 4.673 4.675 4.676h0zM22.926 2.75c1.754 0 3.176 1.422 3.176 3.176s-1.422 3.176-3.176 3.176c-1.754 0-3.176-1.422-3.176-3.176v0c0.002-1.753 1.423-3.174 3.176-3.176h0zM30.822 19.84c-0.878-3.894-4.308-6.759-8.406-6.759-0.423 0-0.839 0.031-1.246 0.089l0.046-0.006c-0.049 0.012-0.092 0.028-0.133 0.047l0.004-0.002c-0.751-2.129-2.745-3.627-5.089-3.627-2.334 0-4.321 1.485-5.068 3.561l-0.012 0.038c-0.017-0.004-0.030-0.014-0.047-0.017-0.359-0.053-0.773-0.084-1.195-0.084-0.002 0-0.005 0-0.007 0h0c-4.092 0.018-7.511 2.874-8.392 6.701l-0.011 0.058c-0.011 0.048-0.017 0.103-0.017 0.16 0 0.414 0.336 0.75 0.75 0.75 0.357 0 0.656-0.25 0.731-0.585l0.001-0.005c0.737-3.207 3.56-5.565 6.937-5.579h0.002c0.335 0 0.664 0.024 0.985 0.070l-0.037-0.004c-0.008 0.119-0.036 0.232-0.036 0.354 0.006 2.987 2.429 5.406 5.417 5.406s5.411-2.419 5.416-5.406v-0.001c0-0.12-0.028-0.233-0.036-0.352 0.016-0.002 0.031 0.005 0.047 0.001 0.294-0.044 0.634-0.068 0.98-0.068 0.004 0 0.007 0 0.011 0h-0.001c3.379 0.013 6.203 2.371 6.93 5.531l0.009 0.048c0.076 0.34 0.375 0.589 0.732 0.59h0c0.057-0 0.112-0.007 0.165-0.019l-0.005 0.001c0.34-0.076 0.59-0.375 0.59-0.733 0-0.057-0.006-0.112-0.018-0.165l0.001 0.005zM16 18.916c-0 0-0 0-0.001 0-2.163 0-3.917-1.753-3.917-3.917s1.754-3.917 3.917-3.917c2.163 0 3.917 1.754 3.917 3.917 0 0 0 0 0 0.001v-0c-0.003 2.162-1.754 3.913-3.916 3.916h-0z"></path></svg>');
+}
+#frame-holder {
+    margin: 0 auto;
+    position: absolute;
+    top: 7em;
+    box-shadow: 0 0 5px #ccc;
+    background-color: #f2f5f8;
+    color: unset;
+}
+#bar {
+    justify-content: flex-end;
+}
+.frame_title {
+    font-weight: 500;
+    margin: 0 auto;
+}
+.bar_btn {
+    padding: .5em 1em;
+    font-weight: 700;
+    color: #555;
+    transition: background-color 200ms ease;
+}
+.bar_btn:hover {
+    background-color: #e5e5e5;
+}
+iframe {
+    min-width: 1000px;
+    max-width: 1000px;
+    aspect-ratio: 3 / 2;
+    border-radius: 17px 17px 0 0 / 12px 12px 0 0;
+    background-color: #fff;
+}
+#frame-holder, iframe {
+    border: 0;
+}
+@media screen and (max-width: 667px) {
+    main {
+        padding-top: 0;
+    }
+    section {
+        box-shadow: none;
+        border-radius: 0;
+    }
+    section > div.heading {
+        border-bottom: 0;
+    }
+    #frame-holder {
+        top: 0;
+        width: 100%;
+        height: auto;
+    }
+    iframe {
+        min-width: 0;
+        max-width: none;
+        width: 100%;
+        height: 100%;
+    }
+}

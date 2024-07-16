@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product</title>
+    <link rel="stylesheet" href="../css/product.css">
+</head>
+<body>
+    <main>
+        <p id="info">Fields marked with double asterisks ( <span>&ast;&ast;</span> ) are required.<br>Those marked with a single asterisk ( <span>&ast;</span> ) are not required, but may be necessary within the section that they belong.</p>
+        <form name="product-form" id="product-form">
+            <h4>Main</h4>
+            <div class="form_group">
+                <label for="category"><i>&ast;&ast;</i>
+                    <select name="category" id="category" required>
+                        <option value="">Choose category</option>
+                        <option value="accessory">Accessory</option>
+                        <option value="literature">Literature</option>
+                        <option value="notebook">Notebook</option>
+                        <option value="stationery">Stationery</option>
+                        <option value="textbook">Textbook</option>
+                    </select>
+                </label>
+                <input type="text" name="prodName" placeholder="Product Name"/>
+                <input type="text" name="shelf" placeholder="Shelf"/>
+            </div>
+            <h4>Offices</h4>
+            <div class="form_group">
+                <input type="text" name="prodID" placeholder="Product ID">
+                <label for="brand"><i>&ast;</i>
+                    <input type="text" name="brand" id="brand" placeholder="Brand e.g. Kangaroo">
+                </label>
+                <input type="text" name="size" placeholder="Size e.g. S, M,...XL">
+                <input type="text" name="color" placeholder="Color e.g red, blue...">
+            </div>
+            <h4>Books</h4>
+            <div class="form_group">
+                <input type="text" name="publisher" placeholder="Publisher">
+                <input type="text" name="leaves" placeholder="Leaves e.g. 40L">
+                <label for="school"><i>&ast;</i>
+                    <select name="school" id="school">
+                        <option value="">Choose school</option>
+                        <option value="kindergarten">Kindergarten</option>
+                        <option value="nursery">Nursery</option>
+                        <option value="primary">Primary</option>
+                        <option value="secondary">Secondary</option>
+                    </select>
+                </label>
+                <label for="class"><i>&ast;</i>
+                    <select name="class" id="class">
+                        <option value="">Choose class</option>
+                    </select>
+                </label>
+                <label for="subjName"><i>&ast;</i>
+                    <textarea name="subjName" id="subjName" cols="30" rows="5" placeholder="Subjects, e.g. English, Maths... (Separate each subject with a comma and space)"></textarea>
+                </label>
+            </div>
+            <h4>Literature</h4>
+            <div class="form_group">
+                <input type="text" name="litTitle" placeholder="Title of book">
+                <input type="text" name="litAuthor" placeholder="Author">
+            </div>
+            <h4>Photo</h4>
+            <div class="form_group">
+                <img src="../img/favicon2_.png" alt="thumbnail">
+                <input type="file" name="thumbnail" id="thumbnail">
+                <button type="button">
+                    <label for="thumbnail">Add photo</label>
+                </button>
+                <button type="button" id="remove-thumbnail">
+                    <span>Remove photo</span>
+                </button>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <button id="form-button" form="product-form">Add Product</button>
+    </footer>
+    <dialog class="message">
+        <i class="ferris_wheel"></i>
+        <div>
+            <output>Product Added.</output>
+            <button type="button" id="okay">OKAY</button>
+        </div>
+    </dialog>
+    <datalist id="kindergarten"><option value="Kindergarten">Kindergarten</option></datalist>
+    <datalist id="nursery"><option value="Nursery 1">Nursery 1</option><option value="Nursery 2">Nursery 2</option>
+    </datalist>
+    <datalist id="primary"><option value="Primary 1">Primary 1</option><option value="Primary 2">Primary 2</option><option value="Primary 3">Primary 3</option><option value="Primary 4">Primary 4</option><option value="Primary 5">Primary 5</option><option value="Primary 6">Primary 6</option>
+    </datalist>
+    <datalist id="secondary"><option value="JSS 1">JSS 1</option><option value="JSS 2">JSS 2</option><option value="JSS 3">JSS 3</option><option value="SSS 1">SSS 1</option><option value="SSS 2">SSS 2</option><option value="SSS 3">SSS 3</option>
+    </datalist>
+    <script type="module" src="../js/product.js"></script>
+</body>
+</html>

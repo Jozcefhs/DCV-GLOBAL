@@ -1,0 +1,36 @@
+* {margin: 0;padding: 0;box-sizing: border-box;}
+html, body {
+    font: 16px system-ui;
+}
+header {
+    height: 70px;
+}
+main {
+    color: #555;
+}
+main > div:first-child {
+    font-size: 1.5em;
+    text-align: center;
+    margin: 1em auto;
+}
+.status {
+    position: relative;
+    display: block;
+    width: 80%;
+    border: 1px solid #ccc;
+    margin: auto;
+}
+.status > svg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    transform: translate(0);
+    transition: left 500ms ease-out, right 500ms ease-out;
+}
+.status.two > svg {
+    left: 50%;
+}
+.status.three > svg {
+    left: 0;
+    right: 0;
+}
