@@ -1,4 +1,4 @@
-import { fbInitializer, collection, getStorage, ref, addDoc, uploadBytes, uploadBytesResumable  } from "../../../js/firebase_xp.js";
+import { fbInitializer, collection, doc, getStorage, ref, addDoc, uploadBytes, uploadBytesResumable, getDownloadURL, getBlob, setDoc  } from "../../../js/firebase_xp.js";
 //create new docRef (addDoc) with fb uniquely generated ID
 const db = fbInitializer();
 const prodRef = collection(db, "clientele");
@@ -44,11 +44,11 @@ const progressBar = document.getElementById("progress-bar");
 //product form
 forms[0].addEventListener("submit", async (e) => {
     e.preventDefault();
-    messageDialog.classList.add("adding");
-    messageDialog.showModal();
+    messageDialog.classList.add("adding");  //to be got rid of
 
     const fd = new FormData(forms[0]);
     const category = fd.get("category");
+    fd.append("dateCreated", Date.now());
     let blob, ext;
     for (let [k, v] of fd.entries()) {
         if (k == 'thumbnail') {
@@ -61,15 +61,34 @@ forms[0].addEventListener("submit", async (e) => {
     console.log(fbdata);
     //send fbdata to a new firebase doc; thereafter, retrieve fbId and send blob to storage
     const docRef = await addDoc(prodRef, fbdata);
+    progressBar.style.width = "27%";
     let storageRef = ref(storage, `${category}/${docRef.id}${ext}`);
     const uploadTask = uploadBytesResumable(storageRef, blob);
-    uploadTask.on('state-changed', (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        progressBar.style.width = `${progress}%`;
-    })
-    messageDialog.classList.replace("adding", "added");
-    // forms[0].reset();
+    uploadTask.on('state-changed',
+        (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            if (progress > 27) progressBar.style.width = `${progress}%`;
+        },
+        (error) => console.log(error),
+        () => {
+            //https://firebasestorage.googleapis.com/v0/b/flutterspace-d2385.appspot.com/o/accessory%2F8xIBJUGWqRqLHDM2ahBz.jpeg?alt=media&token=e4be1d94-6cbe-48cd-a0ed-42c1af26e453
+            //https://firebasestorage.googleapis.com/v0/b/flutterspace-d2385.appspot.com/o/literature%2FYJ1fSLLdwhafU8rH7zW7.png?alt=media&token=b6ba5b11-f366-4855-bda0-11274ebb1fcf
+            getDownloadURL(uploadTask.snapshot.ref).then(async url => {
+                await setDoc(doc(db, "prodRef", docRef.id), {imgURL: url}, {merge: true});
+                messageDialog.classList.replace("adding", "added");
+                messageDialog.showModal();
+            });
+            // forms[0].reset();
+        }
+    );
 });
+
+const img = document.querySelector("img[alt='blobbed']");
+// const imgRef = ref(storage, "accessory/8xIBJUGWqRqLHDM2ahBz.jpeg");
+// const myblob = await getBlob(imgRef);
+// console.log(myblob);
+// img.src = myblob;
+// img.src = "https://firebasestorage.googleapis.com/v0/b/flutterspace-d2385.appspot.com/o/accessory%2F8xIBJUGWqRqLHDM2ahBz.jpeg?alt=media&token=e4be1d94-6cbe-48cd-a0ed-42c1af26e453";
 
 okayBtn.addEventListener("click", () => {
     okayBtn.closest("dialog").classList.remove("added");

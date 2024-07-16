@@ -1,7 +1,7 @@
 //export initializeApp, collection, configuration, etc
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getStorage, getDownloadURL, ref, uploadBytes, uploadBytesResumable, uploadString } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-import { getFirestore, addDoc, and, setDoc, collection, collectionGroup, doc, getDoc, getDocs, query, serverTimestamp, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, addDoc, and, setDoc, collection, collectionGroup, doc, getDoc, getDocs, limit, orderBy, query, serverTimestamp, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getStorage, getDownloadURL, getBlob, ref, uploadBytes, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 export function fbInitializer() {
     const firebaseConfig = {
@@ -18,5 +18,5 @@ export function fbInitializer() {
     return db;
 }
 
-export { addDoc, and, collection, doc, getDoc, query, where };
-export { getStorage, getDownloadURL, ref, uploadBytes, uploadBytesResumable, uploadString };
+export { addDoc, and, collection, doc, setDoc, getDoc, getDocs, limit, orderBy, query, where };
+export { getStorage, getDownloadURL, getBlob, ref, uploadBytes, uploadBytesResumable };
