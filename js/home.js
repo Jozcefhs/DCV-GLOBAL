@@ -1,8 +1,5 @@
-import { firebaseConfig, getDoc, getFirestore, initializeApp } from "./firebase_xp.js"
-
-//initialize firebase from the imported js
-var app = initializeApp(firebaseConfig);
-var db = getFirestore(app);
+import { fbInitializer } from "../../../js/firebase_xp.js";
+const db = fbInitializer();
 
 // const firebaseConfig = firebaseConfig;
 const browse = document.querySelector("[data-link]");
