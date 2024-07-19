@@ -23,6 +23,7 @@ const prodColl = collection(db, "products");
 let wishes = [], carts = [];    //populate these arrays from the user's snapshot Local Storage
 const qty = document.querySelector("span#qty");
 const addToCartBtn = document.querySelector("aside button#add-to-cart");
+let addToCartVal;
 
 async function loadDocs(cat) {
     console.log("Current category:", cat);
@@ -70,6 +71,7 @@ async function loadDocs(cat) {
                 `)
             }
             qty.innerText = 1;  //reset qty
+            addToCartVal = obj.price || 0;
             addToCartBtn.querySelector("span").innerHTML = "&#8358; " + (obj.price || 0);
             document.body.classList.add("fx");
         });
@@ -184,7 +186,14 @@ main.addEventListener("scrollend", (e) => {
 const chevrons = document.querySelectorAll(".chevron.jsChevron");   //add more or less items to cart
 chevrons.forEach(chv => {
     chv.addEventListener("click", (e) => {
-        chv.classList.contains("left") ? qty.innerText = Number(qty.innerText) - 1 : qty.innerText = Number(qty.innerText) + 1;
+        const val = Number(qty.innerText);
+        if (val > 1 && chv.classList.contains("left")) {
+            qty.innerText = val - 1;
+        } else {
+            qty.innerText = val + 1;
+            addToCartBtn.querySelector("span").innerHTML = "&#8358; " + addToCartVal
+        }
+        console.log(val)
     })
 })
 const navlinks = document.querySelectorAll("nav > a");
