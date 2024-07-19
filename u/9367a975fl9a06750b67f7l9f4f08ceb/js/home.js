@@ -18,7 +18,7 @@ if (categoryCollection.empty) {
     });
 }
 let lastVisible, cat = "all";
-let data = {}, products;
+let data = {}, products = [];
 const prodColl = collection(db, "products");
 let wishes = [], carts = [];    //populate these arrays from the user's snapshot Local Storage
 const qty = document.querySelector("span#qty");
