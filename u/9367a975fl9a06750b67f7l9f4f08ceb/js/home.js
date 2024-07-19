@@ -71,7 +71,7 @@ async function loadDocs(cat) {
                 `)
             }
             qty.innerText = 1;  //reset qty
-            addToCartVal = obj.price || 0;
+            addToCartBtn.querySelector("span").setAttribute("data-unit-price", obj.price || 0);
             addToCartBtn.querySelector("span").innerHTML = "&#8358; " + (obj.price || 0);
             document.body.classList.add("fx");
         });
@@ -187,13 +187,13 @@ const chevrons = document.querySelectorAll(".chevron.jsChevron");   //add more o
 chevrons.forEach(chv => {
     chv.addEventListener("click", (e) => {
         const val = Number(qty.innerText);
+        const up = Number(addToCartBtn.querySelector("span").dataset.unitPrice);
         if (val > 1 && chv.classList.contains("left")) {
             qty.innerText = val - 1;
-        } else {
+        } else if (chv.classList.contains("right")) {
             qty.innerText = val + 1;
-            addToCartBtn.querySelector("span").innerHTML = "&#8358; " + addToCartVal
         }
-        console.log(val)
+        addToCartBtn.querySelector("span").innerHTML = "&#8358; " + (Number(qty.innerText) * up);
     })
 })
 const navlinks = document.querySelectorAll("nav > a");
