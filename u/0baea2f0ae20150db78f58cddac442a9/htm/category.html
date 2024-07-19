@@ -7,76 +7,53 @@
     <title>Category</title>
 </head>
 <body>
-    <header>
-
-    </header>
+    <header></header>
     <main>
         <aside id="left">
-            <h4>Category list</h4>
+            <h4>
+                <button type="button" class="close_btn bar_btn" data-menu-class="0">
+                    <img src="../../../img/arrow-back-basic-svgrepo-com.svg" alt="more-svg">
+                </button>
+                <span>Category list</span>
+            </h4>
             <ul>
-                <li>
-                    <a href="#">
-                        <img src="../svg/inventory-management-svgrepo-com.svg" alt="" width="30" height="30">
-                        <div>
-                            <div class="name">Textbooks</div>
-                            <div class="size">0 products</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="../svg/inventory-management-svgrepo-com.svg" alt="" width="30" height="30">
-                        <div>
-                            <div class="name">Notebooks</div>
-                            <div class="size">0 products</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="../svg/product-svgrepo-com.svg" alt="" width="30" height="30">
-                        <div>
-                            <div class="name">Accessories</div>
-                            <div class="size">0 products</div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="../svg/product-service-campaign-item-svgrepo-com.svg" alt="" width="30" height="30">
-                        <div>
-                            <div class="name">Papers</div>
-                            <div class="size">0 products</div>
-                        </div>
-                    </a>
-                </li>
-                
+                <template data-category-template>
+                    <li>
+                        <a href="#" class="navlink">
+                            <img src="../svg/inventory-management-svgrepo-com.svg" alt="" width="30" height="30">
+                            <div>
+                                <div class="name"></div>
+                                <div class="size"></div>
+                            </div>
+                        </a>
+                    </li>
+                </template>
             </ul>
             <div>
                 <button class="actionBtn add">
-                    <span></span><span>Add New Category</span>
+                    <span></span><span>Create Category</span>
                 </button>
             </div>
         </aside>
         <aside id="right">
             <div>
-                <button type="button">
+                <button type="button" class="menu_btn bar_btn" data-menu-class="1">
                     <img src="../../../img/menu-alt-01-svgrepo-com.svg" alt="menu-svg">
                 </button>
-                <button type="button">
+                <button type="button" class="more_btn">
                     <img src="../../../img/icon_more_vert.svg" alt="more-svg">
                 </button>
                 <div class="actionBtn_wrapper">
-                    <button class="actionBtn rename" data-output="CAUTION! This will rename the category and all the products associated with it.">
+                    <button class="jsbtn disabled actionBtn rename" data-output="CAUTION! This will rename the category and all the products associated with it.">
                         <span></span><span>Rename Category</span>
                     </button>
-                    <button class="actionBtn delete" data-output="<b class='red'>WARNING!</b> This will delete the category and all the products associated with it&mdash;irreversibly. If you're unsure, then instead, use Rename Category.">
+                    <button class="jsbtn disabled actionBtn delete" data-output="<b class='red'>WARNING!</b> This will delete the category and all the products associated with it&mdash;irreversibly. If you're unsure, then instead, use Rename Category.">
                         <span></span><span>Delete Category</span>
                     </button>
                 </div>
             </div>
             <div>
-                <form action="" class="outer_form">
+                <form name="outer_form" class="outer_form">
                     <div class="image_header outer_form_header">
                         <img src="" alt="preview-img">
                         <button type="button">
@@ -101,7 +78,7 @@
                         <input type="text" name="size" placeholder="Category Size" readonly>
                     </label>
                     <label for="description" class="label">
-                        <button type="button" class="field_btn">
+                        <button type="button" class="jsbtn disabled field_btn">
                             <img src="../../../img/icon_pencil.svg" class="btn_img_svg">
                         </button>
                         <div class="legend">Description</div>
@@ -112,9 +89,11 @@
             <div></div>
         </aside>
     </main>
+    <div id="loader"></div>
+    <output id="success"><i>&check;</i></output>
     <dialog id="for-new-category">
         <h4>New Category</h4>
-        <form name="new-category">
+        <form method="dialog" name="new-category">
             <div class="input_group">
                 <input type="text" name="category" placeholder="Name" required><br>
                 <input type="text" name="description" placeholder="Description (optional)">
@@ -126,22 +105,23 @@
         </form>
     </dialog>
     <dialog id="for-rename-category">
-        <h4>Rename Notebooks</h4>
+        <h4>Rename <span></span></h4>
         <output></output>
-        <form action="">
+        <form method="dialog" name="rename-category">
             <div class="input_group">
                 <input type="text" name="category" placeholder="Enter new category name">
             </div>
             <div class="input_group">
                 <input type="reset" value="Cancel">
-                <input type="submit" value="Delete">
+                <input type="submit" value="Rename">
+                <!-- <input type="submit" value="Rename"> -->
             </div>
         </form>
     </dialog>
     <dialog id="for-delete-category">
-        <h4>Delete Notebooks</h4>
+        <h4>Delete <span></span></h4>
         <output></output>
-        <form name="delete-category">
+        <form method="dialog" name="delete-category">
             <input type="hidden" name="categoryId">
             <div class="input_group">
                 <input type="reset" value="Cancel">
@@ -171,7 +151,7 @@
         <form action="#" name="field-form" class="field_form">
             <label for="">
                 <div class="legend"></div>
-                <input type="text" name="">
+                <input type="text" name="description" placeholder="New description">
             </label>
             <div class="input_group">
                 <input type="reset" value="Cancel">
@@ -179,39 +159,6 @@
             </div>
         </form>
     </dialog>
-    <script>
-        const dialogs = document.querySelectorAll("dialog");
-        const actionBtns = document.querySelectorAll("button.actionBtn");
-        actionBtns.forEach((btn, idx) => {
-            btn.addEventListener("click", (e) => {
-                if (btn.classList.contains("add")) {
-                    dialogs[idx].showModal(); //show new-category dialog box
-                    return;
-                } else if (btn.classList.contains("rename")) {
-                    dialogs[idx].showModal(); //show delete-category dialog box
-                } else if (btn.classList.contains("delete")) {
-                    dialogs[idx].showModal(); //show delete-category dialog box
-                }
-                dialogs[idx].querySelector("output").innerHTML = btn.dataset.output;
-            });
-        });
-        const fieldBtns = document.querySelectorAll(".field_btn");
-        fieldBtns.forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                const dialog = dialogs[4];
-                const xCoord = btn.getBoundingClientRect().right - 350 + "px";   //300 being the set width of the dialog box
-                const yCoord = btn.getBoundingClientRect().bottom + "px";
-                dialog.style.top = yCoord;
-                dialog.style.left = xCoord;
-                const outerInput = dialog.querySelector("label input");
-                const label = e.target.parentElement;
-                dialog.querySelector("form label").htmlFor = outerInput.name = label.htmlFor;
-                dialog.querySelector(".legend").textContent = label.querySelector(".legend").textContent;
-                outerInput.value = label.children[2].value;
-                outerInput.placeholder = label.children[2].placeholder;
-                dialog.showModal();
-            });
-        });
-    </script>
+    <script type="module" src="../js/category.js"></script>
 </body>
 </html>

@@ -1,22 +1,23 @@
 //export initializeApp, collection, configuration, etc
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, addDoc, and, setDoc, collection, collectionGroup, doc, getDoc, getDocs, limit, orderBy, query, serverTimestamp, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getStorage, getDownloadURL, getBlob, ref, uploadBytes, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+import { initializeApp, deleteApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+import { getFirestore, initializeFirestore, addDoc, and, setDoc, collection, collectionGroup, deleteDoc, disableNetwork, doc, enableNetwork, getDoc, getDocs, increment, limit, memoryLocalCache, onSnapshot, orderBy, persistentLocalCache, persistentMultipleTabManager, query, runTransaction, serverTimestamp, startAfter, updateDoc, where } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+import { getStorage, getDownloadURL, getBlob, ref, uploadBytes, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-storage.js";
 
 export function fbInitializer() {
     const firebaseConfig = {
-        apiKey: "AIzaSyCnGk02gQeUZ9nJeOBxHMk3jlC2_pG_jZo",
-        authDomain: "flutterspace-d2385.firebaseapp.com",
-        projectId: "flutterspace-d2385",
-        storageBucket: "flutterspace-d2385.appspot.com",
-        messagingSenderId: "979544012314",
-        appId: "1:979544012314:web:c2eef86fccbae61f17c3a3",
-        measurementId: "G-5E3NVV96HY"
+        apiKey: "AIzaSyDW147JTSQ5DLcYIKppxOFOpcdC56umCsw",
+        authDomain: "webmart-d7812.firebaseapp.com",
+        projectId: "webmart-d7812",
+        storageBucket: "webmart-d7812.appspot.com",
+        messagingSenderId: "570156229824",
+        appId: "1:570156229824:web:e119840f5621e13184f925",
+        measurementId: "G-BN80W5M1EJ"
     };
     let app = initializeApp(firebaseConfig);
-    let db = getFirestore(app);
-    return db;
+    // let db = getFirestore(app);
+    return app;
 }
 
-export { addDoc, and, collection, doc, setDoc, getDoc, getDocs, limit, orderBy, query, where };
+export { deleteApp, addDoc, and, collection, deleteDoc, doc, setDoc, getDoc, getDocs, limit, orderBy, query, serverTimestamp, startAfter, where };
+export {disableNetwork, enableNetwork, getFirestore, increment, initializeFirestore, memoryLocalCache, onSnapshot, persistentLocalCache, persistentMultipleTabManager, runTransaction, updateDoc};
 export { getStorage, getDownloadURL, getBlob, ref, uploadBytes, uploadBytesResumable };

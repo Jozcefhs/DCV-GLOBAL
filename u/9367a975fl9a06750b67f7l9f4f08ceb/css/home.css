@@ -91,9 +91,9 @@ nav::-webkit-scrollbar {
 }
 nav {
     display: flex;
-    min-width: 150px;
+    min-width: 50px;
     overflow: scroll;
-    width: 25%;
+    max-width: 75%;
     background-color: #fff;
 }
 nav > .arrow {
@@ -145,9 +145,9 @@ nav > a.active {
 #form-search {
     right: 2em;
 }
-body.fx > main {
+/* body.fx > main {
     width: 70%;
-}
+} */
 body.fx > aside {
     transform: translateX(-100%);
 }
@@ -155,14 +155,17 @@ main {
     padding: 4em 1em;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14.5em, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(11.5em, 1fr));
     transition: width 300ms ease-out;
 }
-main.loading, aside.checked > *:not(.head, .check) {
+main.loading, .progress_bar.checked ~ *:not(.head, .check) {
     opacity: .3;
     pointer-events: none;
 }
-aside.checked > .check {
+.progress_bar.checking {
+    animation-name: osc;
+}
+.progress_bar.checked ~ .check {
     transform: translate(-50%, -50%) scale(1);
 }
 .card {
@@ -186,10 +189,6 @@ aside.checked > .check {
 .card > *:not(.link) {
     pointer-events: none;
 }
-.title, .price {
-    padding: .2em;
-    font-weight: bold;
-}
 .card .footer {
     display: flex;
     align-items: center;
@@ -212,6 +211,31 @@ aside {
     overflow-y: scroll;
     transition: transform 300ms ease-out;
 }
+aside > .progress_bar {
+    position: sticky;
+    /* top: 4em; */
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #1a73e8;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: backwards;
+}
+@keyframes osc {
+    0% {
+        width: 0%;
+        transform: translateX(0%);
+    }
+    50% {
+        width: 50%;
+        transform: translateX(100%);
+    }
+    100% {
+        width: 0%;
+        transform: translateX(0%);
+    }
+}
 aside .head {
     padding: .5em 2em;
     border-bottom: 1px solid #ddd;
@@ -220,6 +244,17 @@ aside .head {
     position: sticky;
     top: 0;
 }
+aside .body > div {
+    display: flex;
+}
+.topic {
+    flex-basis: 25%;
+    font-weight: bold;
+}
+/* .title, .price, .topic {
+    padding: .2em;
+    margin-right: 1em;
+} */
 .close {
     border-radius: 50%;
     padding: 1em;
@@ -229,11 +264,11 @@ aside .head {
 }
 img[alt="aside-img"], #add-to-cart {
     display: block;
-    width: 70%;
-    margin: 2em auto;
 }
 img[alt="aside-img"] {
-    aspect-ratio: 3/1;
+    width: 100%;
+    aspect-ratio: 3/2;
+    padding: 4em;
 }
 aside .body, aside .footer {
     padding: 0 4em;
@@ -263,6 +298,7 @@ span#qty {
     font-weight: bold;
     padding: 1em;
     border-radius: 2em;
+    margin: 2em auto;
 }
 .check {
     position: absolute;
@@ -281,6 +317,9 @@ span#qty {
     color: #fff;
     transition: transform 250ms ease;
 }
+.wished, .carted {
+    fill: #1a73e8;
+}
 .hide {
     display: none; /*why not, width: 0 ?*/
 }
@@ -294,7 +333,7 @@ span#qty {
         position: absolute;
         top: 0;
         left: 0;
-        width: 50%;
+        max-width: 50%;
         /* bottom: 0; */
         height: 100vh;
         transition: transform 400ms ease-out;

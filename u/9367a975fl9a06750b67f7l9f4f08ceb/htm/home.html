@@ -6,7 +6,7 @@
     <title>Home - User</title>
     <link rel="stylesheet" href="../css/home.css">
 </head>
-<body class="">
+<body class>
     <header>
         <div class="top">
             <a href="#"><img src="../../../img/picture-image-svgrepo-com (1).svg" alt="default"></a>
@@ -39,12 +39,7 @@
                 <div class="link arrow jsbtn">
                     <svg width="2em" height="2em"><use href="#arrow" xlink:href="#arrow"></use></svg>
                 </div>
-                <a href="#" class="active">All</a>
-                <a href="#">Textbooks</a>
-                <a href="#">Textbooks</a>
-                <a href="#">Notebooks</a>
-                <a href="#">Accessories</a>
-                <a href="#">Stationery</a>
+                <a href="#" id="all" class="active">All</a>
             </nav>
             <div class="link chevron right">
                 <svg width="1em" height="1em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
@@ -75,37 +70,33 @@
                 <img src="../../../img/picture-image-svgrepo-com (1).svg">
                 <div class="title"></div>
                 <div class="price"></div>
-                <div class="footer">
+                <!-- <div class="footer">
                     <div class="link wish">
                         <img src="../../../img/wishlist-svgrepo-com.svg" alt="wish">
-                        <!-- <svg width="30" height="30"><use href="#wish" xlink:href="#wish"></use></svg> -->
                     </div>
                     <div class="link cart">
                         <img src="../../../img/shopping-cart-svgrepo-com.svg" alt="cart">
-                        <!-- <svg width="30" height="30"><use href="#cart" xlink:href="#cart"></use></svg> -->
                     </div>
-                </div>
+                </div> -->
             </div>
         </template>
     </main>
-    <aside class="">
+    <aside class>
         <div class="head">
             <div class="link close">
                 <svg width="1em" height="1em"><use href="#close" xlink:href="#close"></use></svg>
             </div>
         </div>
-        <img src="../img/HPW1340X.webp" alt="aside-img">
+        <div class="progress_bar"></div>
+        <img src="../../../img/picture-image-svgrepo-com (1).svg" alt="aside-img">
         <div class="body">
-            <div class="title">Title 1</div>
-            <div class="price">&#8358; 50000</div>
-            <div class="desc">quam incidunt culpa repudiandae numquam. Consequatur pariatur totam veritatis odit obcaecati blanditiis eaque?</div>
         </div>
         <div class="footer">
-            <div class="link chevron left">
+            <div class="link chevron left jsChevron">
                 <svg width="1.5em" height="1.5em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
             </div>
             <span id="qty">12</span>
-            <div class="link chevron right">
+            <div class="link chevron right jsChevron">
                 <svg width="1.5em" height="1.5em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
             </div>
         </div>

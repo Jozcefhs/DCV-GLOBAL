@@ -98,9 +98,9 @@ footer > button:hover {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.message {
+/* .message {
     border-radius: 17px / 12px;
-}
+} */
 .message > div, .ferris_wheel {
     visibility: hidden;
 }
@@ -130,29 +130,29 @@ footer > button:hover {
     visibility: visible;
 }
 .message > div {
-    height: 7em;
-    aspect-ratio: 3/2;
     text-align: center;
+    width: 200px;
+    background: #1a73e8;
+    color: #fff;
+    border-radius: 10px;
 }
 output {
-    background-color: #f5f5f5;
-    color: #555;
     font-size: 1.2em;
     height: 60%;
-    margin: 5px;
-    border-radius: 17px / 12px;
     display: block;
     line-height: 3;
+    font-weight: 500;
 }
 .message > div > button {
     font-weight: 700;
-    color: #555;
+    color: #1a73e8;
     border: 0;
-    background-color: transparent;
+    background-color: #fff;
+    margin: 1em auto;
     transition: background-color 200ms ease;
 }
 .message > div > button:hover {
-    background-color: #f5f5f5;
+    background-color: #f2f5f8;
 }
 img[alt="thumbnail"] {
     width: 100px;
@@ -166,7 +166,7 @@ input[type="file"] {
     width: 0;
 }
 #progress-bar {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 0%;
