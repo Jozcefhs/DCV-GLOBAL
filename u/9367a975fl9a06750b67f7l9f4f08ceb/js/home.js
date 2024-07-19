@@ -1,4 +1,4 @@
-import { collection, fbInitializer, getDocs, getFirestore, limit, orderBy, query, startAfter, where } from "../../../js/firebase_xp.js";
+import { collection, fbInitializer, getDocs, getFirestore, limit, orderBy, query, setDoc, startAfter, where } from "../../../js/firebase_xp.js";
 const app = fbInitializer();
 const db = getFirestore(app);
 //../../../img/picture-image-svgrepo-com (1).svg
@@ -70,6 +70,7 @@ async function loadDocs(cat) {
                     </div>
                 `)
             }
+            addToCartBtn.setAttribute("data-prod-id", id);
             qty.innerText = 1;  //reset qty
             addToCartBtn.querySelector("span").setAttribute("data-unit-price", obj.price || 0);
             addToCartBtn.querySelector("span").innerHTML = "&#8358; " + (obj.price || 0);
@@ -194,16 +195,49 @@ chevrons.forEach(chv => {
             qty.innerText = val + 1;
         }
         addToCartBtn.querySelector("span").innerHTML = "&#8358; " + (Number(qty.innerText) * up);
-    })
+    });
+});
+
+window.addEventListener("storage", (e) => {
+    // console.log(JSON.parse(e.storageArea).user)
+    //console.log(e.url); console.log(e.oldValue); console.log(e.newValue); console.log(e.key); console.log(e.storageArea);
 })
+const ss_user = JSON.parse(localStorage.getItem("user"));
+const progressBar = document.querySelector(".progress_bar");
+let shelf = {};
+addToCartBtn.addEventListener("click", async (e) => {
+    addToCartBtn.disabled = true;
+    progressBar.classList.add("checking");
+    //check if 'user' logged in
+    let num = Number(qty.innerText);
+    let id = addToCartBtn.dataset.prodId;
+    if (ss_user)  {
+        // console.log(num, id)
+        const snapshot = await setDoc(doc(db, "users", ss_user.id), {cart: {[id]: num}}, {merge: true});
+        console.log(snapshot.docs.data().cart.length);
+    } else {
+        shelf[id] = num;
+
+    }
+    // progressBar.classList.replace("checking","checked");
+    // addToCartBtn.disabled = false;
+});
+const check = document.querySelector(".check");
+check.onclick = function () {
+    progressBar.classList.remove("checked");
+    closeAsideBtn.click();
+}
+
 const navlinks = document.querySelectorAll("nav > a");
 navlinks.forEach((lnk, idx) => {
     lnk.addEventListener("click", async (e) => {
         for (let n = 0; n < navlinks.length; n++) navlinks[n].classList.remove("active");
         lnk.classList.add("active");
-        main.classList.add("loading");
-        // lastVisible = undefined;
-        loadDocs(e.target.id);
+        main.classList.add("loading")
+        products = [];  //reset products;
+        lastVisible = undefined;
+        main.innerHTML = '';
+        await loadDocs(e.target.id);
         main.classList.remove("loading");
     });
 });

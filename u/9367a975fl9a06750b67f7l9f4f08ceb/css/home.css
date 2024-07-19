@@ -210,7 +210,7 @@ aside {
     box-shadow: 0 0 8px #ccc;
     overflow-y: scroll;
     border-radius: 10px 0 0 10px;
-    transition: transform 300ms ease-out;
+    transition: transform 1s ease-out;
 }
 aside > .progress_bar {
     position: sticky;
@@ -334,8 +334,8 @@ span#qty {
         position: absolute;
         top: 0;
         left: 0;
+        min-width: 40%;
         max-width: 50%;
-        /* bottom: 0; */
         height: 100vh;
         transition: transform 400ms ease-out;
     }
