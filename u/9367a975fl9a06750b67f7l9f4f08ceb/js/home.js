@@ -269,9 +269,16 @@ nliLinks.forEach((lnk, idx) => {
 });
 
 // view/hide password btns
-const eyeBtns = document.querySelectorAll(".form_group > svg");
-function viewHidePwd(me) {
-    console.log(me.previousElementSibling);
-    // const bool = me.classList.contains('opq');
-    // eyeBtns.forEach(eye => eye.classList.toggle("opq", bool));
-}
+const eyeBtns = document.querySelectorAll(".open, .shut");
+eyeBtns.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        btn.classList.add('opq');
+        if (btn.classList.contains('open')) {
+            btn.previousElementSibling.classList.remove('opq');
+            btn.parentElement.firstElementChild.type = 'text';
+        } else {
+            btn.nextElementSibling.classList.remove('opq');
+            btn.parentElement.firstElementChild.type = 'password';
+        }
+    })
+})

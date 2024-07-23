@@ -119,20 +119,20 @@
         <div class="h2">Sign Up Form</div>
         <form name="sign-up-form" id="sign-up-form">
             <div class="form_group">
-                <input type="text" name="uname" id="uname" placeholder="Enter your username">
+                <input type="text" name="uname" id="uname" placeholder="Enter your username" required>
             </div>
             <div class="form_group">
-                <input type="email" name="email" id="email" placeholder="Enter your email">
+                <input type="email" name="email" id="email" placeholder="Enter your email" required>
             </div>
             <div class="form_group">
-                <input type="password" name="pword" id="pword" placeholder="Enter your password">
-                <svg width="2em" height="2em" class="opq" onclick="viewHidePwd(this)"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
-                <svg width="2em" height="2em"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
+                <input type="password" name="pword" id="pword" placeholder="Enter your password" required>
+                <svg width="2em" height="2em" class="shut opq"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
+                <svg width="2em" height="2em" class="open"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
             </div>
             <div class="form_group">
-                <input type="password" name="pword-chk" id="pword-chk" placeholder="Re-type your password">
-                <svg width="2em" height="2em" class="opq" onclick="viewHidePwd(this)"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
-                <svg width="2em" height="2em"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
+                <input type="password" name="pword-chk" id="pword-chk" placeholder="Re-type your password" required>
+                <svg width="2em" height="2em" class="shut opq"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
+                <svg width="2em" height="2em" class="open"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
             </div>
             <div class="form_group">
                 <input type="submit" value="Sign Up">
@@ -148,9 +148,9 @@
                 <input type="text" name="username" id="username" placeholder="Enter your username or email">
             </div>
             <div class="form_group">
-                <input type="password" name="pwd" id="pwd" placeholder="Enter your password">
-                <svg width="2em" height="2em" class="opq" onclick="viewHidePwd(this)"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
-                <svg width="2em" height="2em"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
+                <input type="password" name="pwd" id="pwd" placeholder="Enter your password" autocomplete="current-password" required>
+                <svg width="2em" height="2em" class="shut opq"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
+                <svg width="2em" height="2em" class="open"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
             </div>
             <div class="form_group">
                 <input type="submit" value="Login">
