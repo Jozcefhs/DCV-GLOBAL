@@ -44,13 +44,18 @@ async function loadDocs(cat) {
         const cardImage = card.querySelector("img");
         const cardTitle = card.querySelector(".title");
         const cardPrice = card.querySelector(".price");
-        const cardWish = card.querySelector("[alt='wish']");
-        const cardCart = card.querySelector("[alt='cart']");
+        // const cardWish = card.querySelector("[alt='wish']");
+        // const cardCart = card.querySelector("[alt='cart']");
         cardImage.src = doc.data()?.imgURL || "../../../img/picture-image-svgrepo-com (1).svg";
         cardTitle.textContent = doc.data()?.name || "Untitled";
-        cardPrice.innerHTML = `&#8358; ${doc.data()?.price || 0}`;
-        if (wishes.includes(doc.id)) cardWish.classList.add("wished");
-        if (carts.includes(doc.id)) cardCart.classList.add("carted");
+        if (doc.data()?.qty) {
+            cardPrice.innerHTML = `&#8358; ${doc.data()?.price || 0}`
+        } else {
+            cardPrice.innerHTML = "Out of stock";
+            card.classList.add("out_of_stock");
+        }
+        // if (wishes.includes(doc.id)) cardWish.classList.add("wished");
+        // if (carts.includes(doc.id)) cardCart.classList.add("carted");
 
         card.addEventListener("click", (e) => {
             const pid = e.target.id;
@@ -76,13 +81,13 @@ async function loadDocs(cat) {
             addToCartBtn.querySelector("span").innerHTML = "&#8358; " + (obj.price || 0);
             document.body.classList.add("fx");
         });
-        // console.log(products);
 
         main.append(card);
         return {
             id: doc.id,
             title: doc.data()?.name,
             price: doc.data()?.price,
+            qty: doc.data()?.qty,
             desc: doc.data()?.description,
             imgURL: doc.data()?.imgURL,
             size: doc.data()?.size,
@@ -204,23 +209,25 @@ window.addEventListener("storage", (e) => {
 })
 const ss_user = JSON.parse(localStorage.getItem("user"));
 const progressBar = document.querySelector(".progress_bar");
+const notLoggedInNotice = document.querySelector("div.nli");
 let shelf = {};
 addToCartBtn.addEventListener("click", async (e) => {
     addToCartBtn.disabled = true;
-    progressBar.classList.add("checking");
     //check if 'user' logged in
     let num = Number(qty.innerText);
     let id = addToCartBtn.dataset.prodId;
     if (ss_user)  {
+        progressBar.classList.add("checking");
         // console.log(num, id)
         const snapshot = await setDoc(doc(db, "users", ss_user.id), {cart: {[id]: num}}, {merge: true});
         console.log(snapshot.docs.data().cart.length);
+        // progressBar.classList.replace("checking","checked");
     } else {
         shelf[id] = num;
-
+        notLoggedInNotice.classList.add("show");
+        closeAsideBtn.click();
     }
-    // progressBar.classList.replace("checking","checked");
-    // addToCartBtn.disabled = false;
+    addToCartBtn.disabled = false;
 });
 const check = document.querySelector(".check");
 check.onclick = function () {
@@ -246,3 +253,25 @@ const closeAsideBtn = document.querySelector(".close");
 closeAsideBtn.addEventListener("click", (e) => {
     document.body.classList.remove("fx");
 });
+
+const nliLinks = document.querySelectorAll(".nli .link");
+const signUpDialog = document.getElementById("sign-up-dialog");
+const loginDialog = document.getElementById("login-dialog");
+nliLinks.forEach((lnk, idx) => {
+    lnk.addEventListener("click", (e) => {
+        if (idx === 0) {
+           signUpDialog.showModal();
+        } else if (idx === 1) {
+            loginDialog.showModal();
+        }
+        e.target.closest(".dialog").classList.remove("show");
+    });
+});
+
+// view/hide password btns
+const eyeBtns = document.querySelectorAll(".form_group > svg");
+function viewHidePwd(me) {
+    console.log(me.previousElementSibling);
+    // const bool = me.classList.contains('opq');
+    // eyeBtns.forEach(eye => eye.classList.toggle("opq", bool));
+}

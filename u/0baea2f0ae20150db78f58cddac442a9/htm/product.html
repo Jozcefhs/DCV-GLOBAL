@@ -18,7 +18,18 @@
                         <option value="">Choose category</option>
                     </select>
                 </label>
-                <input type="text" name="name" placeholder="Product Name"/>
+                <label for="name">
+                    <i>&ast;&ast;</i>
+                    <input type="text" name="name" id="name" placeholder="Product Name" required/>
+                </label>
+                <label>
+                    <i>&ast;&ast;</i>
+                    <input type="number" name="price" placeholder="Price" required/>
+                </label>
+                <label>
+                    <i>&ast;&ast;</i>
+                    <input type="number" name="qty" placeholder="Quantity" required/>
+                </label>
                 <input type="text" name="shelf" placeholder="Shelf"/>
             </div>
             <h4>Offices</h4>
@@ -59,7 +70,7 @@
             </div>
             <h4>Photo</h4>
             <div class="form_group">
-                <img src="../img/favicon2_.png" alt="thumbnail">
+                <div id="thumbnails" data-src="../../../img/picture-image-svgrepo-com (1).svg"></div>
                 <input type="file" name="thumbnail" id="thumbnail">
                 <!-- <button type="button"> -->
                     <label for="thumbnail">Add photo</label>

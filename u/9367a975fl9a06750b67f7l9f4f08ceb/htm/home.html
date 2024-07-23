@@ -100,12 +100,65 @@
                 <svg width="1.5em" height="1.5em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
             </div>
         </div>
-        <button type="button" id="add-to-cart">Add to cart &ndash;&nbsp; <span>&#8358; 200000000</span></button>
+        <button type="button" id="add-to-cart">Add to cart &ndash;&nbsp; <span>&#8358; 0</span></button>
         <button type="button" class="link check">
             <span>&checkmark;</span>
         </button>
-        
     </aside>
+    <div class="nli dialog">   <!--not logged in-->
+        <!-- <svg><use href="#info" xlink:href="#info"></use></svg> -->
+        <div>
+            <span>You're not logged in.</span>
+            <span class="link">SIGN UP</span>
+            <span class="link">LOG IN</span>
+        </div>
+        <!-- <svg><use href="#close" xlink:href="#close"></use></svg> -->
+        <img src="../../../img/close-outline.svg" alt="close-svg" class="link">
+    </div>
+    <dialog id="sign-up-dialog">
+        <div class="h2">Sign Up Form</div>
+        <form name="sign-up-form" id="sign-up-form">
+            <div class="form_group">
+                <input type="text" name="uname" id="uname" placeholder="Enter your username">
+            </div>
+            <div class="form_group">
+                <input type="email" name="email" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form_group">
+                <input type="password" name="pword" id="pword" placeholder="Enter your password">
+                <svg width="2em" height="2em" class="opq" onclick="viewHidePwd(this)"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
+                <svg width="2em" height="2em"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
+            </div>
+            <div class="form_group">
+                <input type="password" name="pword-chk" id="pword-chk" placeholder="Re-type your password">
+                <svg width="2em" height="2em" class="opq" onclick="viewHidePwd(this)"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
+                <svg width="2em" height="2em"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
+            </div>
+            <div class="form_group">
+                <input type="submit" value="Sign Up">
+                <input type="button" onclick="this.closest('dialog').close()" value="Cancel">
+            </div>
+        </form>
+        <p>Already a user? <span class="link login">Log in</span></p>
+    </dialog>
+    <dialog id="login-dialog">
+        <div class="h2">Login Form</div>
+        <form name="login-form" id="login-form">
+            <div class="form_group">
+                <input type="text" name="username" id="username" placeholder="Enter your username or email">
+            </div>
+            <div class="form_group">
+                <input type="password" name="pwd" id="pwd" placeholder="Enter your password">
+                <svg width="2em" height="2em" class="opq" onclick="viewHidePwd(this)"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
+                <svg width="2em" height="2em"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
+            </div>
+            <div class="form_group">
+                <input type="submit" value="Login">
+                <input type="button" onclick="this.closest('dialog').close()" value="Cancel">
+            </div>
+        </form>
+        <p>Not a user? <span class="link signup">Sign up</span></p>
+    </dialog>
     <div class="svgrepo" style="display: none;">
         <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="separator-line" viewBox="0 0 1 13" fill="none">
@@ -146,16 +199,25 @@
             </symbol>
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg">
-            <symbol id="close" viewBox="0 0 12 12" fill="none">
+            <symbol id="close" viewBox="0 0 12 12" width="1em" height="1em" fill="none">
                 <path d="M11.4671 1.1549L10.3122 0L5.73355 4.57865L1.1549 0L0 1.1549L4.57865 5.73355L0 10.3122L1.1549 11.4671L5.73355 6.88845L10.3122 11.4671L11.4671 10.3122L6.88845 5.73355L11.4671 1.1549Z" fill="#6E6E6E"/>
             </symbol>
-        </svg>            
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="eye-closed" width="2em" height="2em" viewBox="0 0 24 24" fill="none">
+                <path d="M9.76404 5.29519C10.4664 5.10724 11.2123 5 12 5C15.7574 5 18.564 7.4404 20.2326 9.43934C21.4848 10.9394 21.4846 13.0609 20.2324 14.5609C20.0406 14.7907 19.8337 15.0264 19.612 15.2635M12.5 9.04148C13.7563 9.25224 14.7478 10.2437 14.9585 11.5M3 3L21 21M11.5 14.9585C10.4158 14.7766 9.52884 14.0132 9.17072 13M4.34914 8.77822C4.14213 9.00124 3.94821 9.22274 3.76762 9.43907C2.51542 10.9391 2.51523 13.0606 3.76739 14.5607C5.43604 16.5596 8.24263 19 12 19C12.8021 19 13.5608 18.8888 14.2744 18.6944" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </symbol>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="eye-opened" viewBox="0 0 24 24" fill="none">
+                <path d="M12 5C8.24261 5 5.43602 7.4404 3.76737 9.43934C2.51521 10.9394 2.51521 13.0606 3.76737 14.5607C5.43602 16.5596 8.24261 19 12 19C15.7574 19 18.564 16.5596 20.2326 14.5607C21.4848 13.0606 21.4848 10.9394 20.2326 9.43934C18.564 7.4404 15.7574 5 12 5Z" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </symbol>
+        </svg>
     </div>
     <script type="module" src="../js/home.js"></script>
     <script>
-        
         //window.scrollTop 105.5 is the exact height of the header
-        
         const nav = document.querySelector("nav");
         const chevrons = document.querySelectorAll(".chevron");
         chevrons.forEach(chevron => {
@@ -172,6 +234,13 @@
         function discloseForm(button) {
             button.nextElementSibling.classList.toggle("show");
         }
+        const formRedirectBtns = document.querySelectorAll(".login, .signup");
+        formRedirectBtns.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const dialogs = document.querySelectorAll('#sign-up-dialog, #login-dialog');
+                dialogs.forEach(dialog => dialog.contains(btn) ? dialog.close() : dialog.showModal());
+            });
+        });
     </script>
 </body>
 </html>

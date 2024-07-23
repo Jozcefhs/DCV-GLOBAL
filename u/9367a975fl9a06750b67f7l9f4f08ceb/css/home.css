@@ -3,7 +3,7 @@ html, body {
     font: 15px system-ui;
     color: #555;
 }
-button, .link {
+button, .link, input[type="submit"], input[type="button"] {
     cursor: pointer;
     background: transparent;
     border: 0;
@@ -47,9 +47,14 @@ header > .bottom {
 }
 .topnav > a {
     font-weight: bold;
+    border-radius: 7px;
+    padding: 0.5em 0.8em !important;
 }
 .topnav > a.active, .topnav > a:hover, nav > a:hover {
     color: #1a73e8;
+}
+.topnav > a:hover {
+    background-color: #daeaff85;
 }
 img[alt="logo"] {
     width: 2em;
@@ -105,7 +110,8 @@ nav > a, .topnav > a {
 }
 nav > a.active {
     border-bottom: 2px solid #1a73e8;
-    background-color: #f6faff;
+    background-color: #daeaff85;
+    color: #1a73e8;
     position: sticky;
     left: 0;
     right: 0;
@@ -156,9 +162,10 @@ main {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(11.5em, 1fr));
+    gap: 3em;
     transition: width 300ms ease-out;
 }
-main.loading, .progress_bar.checked ~ *:not(.head, .check) {
+main.loading, .progress_bar.checked ~ *:not(.head, .check), .out_of_stock {
     opacity: .3;
     pointer-events: none;
 }
@@ -210,7 +217,7 @@ aside {
     box-shadow: 0 0 8px #ccc;
     overflow-y: scroll;
     border-radius: 10px 0 0 10px;
-    transition: transform 1s ease-out;
+    transition: transform 500ms ease-out;
 }
 aside > .progress_bar {
     position: sticky;
@@ -317,6 +324,106 @@ span#qty {
     background-color: #009578;
     color: #fff;
     transition: transform 250ms ease;
+}
+.nli {
+    position: absolute;
+    top: 0;
+    padding: .5em 2em;
+    width: max-content;
+    border-radius: 0 0 1em 1em;
+    background-color: #1a73e8;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    transition: transform 500ms ease-out;
+}
+.nli.show {
+    transform: translate(-50%, 0%);
+}
+.nli > div {
+    display: flex;
+    align-items: center;
+}
+.nli > div > span:first-child {
+    margin-right: 2em;
+}
+.nli .link {
+    font-weight: bold;
+}
+img[alt="close-svg"] {
+    margin-left: 2em;
+}
+dialog /*#sign-up-dialog*/ {
+    min-width: 340px;
+    border: 1px solid #ccc;
+    margin: auto;
+    padding: 2em;
+    border-radius: 1em;
+    box-shadow: 0 0 24px #a4a4a4ef;
+}
+.h2 {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 500;
+    color: #1a73e8;
+}
+dialog > form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin: 3em auto;
+}
+.form_group {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    border-radius: 7px;
+    border: 1px solid #aaa;
+    overflow: hidden;
+}
+.form_group:last-of-type {
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 2em;
+    border: 0;
+}
+.form_group > input {
+    border: 0;
+    outline: none;
+    width: 100%;
+}
+.form_group > input:not(input[type='button'],input[type='submit']) {
+    padding: .8em 2em;
+}
+input[type="submit"], input[type="button"] {
+    padding: 1em 2em;
+    font-weight: 600;
+    border-radius: 7px;
+}
+input[type="submit"] {
+    background-color: #1a73e8;
+    color: #fff;
+}
+input[type="button"] {
+    background-color: #eee;
+}
+.form_group > svg {
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+}
+.opq {
+    opacity: 0;
+    pointer-events: none;
+}
+span.login, span.signup {
+    color: #1a73e8;
+    text-decoration: underline;
+    font-weight: 500;
 }
 .wished, .carted {
     fill: #1a73e8;
