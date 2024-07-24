@@ -60,6 +60,20 @@ img[alt="logo"] {
     width: 2em;
     height: 2em;
 }
+div#user-pic {
+    position: relative;
+}
+div#user-pic::before {
+    height: 10px;
+    width: 10px;
+    background-color: #009578;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+}
+.top.usr > div#user-pic::before {
+    content: '';
+}
 .svg { /*appears to be redundant (check with .link selector)*/
     position: relative;
     display: inline-flex;
@@ -79,6 +93,7 @@ img[alt="logo"] {
     color: #777;
     padding: .1em .5em;
     font-style: normal;
+    font-weight: bold;
     font-size: .8em;
     background-color: #fff;
 }
@@ -183,7 +198,7 @@ main.loading, .progress_bar.checked ~ *:not(.head, .check), .out_of_stock {
     cursor: pointer;
 }
 .card:hover {
-    border: 1px solid #1a73e8;
+    border: 1px solid #aaa;
 }
 .card:hover > img {
     box-shadow: 4px 4px 11px rgba(0,0,0,.3);
@@ -359,6 +374,7 @@ img[alt="close-svg"] {
 }
 dialog /*#sign-up-dialog*/ {
     min-width: 340px;
+    min-height: 300px;
     border: 1px solid #ccc;
     margin: auto;
     padding: 2em;
@@ -417,13 +433,36 @@ input[type="button"] {
     cursor: pointer;
 }
 .opq {
-    opacity: 0;
+    display: none;
+    /* opacity: 0; */
     pointer-events: none;
+}
+dialog > p {
+    text-align: center;
+}
+dialog > output {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    width: 100%;
+    color: #555;
+    font-weight: bold;
+    margin-top: 1em;
+}
+dialog > output > input[type="button"] {
+    background-color: #1a73e8;
+    color: #fff;
+    margin-top: 3em;
 }
 span.login, span.signup {
     color: #1a73e8;
     text-decoration: underline;
     font-weight: 500;
+}
+.checkmark {
+    font-size: 3em;
 }
 .wished, .carted {
     fill: #1a73e8;

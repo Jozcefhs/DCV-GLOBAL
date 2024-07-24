@@ -1,4 +1,4 @@
-import { collection, fbInitializer, getDocs, getFirestore, limit, orderBy, query, setDoc, startAfter, where } from "../../../js/firebase_xp.js";
+import { addDoc, and, collection, doc, fbInitializer, getCountFromServer, getDoc, getDocs, getFirestore, limit, orderBy, query, serverTimestamp, setDoc, startAfter, where } from "../../../js/firebase_xp.js";
 const app = fbInitializer();
 const db = getFirestore(app);
 //../../../img/picture-image-svgrepo-com (1).svg
@@ -6,6 +6,31 @@ const db = getFirestore(app);
 const untemplatedMain = document.querySelectorAll("main > *:not(template)");
 const main = document.querySelector("main");
 const cardTemplate = document.querySelector("template");
+
+//check if user is available, then update image icon, cart. Else, display LOG IN.
+const userPic = document.querySelector('#user-pic');
+const ss_user = JSON.parse(localStorage.getItem("user"));
+if (ss_user) {
+    const cartLen = Object.entries(ss_user.profile.cart).length;
+    userPresenceIndicator(cartLen);
+}
+//function to indicate user has logged in
+function userPresenceIndicator(cart_len) {
+    userPic.classList.add('link');
+    document.querySelector('div.cart > i').textContent = cart_len;
+    document.querySelector('header > .top').classList.add('usr');
+}
+
+//user pic event listener to navigate to manager if ss_userPath is 0baea2f0ae20150db78f58cddac442a9; else display window alert uname
+userPic.addEventListener('click', () => {
+    if (ss_user) {
+        if (ss_user.profile.isSuperuser) {
+            location.assign(`../${ss_user.profile.userPath}/htm/home.html`)
+        } else if (ss_user.profile.isSubscriber) {
+            alert(`Profile Info:\nNAME :: ${ss_user.profile.uname}\nEMAIL ::  ${ss_user.profile.email}`);
+        }
+    }
+})
 
 //add links to nav menu
 const categoryCollection = await getDocs(collection(db, "category"));   //_searchIndex_ and all
@@ -26,7 +51,7 @@ const addToCartBtn = document.querySelector("aside button#add-to-cart");
 let addToCartVal;
 
 async function loadDocs(cat) {
-    console.log("Current category:", cat);
+    console.info("%c<webmart app>: %ccurrent category:", 'color: #1a73e8', `${cat}`);
     let first;
     if (cat == 'all') {
         // first = query(prodColl, orderBy("dateCreated", "desc"));
@@ -148,7 +173,6 @@ async function loadMoreDocs (cat) {
     } else {
         reached_end = true;
     }
-    // const q = query(prodColl, where)
 }
 
 main.addEventListener("scrollend", (e) => {
@@ -207,23 +231,27 @@ window.addEventListener("storage", (e) => {
     // console.log(JSON.parse(e.storageArea).user)
     //console.log(e.url); console.log(e.oldValue); console.log(e.newValue); console.log(e.key); console.log(e.storageArea);
 })
-const ss_user = JSON.parse(localStorage.getItem("user"));
+
 const progressBar = document.querySelector(".progress_bar");
 const notLoggedInNotice = document.querySelector("div.nli");
 let shelf = {};
+sessionStorage.getItem('shelf') == null ? sessionStorage.setItem('shelf', JSON.stringify([shelf])) : console.info('%c<webmart app>: %cUser has already set up shelf.', 'color: #1a73e8');   //checks if ss.shelf exists; if not, creates it
 addToCartBtn.addEventListener("click", async (e) => {
     addToCartBtn.disabled = true;
-    //check if 'user' logged in
     let num = Number(qty.innerText);
     let id = addToCartBtn.dataset.prodId;
     if (ss_user)  {
         progressBar.classList.add("checking");
         // console.log(num, id)
         const snapshot = await setDoc(doc(db, "users", ss_user.id), {cart: {[id]: num}}, {merge: true});
+        //add new item to ss_user.profile.cart and update cart
+        progressBar.classList.replace("checking","checked");
         console.log(snapshot.docs.data().cart.length);
-        // progressBar.classList.replace("checking","checked");
     } else {
-        shelf[id] = num;
+        if (!(Object.values(JSON.parse(sessionStorage.shelf))[0].hasOwnProperty(id))) {//checks if the user already has the product in the shelf
+            shelf[id] = num;
+            sessionStorage.setItem('shelf', JSON.stringify([shelf]));
+        }
         notLoggedInNotice.classList.add("show");
         closeAsideBtn.click();
     }
@@ -281,4 +309,60 @@ eyeBtns.forEach(btn => {
             btn.parentElement.firstElementChild.type = 'password';
         }
     })
+});
+const forms = document.querySelectorAll("#sign-up-form, #login-form");
+//sign up user
+forms[0].addEventListener("submit", async (e) => {
+    e.preventDefault();
+    e.submitter.disabled = true;
+    e.submitter.value = '. . .';
+    const fd = new FormData(forms[0]);
+    //FIRST CHECK IF USER EMAIL EXISTS. IF TRUE, RETURN WINDOW.ALERT, getCountFromServer
+    console.time('%c<webmart app>: %cEmail checked.', 'color:#1a73e8');
+    const q = query(collection(db, "users"), where('email', '==', fd.get('email')));
+    const snapShot = await getCountFromServer(q);
+    console.timeEnd('%c<webmart app>: %cEmail checked.', 'color:#1a73e8');
+    if (snapShot.data().count) return alert('A user already exists for this email.');
+    
+    let data = {
+        userPath: '9367a975fl9a06750b67f7l9f4f08ceb',
+        isSubscriber: true,
+        isSuperuser: false,
+        isStaffer: false,
+        wishlist: [],
+        cart: JSON.parse(sessionStorage.getItem('shelf'))[0],
+        createdOn: Date.now(),
+        lastModified: serverTimestamp(),
+    };
+    for (const [k,v] of fd.entries()) {
+        data[k] = v;
+    }
+    let timer1 = console.time('%c<webmart app>: %cUser added.', 'color:#1a73e8');
+    const snapshot = await addDoc(collection(db, "users"), data);
+    console.timeEnd('%c<webmart app>: %cUser added.', 'color:#1a73e8');
+    let timer2 = console.time('%c<webmart app>: %cUser cached.', 'color:#1a73e8');
+    const newUser = await getDoc(doc(db, "users", snapshot.id));
+    console.timeEnd('%c<webmart app>: %cUser cached.', 'color:#1a73e8');
+    // console.log(newUser, newUser.data());
+    localStorage.setItem('user', JSON.stringify({id: newUser.id, profile: newUser.data()}));
+    const cartLen = Object.entries(Object.values(JSON.parse(sessionStorage.shelf))[0]).length;
+    userPresenceIndicator(cartLen);
+    const dElems = document.querySelectorAll('#sign-up-form, #sign-up-dialog > p, #sign-up-dialog > output');
+    dElems.forEach((elem, idx) => elem.classList.toggle('opq', idx < 2));
+});
+
+//login form
+forms[1].addEventListener('submit', async (e) => {
+    e.preventDefault();
+    e.submitter.disabled = true;
+    e.submitter.textContent = '. . .';
+    const fd = new FormData(forms[1]);
+    const uname = fd.get('username');
+    const pwd = fd.get('pwd');
+    const q = query(collection(db, "users"), where(and(or('uname', '==', uname), ('uname', '==', 'email'), 'pword', '==', pwd), limit(1)));
+    const snap = await getDocs(q);
+    localStorage.setItem('user', JSON.stringify({id: snap.docs[0].id, profile: snap.docs[0].data()}));
+    document.querySelector('header > .top').classList.add('usr');
+    document.querySelector('div.cart > i').textContent = Object.entries(snap.docs[0].get('cart')).length;
+    e.submitter.closest('dialog').close();
 })

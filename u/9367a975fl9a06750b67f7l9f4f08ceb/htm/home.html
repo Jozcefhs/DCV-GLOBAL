@@ -12,8 +12,7 @@
             <a href="#"><img src="../../../img/picture-image-svgrepo-com (1).svg" alt="default"></a>
             <div class="topnav">
                 <a href="#" class="active">Orders</a>
-                <svg width=".5em" height="1em"><use href="#separator-line" xlink:href="#separator-line"></use></svg>
-                <!-- <img src="../../../img/seperator_line.svg" alt="separator-line"> -->
+                <!-- <svg width=".5em" height="1em"><use href="#separator-line" xlink:href="#separator-line"></use></svg> -->
                 <a href="#">Wishlist</a>
             </div>
             <div class="svg link wish">
@@ -24,8 +23,8 @@
                 <i>0</i>
                 <svg width="2em" height="2em"><use href="#cart" xlink:href="#cart"></use></svg>
             </div>
-            <div id="user_pic">
-                <img src="../../../img/user-profile-circle-svgrepo-com.svg" alt="user_pic">
+            <div id="user-pic">
+                <img src="../../../img/user-profile-circle-svgrepo-com.svg" alt="user-pic">
             </div>
         </div>
         <div class="bottom">
@@ -105,21 +104,19 @@
             <span>&checkmark;</span>
         </button>
     </aside>
-    <div class="nli dialog">   <!--not logged in-->
-        <!-- <svg><use href="#info" xlink:href="#info"></use></svg> -->
+    <div class="nli dialog">
         <div>
             <span>You're not logged in.</span>
             <span class="link">SIGN UP</span>
             <span class="link">LOG IN</span>
         </div>
-        <!-- <svg><use href="#close" xlink:href="#close"></use></svg> -->
         <img src="../../../img/close-outline.svg" alt="close-svg" class="link">
     </div>
     <dialog id="sign-up-dialog">
         <div class="h2">Sign Up Form</div>
         <form name="sign-up-form" id="sign-up-form">
             <div class="form_group">
-                <input type="text" name="uname" id="uname" placeholder="Enter your username" required>
+                <input type="text" name="uname" id="uname" placeholder="Enter your username" autofocus required>
             </div>
             <div class="form_group">
                 <input type="email" name="email" id="email" placeholder="Enter your email" required>
@@ -140,12 +137,17 @@
             </div>
         </form>
         <p>Already a user? <span class="link login">Log in</span></p>
+        <output class="opq">
+            <div class="checkmark">&checkmark;</div>
+            <div class="output">You are registered and logged in.</div>
+            <input type="button" onclick="this.closest('dialog').close()" value="CLOSE">
+        </output>
     </dialog>
     <dialog id="login-dialog">
         <div class="h2">Login Form</div>
         <form name="login-form" id="login-form">
             <div class="form_group">
-                <input type="text" name="username" id="username" placeholder="Enter your username or email">
+                <input type="text" name="username" id="username" placeholder="Enter your username or email" autofocus required>
             </div>
             <div class="form_group">
                 <input type="password" name="pwd" id="pwd" placeholder="Enter your password" autocomplete="current-password" required>
