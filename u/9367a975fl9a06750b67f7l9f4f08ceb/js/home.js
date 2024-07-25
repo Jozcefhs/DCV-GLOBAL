@@ -240,13 +240,20 @@ addToCartBtn.addEventListener("click", async (e) => {
     addToCartBtn.disabled = true;
     let num = Number(qty.innerText);
     let id = addToCartBtn.dataset.prodId;
-    if (ss_user)  {
-        progressBar.classList.add("checking");
-        // console.log(num, id)
-        const snapshot = await setDoc(doc(db, "users", ss_user.id), {cart: {[id]: num}}, {merge: true});
-        //add new item to ss_user.profile.cart and update cart
-        progressBar.classList.replace("checking","checked");
-        console.log(snapshot.docs.data().cart.length);
+    let user = JSON.parse(localStorage.getItem('user'));
+    if (user)  {
+        //check if item already in the cart
+        if (user.profile.cart.hasOwnProperty(id)) {
+            alert('This item is already in the cart.');
+        } else {
+            progressBar.classList.add("checking");
+            const snapshot = await setDoc(doc(db, "users", user.id), {cart: {[id]: num}}, {merge: true});
+            user.profile.cart[id] = num;
+            const cart_len = Object.entries(user.profile.cart).length;
+            localStorage.setItem('user', JSON.stringify(user));
+            document.querySelector('div.cart > i').textContent = cart_len;
+            progressBar.classList.replace("checking","checked");
+        }
     } else {
         if (!(Object.values(JSON.parse(sessionStorage.shelf))[0].hasOwnProperty(id))) {//checks if the user already has the product in the shelf
             shelf[id] = num;
