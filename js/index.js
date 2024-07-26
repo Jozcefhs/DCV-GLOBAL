@@ -9,58 +9,62 @@ const cardTemplate = document.querySelector("template");
 
 //check if user is available, then update image icon, cart. Else, display LOG IN.
 const userCart = document.querySelectorAll('.top .cart, #user-pic');
-const ss_user = JSON.parse(localStorage.getItem("user"));
+let ss_user = JSON.parse(localStorage.getItem("user"));
 if (ss_user) {
     const cartLen = Object.entries(ss_user.profile.cart).length;
     userPresenceIndicator(cartLen);
 }
 //function to indicate user has logged in
 function userPresenceIndicator(cart_len) {
-    const user = JSON.parse(localStorage.getItem('user'));
     const checkoutForm = document.querySelector('#checkout-form');
     const checkoutBtn = document.querySelector('#checkout-btn > span');
     document.querySelector('div.cart > i').textContent = cart_len;
     document.querySelector('header > .top').classList.add('usr');
     
     const section = document.querySelector('section');
-    const untemplatedCart = section.querySelectorAll('form > *:not(#cart-temp)');
     //capture and clone cart-temp
     // const cartBtn = document.querySelector('.top .cart'); //for displaying <section>
     userCart[0].addEventListener('click', async (e) => {
-        section.firstElementChild.style.display = 'none';
-        untemplatedCart.forEach(cart => cart.remove());//clear cart
-        section.style.transform = 'translateY(0)';
-        //might want to first clear main (main.innerHTML = '') in case of out-of-memory error
-        //load user profile cart
-        let totalPrice = 0, result = [];
-        const pids = Object.keys(user.profile.cart);
-        const p = pids.map(async pid => {
-            const snapshot = await getDoc(doc(db, "products", pid));
-            result.push({id: pid, n: snapshot.data().name, p: Number(snapshot.data().price)});
-        });
-        await Promise.all(p);
-        console.log(result.length)
-        section.firstElementChild.style.display = 'flex';
-        result.forEach(({n, p, id}, idx) => {
-            totalPrice += p;
-            const cartTempClone = document.querySelector('#cart-temp').content.cloneNode(true);
-            const elem = cartTempClone.querySelectorAll('.serial, .fxl, .fxr');
-            elem[0].textContent = idx + 1;
-            elem[1].children[0].textContent = n;
-            elem[1].children[1].querySelector('span').textContent = p;
-            elem[1].children[2].name = id, elem[1].children[2].dataset.ppu = p;
-            elem[2].children[0].querySelector('span').textContent = p;
-            checkoutForm.appendChild(cartTempClone);
-        });
-        checkoutBtn.textContent = totalPrice;
+        ss_user = JSON.parse(localStorage.getItem('user'));
+        if (Object.entries(ss_user.profile.cart).length) {
+
+            section.firstElementChild.style.display = 'none';
+            const untemplatedCart = section.querySelectorAll('form > *:not(#cart-temp)');
+            untemplatedCart.forEach(cart => cart.remove());//clear cart
+            section.style.transform = 'translateY(0)';
+            //might want to first clear main (main.innerHTML = '') in case of out-of-memory error
+            //load user profile cart
+            let totalPrice = 0, result = [];
+            const pids = Object.keys(ss_user.profile.cart);
+            const p = pids.map(async pid => {
+                const snapshot = await getDoc(doc(db, "products", pid));
+                result.push({id: pid, n: snapshot.data().name, p: Number(snapshot.data().price)});
+            });
+            await Promise.all(p);
+            section.firstElementChild.style.display = 'flex';
+            result.forEach(({n, p, id}, idx) => {
+                totalPrice += p;
+                const cartTempClone = document.querySelector('#cart-temp').content.cloneNode(true);
+                const elem = cartTempClone.querySelectorAll('.serial, .fxl, .fxr');
+                elem[0].textContent = idx + 1;
+                elem[1].children[0].textContent = n;
+                elem[1].children[1].querySelector('span').textContent = p;
+                elem[1].children[2].name = id, elem[1].children[2].dataset.ppu = p;
+                elem[2].children[0].querySelector('span').textContent = p;
+                checkoutForm.appendChild(cartTempClone);
+            });
+            checkoutBtn.textContent = totalPrice;
+        } else {
+            alert("Your cart is empty.");
+        }
         //set 'currCart' global variable to the length of the cart; 
     });
     userCart[1].addEventListener('click', () => {
-        if (user.profile.isSubscriber) {
+        if (ss_user.profile.isSubscriber) {
             //LATER, THIS SHOULD LEAD TO FUTURE SUBSCRIBER'S PROFILE PAGE
-            alert(`Profile Info:\nNAME :: ${user.profile.uname}\nEMAIL ::  ${user.profile.email}`);
+            alert(`Profile Info:\nNAME :: ${ss_user.profile.uname}\nEMAIL ::  ${ss_user.profile.email}`);
         } else {
-            location.assign(`./u/${user.profile.userPath}/htm/home.html`);
+            location.assign(`./u/${ss_user.profile.userPath}/htm/home.html`);
         }
     });
     const closeButton = document.querySelector('section .head .close'); //close button of <section>
@@ -78,15 +82,22 @@ function userPresenceIndicator(cart_len) {
     });
     checkoutForm.addEventListener('click', async (e) => {
         if (e.target.localName == 'button') {
+            e.target.disabled = true;
             const parent = e.target.closest('.cart_wrap');
             const pid = e.target.parentElement.previousElementSibling.children[2].name;
             parent.style.opacity = 0.4;
             e.target.textContent = 'Removing...';
             //delete property from localStorage
-            const prop = user.profile.cart;
-            delete prop[pid];
-            await updateDoc(doc(db, "users", user.id), {cart: prop});
+            ss_user = JSON.parse(localStorage.getItem('user'));
+            delete ss_user.profile.cart[pid];
+            localStorage.setItem('user', JSON.stringify(ss_user));
+            await updateDoc(doc(db, "users", ss_user.id), {cart: ss_user.profile.cart});
+            //get its previousElementSibling and deduct it from the checkoutbtn
+            const fprice = Number(e.target.previousElementSibling.children[0].textContent);
+            const chkoutBtnVal = Number(checkoutBtn.textContent);
+            checkoutBtn.textContent = chkoutBtnVal - fprice;
             parent.remove();
+            document.querySelector('div.cart > i').textContent = Object.keys(ss_user.profile.cart).length;
             document.querySelectorAll('.cart_wrap').forEach((wrap, idx) => wrap.querySelector('.serial').textContent = idx + 1);
         }
     });
@@ -144,7 +155,7 @@ async function loadDocs(cat) {
         // first = query(prodColl, orderBy("dateCreated", "desc"));
         first = query(prodColl, orderBy(rdv), limit(2));
     } else {
-        first = query(prodColl, where("category", "==", cat), orderBy(rdv), limit(2));
+        first = query(prodColl, where("category", "==", cat), orderBy(rdv));    //later, insert limit(25)
     }
     const docSnapshot = await getDocs(first);
     if (docSnapshot.empty) return alert("No product found.");

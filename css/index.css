@@ -502,6 +502,7 @@ section > .head > span {
 }
 div.serial {
     /* margin-right: 3em; */
+    align-self: flex-start;
     font-size: 1.5em;
 }
 div.fxl {
@@ -518,7 +519,7 @@ div.fxl > input {
     max-width: 5em;
     padding: .7em;
     text-align: center;
-    border: 1px solid #ddd;
+    border: 1px solid #aaa;
     border-radius: 7px;
 }
 div.fxr {
