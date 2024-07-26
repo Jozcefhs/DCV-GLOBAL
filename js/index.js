@@ -1,4 +1,4 @@
-import { addDoc, and, collection, deleteField, doc, fbInitializer, getCountFromServer, getDoc, getDocs, getFirestore, limit, or, orderBy, query, serverTimestamp, setDoc, startAfter, updateDoc, where } from "../../../js/firebase_xp.js";
+import { addDoc, and, collection, deleteField, doc, fbInitializer, getCountFromServer, getDoc, getDocs, getFirestore, limit, or, orderBy, query, serverTimestamp, setDoc, startAfter, updateDoc, where } from "./firebase_xp.js";
 const app = fbInitializer();
 const db = getFirestore(app);
 //../../../img/picture-image-svgrepo-com (1).svg
@@ -60,7 +60,7 @@ function userPresenceIndicator(cart_len) {
             //LATER, THIS SHOULD LEAD TO FUTURE SUBSCRIBER'S PROFILE PAGE
             alert(`Profile Info:\nNAME :: ${user.profile.uname}\nEMAIL ::  ${user.profile.email}`);
         } else {
-            location.assign(`../${user.profile.userPath}/htm/home.html`);
+            location.assign(`./u/${user.profile.userPath}/htm/home.html`);
         }
     });
     const closeButton = document.querySelector('section .head .close'); //close button of <section>
@@ -82,10 +82,10 @@ function userPresenceIndicator(cart_len) {
             const pid = e.target.parentElement.previousElementSibling.children[2].name;
             parent.style.opacity = 0.4;
             e.target.textContent = 'Removing...';
-            await updateDoc(doc(db, "users", user.id), {cart: {[pid]: deleteField()}});
             //delete property from localStorage
             const prop = user.profile.cart;
             delete prop[pid];
+            await updateDoc(doc(db, "users", user.id), {cart: prop});
             parent.remove();
             document.querySelectorAll('.cart_wrap').forEach((wrap, idx) => wrap.querySelector('.serial').textContent = idx + 1);
         }
@@ -136,7 +136,7 @@ let fields = ['name','dateCreated','category'];
 let rdx = Math.floor(Math.random() * fields.length); //RanDom indeX
 let rdv = fields[rdx]; //RanDom Value
 console.info(`%c<webmart app>: %cOrdering: ${rdv}`, 'color: #1a73e8', 'color: #555');
-
+const defImg = "./img/picture-image-svgrepo-com (1).svg";
 async function loadDocs(cat) {
     console.info(`%c<webmart app>: %ccurrent category: ${cat}`, 'color: #1a73e8', 'color: #555');
     let first;
@@ -158,7 +158,7 @@ async function loadDocs(cat) {
         const cardPrice = card.querySelector(".price");
         // const cardWish = card.querySelector("[alt='wish']");
         // const cardCart = card.querySelector("[alt='cart']");
-        cardImage.src = doc.data()?.imgURL || "../../../img/picture-image-svgrepo-com (1).svg";
+        cardImage.src = doc.data()?.imgURL || defImg;
         cardTitle.textContent = doc.data()?.name || "Untitled";
         if (doc.data()?.qty) {
             cardPrice.innerHTML = `&#8358; ${doc.data()?.price || 0}`
@@ -174,7 +174,7 @@ async function loadDocs(cat) {
             const c = products.filter(({id}) => id == pid);
             const { brand, color, desc, id, imgURL, litAuthor, litTitle, price, school, size, subjName, title } = c[0];
             // console.log(imgURL)
-            document.querySelector("[alt='aside-img']").src = imgURL || '../../../img/picture-image-svgrepo-com (1).svg';
+            document.querySelector("[alt='aside-img']").src = imgURL || defImg;
             const obj = {title, price, desc, size, brand, color, school, subjName, litAuthor, litTitle};
             const asideBody = document.querySelector("aside .body");
             asideBody.innerHTML = '';
@@ -251,7 +251,7 @@ async function loadMoreDocs (cat) {
             const cardImage = card.querySelector("img");
             const cardTitle = card.querySelector(".title");
             const cardPrice = card.querySelector(".price");
-            cardImage.src = doc.data()?.imgURL || "../../../img/picture-image-svgrepo-com (1).svg";
+            cardImage.src = doc.data()?.imgURL || defImg;
             cardTitle.textContent = doc.data()?.name || "Untitled";
             cardPrice.innerHTML = `&#8358; ${doc.data()?.price || 0}`;
             main.append(card);

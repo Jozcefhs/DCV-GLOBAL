@@ -23,7 +23,7 @@
                 <i>0</i>
                 <svg width="2em" height="2em"><use href="#cart" xlink:href="#cart"></use></svg>
             </div>
-            <div id="user-pic">
+            <div id="user-pic" class="link">
                 <img src="../../../img/user-profile-circle-svgrepo-com.svg" alt="user-pic">
             </div>
         </div>
@@ -52,7 +52,7 @@
                     <svg width="2em" height="2em"><use href="#arrow" xlink:href="#arrow"></use></svg>
                 </button>
             </form>
-            <div class="link search" onclick="discloseForm(this);">
+            <div class="link search" onclick="discloseForm(this);" style="display:none">
                 <img src="../../../img/search.cebfd63a204ba9fefa74.svg" alt="search">
             </div>
             <form action="#" name="form-search" id="form-search">
@@ -90,7 +90,7 @@
         <img src="../../../img/picture-image-svgrepo-com (1).svg" alt="aside-img">
         <div class="body">
         </div>
-        <div class="footer">
+        <div class="footer" style="opacity: 1;pointer-events: none;">
             <div class="link chevron left jsChevron">
                 <svg width="1.5em" height="1.5em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
             </div>
@@ -104,6 +104,36 @@
             <span>&checkmark;</span>
         </button>
     </aside>
+    <section>
+            <div class="head">
+                <span>Cart</span>
+                <button id="checkout-btn" form="checkout-form">Checkout &ndash;&nbsp; &#8358;<span>0</span></button>
+                <div class="link close">
+                    <svg width="1em" height="1em"><use href="#close" xlink:href="#close"></use></svg>
+                </div>
+            </div>
+        </div>
+        <form name="checkout-form" id="checkout-form">
+            <template id="cart-temp">
+                <div class="cart_wrap">
+                    <div class="serial"></div>
+                    <div class="fxl"> <!--FleX Left-->
+                        <p></p>
+                        <p>&#8358; <span></span></p>
+                        <input type="number" name="pid" placeholder="QTY" value="1" min="1" data-ppu> <!--Price Per Unit-->
+                    </div>
+                    <div class="fxr">
+                        <div class="subtotal">&#8358; <span></span></div>
+                        <button type="button">
+                            <span>&CircleMinus;</span>
+                            <span>Remove</span>
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </form>
+        <template id="search-temp"></template>
+    </section>
     <div class="nli dialog">
         <div>
             <span>You're not logged in.</span>
@@ -130,6 +160,9 @@
                 <input type="password" name="pword-chk" id="pword-chk" placeholder="Re-type your password" required>
                 <svg width="2em" height="2em" class="shut opq"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
                 <svg width="2em" height="2em" class="open"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
+            </div>
+            <div class="form_group">
+                <input type="tel" name="phone" id="phone" placeholder="Enter phone number" required>
             </div>
             <div class="form_group">
                 <input type="submit" value="Sign Up">
@@ -236,6 +269,7 @@
         function discloseForm(button) {
             button.nextElementSibling.classList.toggle("show");
         }
+
         const formRedirectBtns = document.querySelectorAll(".login, .signup");
         formRedirectBtns.forEach(btn => {
             btn.addEventListener("click", (e) => {
@@ -243,6 +277,42 @@
                 dialogs.forEach(dialog => dialog.contains(btn) ? dialog.close() : dialog.showModal());
             });
         });
+
+        // const section = document.querySelector('section');
+        // const cartBtn = document.querySelector('.top .cart'); //for displaying <section>
+        // cartBtn.addEventListener('click', (e) => {
+        //     section.style.transform = 'translateY(0)';
+        // });
+        // const closeButton = document.querySelector('section .head .close'); //close button of <section>
+        // closeButton.addEventListener('click', () => {
+        //     section.style.transform = 'translateY(-100%)';
+        // });
+        // const checkoutForm = document.querySelector('#checkout-form');
+        // checkoutForm.addEventListener('input', (e) => {
+        //     const q = Number(e.target.value);
+        //     const ppu = Number(e.target.dataset.ppu);
+        //     const subt = e.target.parentElement.nextElementSibling.querySelector('.subtotal');
+        //     subt.textContent = q * ppu;
+        //     const subtotals = [...checkoutForm.querySelectorAll('.subtotal')];
+        //     const grandTotal = subtotals.map(x => Number(x.textContent)).reduce((a, c) => a + c);
+        //     document.querySelector('#checkout-btn > span').textContent = grandTotal;
+        // });
+        // checkoutForm.addEventListener('click', (e) => {
+        //     console.log(e.target.parentElement.previousElementSibling.children[2].name)
+        //     if (e.target.localName == 'button') e.target.closest('.cart_wrap').remove();
+        //     document.querySelectorAll('.cart_wrap').forEach((wrap, idx) => wrap.querySelector('.serial').textContent = idx + 1)
+        // });
+        // checkoutForm.addEventListener('submit', (e) => {
+        //     e.preventDefault();
+        //     e.submitter.disabled = true;
+        //     e.submitter.style.cursor = 'not-allowed';
+        //     const fd = new FormData(checkoutForm);
+        //     for (const [k, v] of fd.entries()) {
+        //         console.log(k, v)
+        //     }
+        //     e.submitter.disabled = false;
+        //     e.submitter.style.cursor = 'pointer';
+        // });
     </script>
 </body>
 </html>
