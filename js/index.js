@@ -1,6 +1,7 @@
-import { addDoc, and, collection, deleteField, doc, fbInitializer, getCountFromServer, getDoc, getDocs, getFirestore, limit, or, orderBy, query, serverTimestamp, setDoc, startAfter, updateDoc, where } from "./firebase_xp.js";
+import { addDoc, and, collection, deleteField, doc, fbInitializer, getCountFromServer, getDoc, getDocs, getFirestore, increment, limit, or, orderBy, query, runTransaction, serverTimestamp, setDoc, startAfter, updateDoc, where, writeBatch } from "./firebase_xp.js";
 const app = fbInitializer();
 const db = getFirestore(app);
+const batch = writeBatch(db);
 //../../../img/picture-image-svgrepo-com (1).svg
 //&#8358;
 const untemplatedMain = document.querySelectorAll("main > *:not(template)");
@@ -60,6 +61,7 @@ function userPresenceIndicator(cart_len) {
         //set 'currCart' global variable to the length of the cart; 
     });
     userCart[1].addEventListener('click', () => {
+        ss_user = JSON.parse(localStorage.getItem('user'));
         if (ss_user.profile.isSubscriber) {
             //LATER, THIS SHOULD LEAD TO FUTURE SUBSCRIBER'S PROFILE PAGE
             alert(`Profile Info:\nNAME :: ${ss_user.profile.uname}\nEMAIL ::  ${ss_user.profile.email}`);
@@ -101,14 +103,33 @@ function userPresenceIndicator(cart_len) {
             document.querySelectorAll('.cart_wrap').forEach((wrap, idx) => wrap.querySelector('.serial').textContent = idx + 1);
         }
     });
-    checkoutForm.addEventListener('submit', (e) => {
+    checkoutForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        ss_user = JSON.parse(localStorage.getItem('user'));
         e.submitter.disabled = true;
         e.submitter.style.cursor = 'not-allowed';
         const fd = new FormData(checkoutForm);
+        let data = {};
         for (const [k, v] of fd.entries()) {
-            console.log(k, v)
+            data[k] = v;
         }
+        console.log(ss_user.profile.orderCount);
+        const orderRef = doc(db, "users", `${ss_user.id}/Orders/${ss_user.profile.orderCount}`);
+        batch.set(orderRef, {
+            uid: ss_user.id,
+            oid: data,
+            status: 0,
+        });
+        const userRef = doc(db, 'users', ss_user.id);
+        batch.update(userRef, {
+            cart: {},
+            orderCount: increment(1),
+        });
+        await batch.commit();
+        ss_user.profile.cart = {};
+        ss_user.profile.orderCount += 1;
+        localStorage.setItem('user', JSON.stringify(ss_user));
+        document.querySelector('div.cart > i').textContent = 0;
         e.submitter.disabled = false;
         e.submitter.style.cursor = 'pointer';
     });
@@ -385,6 +406,7 @@ navlinks.forEach((lnk, idx) => {
 const closeAsideBtn = document.querySelector(".close");
 closeAsideBtn.addEventListener("click", (e) => {
     document.body.classList.remove("fx");
+    progressBar.classList.remove("checked");
 });
 
 const nliLinks = document.querySelectorAll(".nli .link");
@@ -434,6 +456,7 @@ forms[0].addEventListener("submit", async (e) => {
         isSubscriber: true,
         isSuperuser: false,
         isStaffer: false,
+        orderCount: 0,
         wishlist: [],
         cart: JSON.parse(sessionStorage.getItem('shelf'))[0],
         createdOn: Date.now(),
