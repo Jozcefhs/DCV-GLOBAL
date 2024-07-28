@@ -1,7 +1,5 @@
 // import { getFirestore, getStorage, initializeApp, ref } from "../../../js/firebase_xp.js";
 
-// const storage = getStorage();
-
 const fileElem = document.querySelector("input[type='file']");
 fileElem.addEventListener("change", async () => {
     const [file] = fileElem.files;

@@ -1,0 +1,87 @@
+* {margin: 0;padding: 0;box-sizing: border-box;scroll-behavior: smooth;}
+::-webkit-scrollbar {
+    width: 2px;
+    transition: width 250ms ease;
+}
+::-webkit-scrollbar-track {
+    width: 7px;
+    background-color: #eee;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+}
+html, body {
+    font: 15px system-ui;
+    color: #555;
+}
+.card {
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+    color: unset;
+}
+header {
+    padding: 1em 3em;
+}
+/* main {border: 1px solid; border-color: #ccc transparent;} */
+nav > a {
+    display: inline-block;
+    padding: .5em 1em;
+    font-weight: 500;
+}
+nav > a.active {
+    color: #1a73e8;
+    border-bottom: 2px solid #1a73e8;
+}
+nav > a:hover {
+    color: #1a73e8;
+}
+aside {
+    height: calc(100vh - 70px);
+    min-width: 300px;
+    max-width: 310px;
+    padding: 1em 0;
+    overflow-y: scroll;
+    /* border-right: 1px solid #ccc; */
+}
+.card > * {
+    pointer-events: none;
+}
+.card, .usr {
+    display: flex;
+    align-items: center;
+}
+.card {
+    /* border: 1px solid;
+    border-color: #eee transparent; */
+    gap: 1.5em;
+    padding: 1em;
+}
+.card:hover {
+    background-color: #1a73e811;
+}
+.card > div:last-child {
+    width: 77%;
+}
+.card > div:last-child > * {
+    margin: 3px 0;
+}
+.usr {
+    justify-content: center;
+    width: 13%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #1a73e8;
+    color: #fff;
+    font-weight: 500;
+}
+span.abbr, .name {
+    font-size: .9em;
+}
+.date {
+    font-size: .8em;
+}
+.name {
+    font-weight: 500;
+}
