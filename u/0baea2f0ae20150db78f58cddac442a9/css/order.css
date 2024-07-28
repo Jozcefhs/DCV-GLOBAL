@@ -1,20 +1,26 @@
 * {margin: 0;padding: 0;box-sizing: border-box;scroll-behavior: smooth;}
 ::-webkit-scrollbar {
-    width: 2px;
-    transition: width 250ms ease;
+    width: 11px;
 }
 ::-webkit-scrollbar-track {
-    width: 7px;
     background-color: #eee;
 }
 ::-webkit-scrollbar-thumb {
+    border-width: 5px;
+    border-style: solid;
+    border-color: #eee;
+    border-radius: 10px;
     background-color: #aaa;
+    transition: border-width 500ms ease;
+}
+::-webkit-scrollbar-thumb:hover {
+    border-width: 3px;
 }
 html, body {
     font: 15px system-ui;
     color: #555;
 }
-.card {
+.card, .button {
     cursor: pointer;
 }
 a {
@@ -22,9 +28,22 @@ a {
     color: unset;
 }
 header {
-    padding: 1em 3em;
+    display: flex;
+    padding: 1em;
 }
-/* main {border: 1px solid; border-color: #ccc transparent;} */
+.prev_btn {
+    font-size: .8em;
+    transform: rotate(-90deg);
+    margin-right: 2em;
+    transition: transform 300ms ease;
+    visibility: hidden;
+}
+.prev_btn.clk {
+    transform: rotate(90deg);
+}
+nav {
+    margin-right: auto;
+}
 nav > a {
     display: inline-block;
     padding: .5em 1em;
@@ -37,14 +56,70 @@ nav > a.active {
 nav > a:hover {
     color: #1a73e8;
 }
-aside {
-    height: calc(100vh - 70px);
-    min-width: 300px;
-    max-width: 310px;
-    padding: 1em 0;
-    overflow-y: scroll;
-    /* border-right: 1px solid #ccc; */
+.submenu {
+    position: relative;
 }
+.more_icon:hover {
+    background-color: #1a73e811;
+}
+menu {
+    list-style-type: none;
+    padding: .5em 0;
+    box-shadow: 0 0 7px #aaa;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    right: calc(100% - 2em);
+    min-width: 150px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 150ms ease, transform 150ms ease;
+}
+menu.shw {
+    opacity: 1;
+    transform: translateY(2em);
+    pointer-events: all;
+}
+menu > li {
+    padding: .7em 1em;
+    cursor: pointer;
+}
+menu > li:hover {
+    background-color: #1a73e811;
+}
+main {
+    margin: 0 2em;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -1px 5px #ccc;
+    display: grid;
+    grid-template-columns: minmax(300px, 310px) 1fr;
+}
+main > * {
+    display: inline-block;
+    height: calc(100vh - 75px);
+    overflow-y: scroll;
+}
+aside {
+    padding: 1em 0;
+    position: relative;
+}
+div.download_more, div.more_icon, div.prev_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+div.download_more {
+    position: fixed;
+    bottom: 7px;
+    left: 15%;
+    transform: translateX(-15%);
+    background-color: #fff;
+    box-shadow: 0 0 7px #ccc;
+    display: none;
+}
+svg {margin: 3px;}
+div.button > *,
 .card > * {
     pointer-events: none;
 }
@@ -84,4 +159,64 @@ span.abbr, .name {
 }
 .name {
     font-weight: 500;
+}
+section {
+    font-size: .8em;
+}
+section > table {
+    margin: 2em auto 0;
+    border-collapse: collapse;
+}
+td, th {
+    border: 1px solid #ccc;
+    padding: .7em 1em;
+}
+section > table > thead th:nth-child(2) { /*the Item col*/
+    min-width: 220px;
+    text-align: left;
+}
+section > table > thead th:nth-child(3) {
+    min-width: 100px;
+}
+.ldg {
+    pointer-events: none;
+    opacity: .3;
+}
+@media screen and (max-width: 778px) {
+    main {
+        margin: 0;
+        border-radius: 0;
+        grid-template-columns: minmax(300px, 1fr) 0;
+        transition: grid-template-columns 300ms ease;
+    }
+    main.shw {
+        grid-template-columns: 0 minmax(300px, 1fr);
+    }
+    main.shw > aside div.download_more {
+        display: none;
+    }
+    .prev_btn {
+        visibility: visible;
+    }
+    div.download_more {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .usr {
+        width: 10%;
+    }
+    section > table > thead th:nth-child(2) {
+        min-width: 150px;
+    }
+    section > table > thead th:nth-child(2),
+    section > table > tbody td:nth-child(2),
+    section > table > tfoot td:nth-child(1) {
+        position: sticky;
+        left: 0;
+        background-color: #fff;
+    }
+    section > table > tfoot td:nth-child(1) {
+        background-color: transparent;
+        font-weight: bold;
+    }
 }

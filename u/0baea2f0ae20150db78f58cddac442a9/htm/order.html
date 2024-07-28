@@ -8,94 +8,88 @@
 </head>
 <body>
     <header>
+        <div class="button prev_btn">
+            <svg width="2em" height="2em"><use href="#download-more" xlink:href="#download-more"></use></svg>
+        </div>
         <nav>
             <a href="#" class="active">New</a>
             <a href="#">Reviewed</a>
             <a href="#">Fulfilled</a>
         </nav>
+        <div class="submenu">
+            <div class="button more_icon">
+                <svg width="2em" height="2em"><use href="#more-icon" xlink:href="#more-icon"></use></svg>
+            </div>
+            <menu>
+                <li>Mark as reviewed</li>
+                <li>Mark as fulfilled</li>
+            </menu>
+        </div>
     </header>
     <main>
         <aside>
-            <div class="card">
-                <div class="usr"><span class="abbr">UA</span></div>
-                <div>
-                    <div class="name">The Hunchback of Notre Dame</div>
-                    <div class="date">11/12/1879</div>
-                </div>
+            <div class="button download_more">
+                <svg width="2em" height="2em"><use href="#download-more" xlink:href="#download-more"></use></svg>
             </div>
-            <div class="card">
-                <div class="usr"><span class="abbr">UA</span></div>
-                <div>
-                    <div class="name">The Hunchback of Notre Dame</div>
-                    <div class="date">11/12/1879</div>
+            <template>
+                <div class="card">
+                    <div class="usr"><span class="abbr">UA</span></div>
+                    <div>
+                        <div class="name">The Hunchback of Notre Dame</div>
+                        <div class="date">11/12/1879</div>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="usr"><span class="abbr">UA</span></div>
-                <div>
-                    <div class="name">The Hunchback of Notre Dame</div>
-                    <div class="date">11/12/1879</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="usr"><span class="abbr">UA</span></div>
-                <div>
-                    <div class="name">The Hunchback of Notre Dame</div>
-                    <div class="date">11/12/1879</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="usr"><span class="abbr">UA</span></div>
-                <div>
-                    <div class="name">The Hunchback of Notre Dame</div>
-                    <div class="date">11/12/1879</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="usr"><span class="abbr">UA</span></div>
-                <div>
-                    <div class="name">The Hunchback of Notre Dame</div>
-                    <div class="date">11/12/1879</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="usr"><span class="abbr">UA</span></div>
-                <div>
-                    <div class="name">The Hunchback of Notre Dame</div>
-                    <div class="date">11/12/1879</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="usr"><span class="abbr">UA</span></div>
-                <div>
-                    <div class="name">The Hunchback of Notre Dame</div>
-                    <div class="date">11/12/1879</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="usr"><span class="abbr">UA</span></div>
-                <div>
-                    <div class="name">The Hunchback of Notre Dame</div>
-                    <div class="date">11/12/1879</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="usr"><span class="abbr">UA</span></div>
-                <div>
-                    <div class="name">The Hunchback of Notre Dame</div>
-                    <div class="date">11/12/1879</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="usr"><span class="abbr">UA</span></div>
-                <div>
-                    <div class="name">The Hunchback of Notre Dame</div>
-                    <div class="date">11/12/1879</div>
-                </div>
-            </div>
+            </template>
         </aside>
-        <section></section>
+        <section>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Item</th>
+                        <th>Unit Price</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">Grand Total</td>
+                        <td>&#8358; <span>0</span></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
     </main>
+    <div id="svgs" style="display: none;">
+        <?xml version="1.0" encoding="utf-8"?>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="download-more" width="2em" height="2em" viewBox="0 0 24 24" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C12.5523 3 13 3.44772 13 4V17.5858L18.2929 12.2929C18.6834 11.9024 19.3166 11.9024 19.7071 12.2929C20.0976 12.6834 20.0976 13.3166 19.7071 13.7071L12.7071 20.7071C12.3166 21.0976 11.6834 21.0976 11.2929 20.7071L4.29289 13.7071C3.90237 13.3166 3.90237 12.6834 4.29289 12.2929C4.68342 11.9024 5.31658 11.9024 5.70711 12.2929L11 17.5858V4C11 3.44772 11.4477 3 12 3Z" fill="#000000"/>
+            </symbol>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="more-icon" width="2em" height="2em" viewBox="0 0 24 24" fill="#5F6368">
+                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+            </symbol>
+        </svg>
+    </div>
     <script type="module" src="../js/order.js"></script>
+    <script>
+        //toggle submenu
+        let activeNode;
+        const moreIcon = document.querySelector('div.more_icon');
+        moreIcon.addEventListener('click', () => {
+            activeNode = moreIcon.nextElementSibling;
+            moreIcon.nextElementSibling.classList.toggle('shw');
+        });
+        window.addEventListener('click', (e) => {
+            if (activeNode) {
+                activeNode.classList.remove('shw');
+                activeNode = null;
+            }
+        }, true);
+    </script>
 </body>
 </html>
