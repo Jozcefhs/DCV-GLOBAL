@@ -32,6 +32,7 @@ header, .content, .order > .number, #bar, .bar_btn {
 }
 header {
     justify-content: space-between;
+    align-items: center;
     padding: .5em 2em;
     width: 100%;
     position: sticky;
@@ -45,7 +46,10 @@ header img[alt="logo"] {
     background-color: #f3f3f3;
 }
 header > .site_name {
-    font-family: cursive;
+    font-family: monospace;
+    font-weight: 600;
+    border-bottom: 3px solid #fab005;
+    padding: .3em 0;
 }
 #user-photo {
     width: 2em;
@@ -190,6 +194,13 @@ iframe {
 }
 #frame-holder, iframe {
     border: 0;
+}
+@media screen and (max-width: 768px) {
+    iframe {
+        min-width: 700px;
+        max-width: 720px;
+        aspect-ratio: 2/2;
+    }
 }
 @media screen and (max-width: 667px) {
     main {
