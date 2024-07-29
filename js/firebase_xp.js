@@ -18,6 +18,6 @@ export function fbInitializer() {
     return app;
 }
 
-export { deleteApp, addDoc, and, collection, deleteDoc, deleteField, doc, getCountFromServer, setDoc, getDoc, getDocs, limit, or, orderBy, query, serverTimestamp, startAfter, where, writeBatch };
+export { deleteApp, addDoc, and, collection, collectionGroup, deleteDoc, deleteField, doc, getCountFromServer, setDoc, getDoc, getDocs, limit, or, orderBy, query, serverTimestamp, startAfter, where, writeBatch };
 export {disableNetwork, enableNetwork, getFirestore, increment, initializeFirestore, memoryLocalCache, onSnapshot, persistentLocalCache, persistentMultipleTabManager, runTransaction, updateDoc};
 export { getStorage, getDownloadURL, getBlob, ref, uploadBytes, uploadBytesResumable };

@@ -51,6 +51,8 @@ function userPresenceIndicator(cart_len) {
                 elem[1].children[0].textContent = n;
                 elem[1].children[1].querySelector('span').textContent = p;
                 elem[1].children[2].name = id, elem[1].children[2].dataset.ppu = p;
+                elem[1].children[3].name = id, elem[1].children[4].name = id;
+                elem[1].children[3].value = n, elem[1].children[4].value = p;
                 elem[2].children[0].querySelector('span').textContent = p;
                 checkoutForm.appendChild(cartTempClone);
             });
@@ -111,14 +113,18 @@ function userPresenceIndicator(cart_len) {
         const fd = new FormData(checkoutForm);
         let data = {};
         for (const [k, v] of fd.entries()) {
-            data[k] = v;
+            data[k] = [fd.getAll([k])[1], fd.getAll([k])[2], fd.getAll([k])[0]];
         }
-        console.log(ss_user.profile.orderCount);
         const orderRef = doc(db, "users", `${ss_user.id}/Orders/${ss_user.profile.orderCount}`);
         batch.set(orderRef, {
             uid: ss_user.id,
+            uname: ss_user.profile.uname,
+            alias: ss_user.profile.alias,
+            hex: ss_user.profile.hex,
             oid: data,
             status: 0,
+            orderDate: new Intl.DateTimeFormat('en-US').format(new Date()),
+            lastModified: serverTimestamp(),
         });
         const userRef = doc(db, 'users', ss_user.id);
         batch.update(userRef, {
@@ -130,6 +136,7 @@ function userPresenceIndicator(cart_len) {
         ss_user.profile.orderCount += 1;
         localStorage.setItem('user', JSON.stringify(ss_user));
         document.querySelector('div.cart > i').textContent = 0;
+        
         e.submitter.disabled = false;
         e.submitter.style.cursor = 'pointer';
     });
@@ -437,6 +444,8 @@ eyeBtns.forEach(btn => {
         }
     })
 });
+const hexes = ['#fab500','#1a73e8','#009578','#f36944','#663399','#0ca678','#1c7ed6','#9c36b5','#183153'];
+const hx = Math.floor(Math.random() * hexes.length);
 const forms = document.querySelectorAll("#sign-up-form, #login-form");
 //sign up user
 forms[0].addEventListener("submit", async (e) => {
@@ -459,6 +468,8 @@ forms[0].addEventListener("submit", async (e) => {
         orderCount: 0,
         wishlist: [],
         cart: JSON.parse(sessionStorage.getItem('shelf'))[0],
+        hex: hexes[hx],
+        alias: fd.get('uname').slice(0,2),
         createdOn: Date.now(),
         lastModified: serverTimestamp(),
     };
