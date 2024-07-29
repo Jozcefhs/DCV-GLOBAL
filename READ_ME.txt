@@ -2,7 +2,13 @@ isUserID folders, MD5 digest:
 staffers    = 5c0864814bale06b098ba574bd0e0f2f
 subscriber  = 9367a975fl9a06750b67f7l9f4f08ceb
 superuser   = 0baea2f0ae20150db78f58cddac442a9
-
+rgb(224,49,49) #f36944
+rgb(12,166,120) #0ca678
+rgb(28,126,214) #1c7ed6
+rgb(250,176,5) #fab005
+rgb(156,54,181) #9c36b5
+#f36944
+rgb(24, 49, 83) #183153
 /*************** DEFAULT SETUP FOR EACH FIREBASE WEB APP ****************/
 1.  Collections in the database must be created manually the first time (SORRY! I was wrong. Go to Number 2)
 
