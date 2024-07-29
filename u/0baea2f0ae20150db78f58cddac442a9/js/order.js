@@ -30,6 +30,10 @@ navBtns.forEach((navBtn, index) => {
             clone.querySelector('.abbr').textContent = 'AB';
             clone.querySelector('.name').textContent = 'Kevin Lowell Hart';
             clone.querySelector('.date').textContent = '12/08/1989';
+
+            clone.addEventListener('click', (e) => {
+                
+            })
             aside.appendChild(clone);
         }
         aside.classList.remove('ldg');

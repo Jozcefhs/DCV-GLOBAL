@@ -136,6 +136,9 @@ div.button > *,
 .card:hover {
     background-color: #1a73e811;
 }
+.card.active {
+    background-color: #1a73e833;
+}
 .card > div:last-child {
     width: 77%;
 }

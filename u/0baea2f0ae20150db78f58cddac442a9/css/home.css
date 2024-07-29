@@ -73,10 +73,9 @@ section {
 }
 section > div.heading {
     padding: .5em;
-    /* margin: 0 .5em; */
     border-bottom: 1px solid #ddd;
     text-align: center;
-    font-weight: bold;
+    font-weight: 500;
 }
 .section_content_wrapper {
     padding: 1em;
@@ -84,6 +83,7 @@ section > div.heading {
 .content_wrapper > h3 {
     padding: 0 2em;
     font-size: .9em;
+    font-weight: 500;
 }
 .content {
     flex-wrap: wrap;
