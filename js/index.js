@@ -115,7 +115,8 @@ function userPresenceIndicator(cart_len) {
         for (const [k, v] of fd.entries()) {
             data[k] = [fd.getAll([k])[1], fd.getAll([k])[2], fd.getAll([k])[0]];
         }
-        const orderRef = doc(db, "users", `${ss_user.id}/Orders/${ss_user.profile.orderCount}`);
+        const newOrder = await addDoc(collection(db, 'users'), {}); //this is to get an auto-generated ID from firestore
+        const orderRef = doc(db, "users", `${ss_user.id}/Orders/${newOrder.id}`);
         batch.set(orderRef, {
             uid: ss_user.id,
             uname: ss_user.profile.uname,
@@ -123,7 +124,7 @@ function userPresenceIndicator(cart_len) {
             hex: ss_user.profile.hex,
             oid: data,
             status: 0,
-            orderDate: new Intl.DateTimeFormat('en-US').format(new Date()),
+            orderDate: Date.now(),  // new Intl.DateTimeFormat('en-US').format(new Date()),
             lastModified: serverTimestamp(),
         });
         const userRef = doc(db, 'users', ss_user.id);
@@ -145,7 +146,7 @@ function userPresenceIndicator(cart_len) {
 //user pic event listener to navigate to manager if ss_userPath is 0baea2f0ae20150db78f58cddac442a9;
 userCart.forEach((btn, idx) => {
     btn.addEventListener('click', () => {
-        // const headerTop = document.querySelector('.top');
+        let ss_user = JSON.parse(localStorage.getItem('user'));
         if (!ss_user) {
             notLoggedInNotice.classList.add("show");
         }
@@ -469,7 +470,7 @@ forms[0].addEventListener("submit", async (e) => {
         wishlist: [],
         cart: JSON.parse(sessionStorage.getItem('shelf'))[0],
         hex: hexes[hx],
-        alias: fd.get('uname').slice(0,2),
+        alias: fd.get('uname').slice(0,2).toUpperCase(),
         createdOn: Date.now(),
         lastModified: serverTimestamp(),
     };

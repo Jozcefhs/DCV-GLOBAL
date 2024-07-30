@@ -73,6 +73,7 @@ menu {
     min-width: 150px;
     pointer-events: none;
     opacity: 0;
+    z-index: 1;
     transition: opacity 150ms ease, transform 150ms ease;
 }
 menu.shw {
@@ -150,7 +151,7 @@ div.button > *,
     width: 13%;
     aspect-ratio: 1;
     border-radius: 50%;
-    background-color: #1a73e8;
+    background-color: #777;
     color: #fff;
     font-weight: 500;
 }
@@ -174,9 +175,12 @@ td, th {
     border: 1px solid #ccc;
     padding: .7em 1em;
 }
-section > table > thead th:nth-child(2) { /*the Item col*/
+section > table > thead th:nth-child(2) {
     min-width: 220px;
     text-align: left;
+}
+section > table > tbody td:not(:nth-child(2)) { /*the Item col*/
+    text-align: center;
 }
 section > table > thead th:nth-child(3) {
     min-width: 100px;
