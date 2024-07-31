@@ -98,9 +98,12 @@ downloadBtn.addEventListener('click', async (e) => {
     //hide downloadBtn at the end
 });
 //menu btns
+const messengerDialog = document.querySelector('dialog#messenger');
 const menuBtns = document.querySelectorAll('.submenu menu > li');
-menuBtns.forEach(menuBtn => {
+menuBtns.forEach((menuBtn, ix) => {
     menuBtn.addEventListener('click', (e) => {
-        console.log(e.target.innerText);
+        // console.log(e.target.innerText);
+        messengerDialog.showModal();
+        // batch.update each oid increment(-qty);
     });
 });

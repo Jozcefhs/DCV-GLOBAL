@@ -12,7 +12,7 @@
             <svg width="2em" height="2em"><use href="#download-more" xlink:href="#download-more"></use></svg>
         </div>
         <nav>
-            <a href="#" class="active" data-status="0">New</a>
+            <a href="#" data-status="0">New</a>
             <a href="#" data-status="1">Reviewed</a>
             <a href="#" data-status="2">Fulfilled</a>
         </nav>
@@ -62,6 +62,24 @@
             </table>
         </section>
     </main>
+    <dialog id="messenger">
+        <div class="prompt">
+            <div class="header">Message header</div>
+            <output>Do you want to do something here?</output>
+            <div class="footer">
+                <button type="button">YES</button><button type="button">NO</button>
+            </div>
+        </div>
+        <div class="process">
+            <div class="loader"></div>
+        </div>
+        <div class="done">
+            <output>Completed.</output>
+            <div class="footer">
+                <button type="button">CLOSE</button>
+            </div>
+        </div>
+    </dialog>
     <div id="svgs" style="display: none;">
         <?xml version="1.0" encoding="utf-8"?>
         <svg xmlns="http://www.w3.org/2000/svg">

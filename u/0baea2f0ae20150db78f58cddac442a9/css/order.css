@@ -165,7 +165,7 @@ span.abbr, .name {
     font-weight: 500;
 }
 section {
-    font-size: .8em;
+    font-size: .9em;
 }
 section > table {
     margin: 2em auto 0;
@@ -179,7 +179,8 @@ section > table > thead th:nth-child(2) {
     min-width: 220px;
     text-align: left;
 }
-section > table > tbody td:not(:nth-child(2)) { /*the Item col*/
+section > table > tbody td:not(:nth-child(2)),
+tfoot td:last-child { /*the Item col*/
     text-align: center;
 }
 section > table > thead th:nth-child(3) {
