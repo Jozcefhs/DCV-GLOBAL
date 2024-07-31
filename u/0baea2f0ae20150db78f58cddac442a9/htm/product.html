@@ -8,26 +8,26 @@
 </head>
 <body>
     <main>
-        <p id="info">Fields marked with double asterisks ( <span>&ast;&ast;</span> ) are required.<br>Those marked with a single asterisk ( <span>&ast;</span> ) are not required, but may be necessary within the section that they belong.</p>
+        <p id="info">Fields marked with a single asterisk ( <span>&ast;</span> ) are required.</p>
         <!-- <img src="" alt="blobbed"> -->
         <form name="product-form" id="product-form">
             <h4>Main</h4>
             <div class="form_group">
-                <label for="category"><i>&ast;&ast;</i>
+                <label for="category"><i>&ast;</i>
                     <select name="category" id="category" required>
                         <option value="">Choose category</option>
                     </select>
                 </label>
                 <label for="name">
-                    <i>&ast;&ast;</i>
+                    <i>&ast;</i>
                     <input type="text" name="name" id="name" placeholder="Product Name" required/>
                 </label>
                 <label>
-                    <i>&ast;&ast;</i>
+                    <i>&ast;</i>
                     <input type="number" name="price" placeholder="Price" required/>
                 </label>
                 <label>
-                    <i>&ast;&ast;</i>
+                    <i>&ast;</i>
                     <input type="number" name="qty" placeholder="Quantity" required/>
                 </label>
                 <input type="text" name="shelf" placeholder="Shelf"/>
@@ -35,7 +35,7 @@
             <h4>Offices</h4>
             <div class="form_group">
                 <input type="text" name="prodID" placeholder="Product ID">
-                <label for="brand"><i>&ast;</i>
+                <label for="brand">
                     <input type="text" name="brand" id="brand" placeholder="Brand e.g. Kangaroo">
                 </label>
                 <input type="text" name="size" placeholder="Size e.g. S, M,...XL">
@@ -45,7 +45,7 @@
             <div class="form_group">
                 <input type="text" name="publisher" placeholder="Publisher">
                 <input type="text" name="leaves" placeholder="Leaves e.g. 40L">
-                <label for="school"><i>&ast;</i>
+                <label for="school">
                     <select name="school" id="school">
                         <option value="">Choose school</option>
                         <option value="kindergarten">Kindergarten</option>
@@ -54,12 +54,12 @@
                         <option value="secondary">Secondary</option>
                     </select>
                 </label>
-                <label for="class"><i>&ast;</i>
+                <label for="class">
                     <select name="class" id="class">
                         <option value="">Choose class</option>
                     </select>
                 </label>
-                <label for="subjName"><i>&ast;</i>
+                <label for="subjName">
                     <textarea name="subjName" id="subjName" cols="30" rows="5" placeholder="Subjects, e.g. English, Maths... (Separate each subject with a comma and space)"></textarea>
                 </label>
             </div>

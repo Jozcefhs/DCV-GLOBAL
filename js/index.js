@@ -364,10 +364,12 @@ const notLoggedInNotice = document.querySelector("div.nli");
 let shelf = {};
 sessionStorage.getItem('shelf') == null ? sessionStorage.setItem('shelf', JSON.stringify([shelf])) : console.info('%c<webmart app>: %cUser has already set up shelf.', 'color: #1a73e8', 'color: #555');   //checks if ss.shelf exists; if not, creates it
 addToCartBtn.addEventListener("click", async (e) => {
+    let user = JSON.parse(localStorage.getItem('user'));
     addToCartBtn.disabled = true;
     let num = Number(qty.innerText);
     let id = addToCartBtn.dataset.prodId;
-    let user = JSON.parse(localStorage.getItem('user'));
+    //check if item in cart is up to ten
+    if (Object.keys(user?.profile.cart).length > 1) return alert("Your cart is full. Please, checkout items before continuing shopping.");
     if (user)  {
         //check if item already in the cart
         if (user.profile.cart.hasOwnProperty(id)) {
