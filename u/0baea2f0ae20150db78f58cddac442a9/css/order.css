@@ -167,7 +167,7 @@ span.abbr, .name {
 section {
     font-size: .9em;
 }
-section > table {
+section table {
     margin: 2em auto 0;
     border-collapse: collapse;
 }
@@ -175,18 +175,18 @@ td, th {
     border: 1px solid #ccc;
     padding: .7em 1em;
 }
-section > table > tbody td:nth-child(4) {
+section table > tbody td:nth-child(4) {
     padding: 0;
 }
-section > table > thead th:nth-child(2) {
+section table > thead th:nth-child(2) {
     min-width: 220px;
     text-align: left;
 }
-section > table > tbody td:not(:nth-child(2)),
+section table > tbody td:not(:nth-child(2)),
 tfoot td:last-child { /*the Item col*/
     text-align: center;
 }
-section > table > thead th:nth-child(3) {
+section table > thead th:nth-child(3) {
     min-width: 100px;
 }
 .ldg {
@@ -206,6 +206,23 @@ td > input[type="number"] {
     color: #1a73e8;
     font-weight: 600;
     text-align: center;
+}
+dialog {
+    margin: auto;
+    outline: none;
+    border: 0;
+    max-width: 300px;
+    overflow: hidden;
+    border-radius: 7px;
+    box-shadow: 0 0 20px #aaa;
+    position: relative;
+}
+dialog > div {
+    border: 1px solid;
+    /* position: absolute; */
+    transform: translateY(0);
+    padding: 1em;
+    width: 350px;
 }
 @media screen and (max-width: 768px) {
     main {
