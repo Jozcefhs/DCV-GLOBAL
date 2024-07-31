@@ -175,6 +175,9 @@ td, th {
     border: 1px solid #ccc;
     padding: .7em 1em;
 }
+section > table > tbody td:nth-child(4) {
+    padding: 0;
+}
 section > table > thead th:nth-child(2) {
     min-width: 220px;
     text-align: left;
@@ -189,6 +192,20 @@ section > table > thead th:nth-child(3) {
 .ldg {
     pointer-events: none;
     opacity: .3;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+    display: none;
+}
+td > input[type="number"] {
+    width: 3.5em;
+    outline: none;
+    border: 0;
+    color: #1a73e8;
+    font-weight: 600;
+    text-align: center;
 }
 @media screen and (max-width: 768px) {
     main {

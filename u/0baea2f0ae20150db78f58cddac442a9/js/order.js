@@ -60,7 +60,7 @@ navBtns.forEach((navBtn, index) => {
                             <td>${c++}</td>
                             <td>${i}</td>
                             <td>${p}</td>
-                            <td>${q}</td>
+                            <td><input type='number' placeholder='Qty' value='${q}' data-price='${p}'/></td>
                             <td>${p * q}</td>
                         </tr>
                     `);
@@ -68,6 +68,19 @@ navBtns.forEach((navBtn, index) => {
                 const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
                 const tfoot = table.querySelector('tfoot tr td:last-child');
                 tfoot.innerHTML = `&#8358 ${grandtotal}`;
+
+                //td input change event
+                const QtyInputs = document.querySelectorAll('td > input');
+                QtyInputs.forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        const v = e.target.value;
+                        const p = e.target.dataset.price;
+                        e.target.parentElement.nextElementSibling.innerText = v * p;
+                        const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
+                        const tfoot = table.querySelector('tfoot tr td:last-child');
+                        tfoot.innerHTML = `&#8358 ${grandtotal}`;
+                    });
+                });
             });
         }
         aside.classList.remove('ldg');

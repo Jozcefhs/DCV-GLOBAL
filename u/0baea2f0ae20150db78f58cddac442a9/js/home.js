@@ -3,6 +3,7 @@ const app = fbInitializer();
 const db = getFirestore(app);
 
 //count New orders
+
 window.addEventListener('load', async () => {
     const orderNoticeElem = document.querySelector('.order .number');
     orderNoticeElem.classList.add('searching');

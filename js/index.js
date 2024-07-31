@@ -182,7 +182,7 @@ async function loadDocs(cat) {
     let first;
     if (cat == 'all') {
         // first = query(prodColl, orderBy("dateCreated", "desc"));
-        first = query(prodColl, orderBy(rdv), limit(2));
+        first = query(prodColl, orderBy(rdv)); //limit(25)
     } else {
         first = query(prodColl, where("category", "==", cat), orderBy(rdv));    //later, insert limit(25)
     }
@@ -369,8 +369,8 @@ addToCartBtn.addEventListener("click", async (e) => {
     let num = Number(qty.innerText);
     let id = addToCartBtn.dataset.prodId;
     //check if item in cart is up to ten
-    if (Object.keys(user?.profile.cart).length > 1) return alert("Your cart is full. Please, checkout items before continuing shopping.");
     if (user)  {
+        if (Object.keys(user?.profile.cart).length > 1) return alert("Your cart is full. Please, checkout items before continuing shopping.");
         //check if item already in the cart
         if (user.profile.cart.hasOwnProperty(id)) {
             alert('This item is already in the cart.');
@@ -384,7 +384,7 @@ addToCartBtn.addEventListener("click", async (e) => {
             progressBar.classList.replace("checking","checked");
         }
     } else {
-        if (!(Object.values(JSON.parse(sessionStorage.shelf))[0].hasOwnProperty(id))) {//checks if the user already has the product in the shelf
+        if (!(Object.values(JSON.parse(sessionStorage.shelf))[0].hasOwnProperty(id)) && Object.keys(shelf).length > 1) {//checks if the user already has the product in the shelf
             shelf[id] = num;
             sessionStorage.setItem('shelf', JSON.stringify([shelf]));
         }
