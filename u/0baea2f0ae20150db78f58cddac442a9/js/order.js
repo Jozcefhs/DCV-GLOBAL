@@ -64,7 +64,7 @@ navBtns.forEach((navBtn, index) => {
                             <td>${c++}</td>
                             <td>${i}</td>
                             <td>${p}</td>
-                            <td><input type='number' id='${k}' name='${i}' placeholder='Qty' value='${q}' data-price='${p}'/></td>
+                            <td><input type='number' id='${k}' name='${i}' placeholder='Qty' value='${q}' data-price='${p}' min='0'/></td>
                             <td>${p * q}</td>
                         </tr>
                     `);
