@@ -21,8 +21,9 @@
                 <svg width="2em" height="2em"><use href="#more-icon" xlink:href="#more-icon"></use></svg>
             </div>
             <menu>
-                <li>Mark as reviewed</li>
-                <li>Mark as fulfilled</li>
+                <!-- <li>Mark as reviewed</li> -->
+                <li>Send part invoice</li>
+                <li>Send full invoice</li>
             </menu>
         </div>
     </header>
@@ -53,25 +54,46 @@
                             <th>Price</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                    </tbody>
                     <tfoot>
                         <tr>
+                            <td colspan="4">Discount</td>
+                            <td><input type='number' id='discount' name='discount' placeholder='Amt' min='0'/></td>
+                        </tr>
+                        <tr>
                             <td colspan="4">Grand Total</td>
-                            <td>&#8358; <span>0</span></td>
+                            <td>&#8358; 0</td>
                         </tr>
                     </tfoot>
                 </table>
             </form>
         </section>
     </main>
-    <dialog id="messenger">
-        <div class="prompt">
-            <div class="header">Message header</div>
-            <output>Do you want to do something here?</output>
-            <div class="footer">
-                <button type="button">YES</button><button type="button">NO</button>
+    <dialog id="full-invoice-dialog">
+        <div class="wrapper stg01">
+            <div class="header">
+                <div class="button close_icon" onclick="this.closest('dialog').close();this.closest('div.wrapper').classList.replace('stg03','stg01');">
+                    <svg width="1em" height="1em"><use href="#close-icon" xlink:href="#close-icon"></use></svg>
+                </div>
+            </div>
+            <div class="body">
+                <output>Send <span class="customer">Customer 02</span> a full invoice?</output>
+                <div class="footer">
+                    <button type="button" class="button jsYesBtn">YES</button>
+                    <button type="button" class="button" onclick="this.closest('dialog').close();">NO</button>
+                </div>
+            </div>
+            <div class="process">
+                <div class="loader"></div>
+            </div>
+            <div class="done">
+                <output>Full invoice sent.</output>
             </div>
         </div>
+    </dialog>
+    <dialog id="messenger">
+        
         <div class="process">
             <div class="loader"></div>
         </div>
@@ -94,6 +116,11 @@
                 <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
             </symbol>
         </svg>
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="close-icon" viewBox="0 0 12 12" fill="none" width="1em" height="1em">
+                <path d="M11.4671 1.1549L10.3122 0L5.73355 4.57865L1.1549 0L0 1.1549L4.57865 5.73355L0 10.3122L1.1549 11.4671L5.73355 6.88845L10.3122 11.4671L11.4671 10.3122L6.88845 5.73355L11.4671 1.1549Z" fill="#fff"/>
+            </symbol>
+        </svg>    
     </div>
     <script type="module" src="../js/order.js"></script>
     <script>

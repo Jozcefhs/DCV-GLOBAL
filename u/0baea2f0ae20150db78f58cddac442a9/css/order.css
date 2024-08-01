@@ -20,6 +20,11 @@ html, body {
     font: 15px system-ui;
     color: #555;
 }
+button {
+    outline: none;
+    border: 0;
+    background-color: transparent;
+}
 .card, .button {
     cursor: pointer;
 }
@@ -58,6 +63,7 @@ nav > a:hover {
 }
 .submenu {
     position: relative;
+    visibility: hidden;
 }
 .more_icon:hover {
     background-color: #1a73e811;
@@ -120,7 +126,7 @@ div.download_more {
     display: none;
 }
 svg {margin: 3px;}
-div.button > *,
+.button > *,
 .card > * {
     pointer-events: none;
 }
@@ -186,6 +192,9 @@ section table > tbody td:not(:nth-child(2)),
 tfoot td:last-child { /*the Item col*/
     text-align: center;
 }
+tfoot tr:last-child td:last-child {
+    font-weight: bold;
+}
 section table > thead th:nth-child(3) {
     min-width: 100px;
 }
@@ -207,22 +216,88 @@ td > input[type="number"] {
     font-weight: 600;
     text-align: center;
 }
+input#discount {color: #ff4500;}
+::backdrop {
+    background-color: rgba(255,255,255,.2);
+    backdrop-filter: blur(2px);
+}
 dialog {
     margin: auto;
     outline: none;
     border: 0;
     max-width: 300px;
-    overflow: hidden;
-    border-radius: 7px;
+    border-radius: 3px;
     box-shadow: 0 0 20px #aaa;
-    position: relative;
+    background-color: transparent;
+    overflow: hidden;
 }
-dialog > div {
-    border: 1px solid;
-    /* position: absolute; */
-    transform: translateY(0);
-    padding: 1em;
-    width: 350px;
+dialog > div.wrapper {
+    border-radius: 3px;
+    color: #fff;
+}
+div.wrapper > .header {
+    padding: 1em 1em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #1a73e8ff;
+}
+div.wrapper > .body {
+    background-color: #1a73e8ff;
+    padding: 2em;
+    font-size: 1.1em;
+}
+div.wrapper > .body .customer {
+    font-weight: 600;
+}
+div.wrapper > .body .footer {
+    /* border: 1px solid; */
+    padding: 2em 0 0 0;
+}
+.body .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.body .footer button {
+    font-size: 1em;
+    /* font-weight: 600; */
+    padding: .5em 1.2em;
+    border-radius: 3px;
+    color: #fff;
+    transition: backgrouund-color 150ms ease;
+}
+.body .footer button:hover {
+    background-color: #005dd7;
+}
+div.wrapper .loader {
+    height: 2em;
+    width: 2em;
+    border: 5px solid;
+    border-color: #1a73e8 #1a73e8 transparent #1a73e8;
+    border-radius: 50%;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: backwards;
+    animation-timing-function: ease;
+}
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+div.wrapper > .done {
+    background-color: #1a73e8;
+    font-size: 1.2em;
+    padding: 0 2em 2em;
+}
+div.wrapper.stg02 .loader {
+    animation-name: spin;
+}
+div.wrapper.stg01 > *:not(div.body),
+div.wrapper.stg02 > *:not(div.process),
+div.wrapper.stg03 > *:not(div.header, div.done) {
+    display: none;
 }
 @media screen and (max-width: 768px) {
     main {

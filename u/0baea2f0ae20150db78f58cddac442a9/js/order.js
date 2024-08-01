@@ -19,14 +19,16 @@ prevBtn.addEventListener('click', (e) => {
     main.classList.toggle('shw');
 })
 //nav btns
+const subMenu = document.querySelector('.submenu');
 const asideTemplate = aside.querySelector('template');
 const navBtns = document.querySelectorAll('nav > a');
-let docArray, docIds, lastVisible, reviewData;
+let docArray, docIds, lastVisible, reviewData, prevDiscount = 0;
 navBtns.forEach((navBtn, index) => {
     navBtn.addEventListener('click', async (e) => {
         navBtns.forEach((btn, idx) => btn.classList.toggle('active', index === idx));
         aside.classList.add('ldg');
-        // prevBtn.classList.remove('clk'), main.classList.remove('shw');
+        tbody.innerHTML = '';   //clear tbody
+        subMenu.style.visibility = 'hidden';
         docArray = [], docIds = [];  //empty docArray
         //query collectionGroup for [new orders | reviewed orders | fulfilled orders]
         
@@ -49,7 +51,8 @@ navBtns.forEach((navBtn, index) => {
         });
         for (let s = 0; s < querySnapshot.size; s++) {
             document.querySelectorAll('.card')[s].addEventListener('click', (e) => {
-                prevBtn.click();
+                prevBtn.click();    //for mobile responsive design
+                subMenu.style.visibility = 'visible';
                 tbody.innerHTML = '', reviewData = docArray[s].oid;
                 document.querySelector('.submenu > menu').id = docIds[s];
                 document.querySelector('.submenu > menu').setAttribute('data-uid', e.target.firstElementChild.id);
@@ -69,9 +72,10 @@ navBtns.forEach((navBtn, index) => {
                         </tr>
                     `);
                 }
+                const discVal = document.getElementById('discount');
                 const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
-                const tfoot = table.querySelector('tfoot tr td:last-child');
-                tfoot.innerHTML = `&#8358 ${grandtotal}`;
+                const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
+                tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
 
                 //td input change event
                 const QtyInputs = document.querySelectorAll('td > input');
@@ -81,11 +85,19 @@ navBtns.forEach((navBtn, index) => {
                         const i = e.target.name;
                         const q = e.target.value;
                         const p = e.target.dataset.price;
+                        if (id == 'discount') {
+                            const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
+                            const grandVal = Number((table.querySelector('tfoot tr:last-child td:last-child').textContent).slice(2));
+                            tfootGT.innerHTML = `&#8358; ${grandVal + prevDiscount - Number(discVal.value)}`;
+                            prevDiscount = Number(discVal.value);
+                            return;
+                        }
                         reviewData[id] = [i, p, q];
-                        e.target.parentElement.nextElementSibling.innerText = q * p;
+                        const td = e.target.parentElement.nextElementSibling;
+                        td.innerText = q * p;
                         const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
-                        const tfoot = table.querySelector('tfoot tr td:last-child');
-                        tfoot.innerHTML = `&#8358 ${grandtotal}`;
+                        const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
+                        tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
                     });
                 });
             });
@@ -107,7 +119,7 @@ downloadBtn.addEventListener('click', async (e) => {
         clone.querySelector('.usr').style.backgroundColor = doc.data().hex;
         clone.querySelector('.abbr').textContent = doc.data().alias;
         clone.querySelector('.name').textContent = doc.data().uname;
-        clone.querySelector('.date').textContent = new Intl.DateTimeFormat('en-US').format(new Date(doc.data().orderDate));
+        clone.querySelector('.date').textContent = new Intl.DateTimeFormat('en-GB').format(new Date(doc.data().orderDate));
 
         clone.addEventListener('click', (e) => {
             console.log('my clone');
@@ -129,25 +141,46 @@ orderForm.addEventListener('submit', (e) => {
 });
 
 //menu btns
-const messengerDialog = document.querySelector('dialog#messenger');
+let orderParams;
 const menuBtns = document.querySelectorAll('.submenu menu > li');
 menuBtns.forEach((menuBtn, ix) => {
     menuBtn.addEventListener('click', async (e) => {
-        // messengerDialog.showModal();
-        //messengerDialog takes the following:
         const uid = e.target.parentElement.dataset.uid;
         const oid = e.target.parentElement.id;
-
-        const orderRef = doc(db, "users", uid, "Orders", oid);
-        batch.update(orderRef, {'oid': reviewData, 'status': 1});
-    
-        const entr = Object.entries(reviewData);
-        const prom = entr.map(async (el, ix) => {
-            const pid = el[0];
-            const qty = Number(el[1][2]);
-            batch.update(doc(db, "products", pid), {'qty': increment(-qty)});
-        });
-        await batch.commit();
-        window.alert("Document has been updated.");
+        if (ix == 0) {
+            document.querySelector("#full-invoice-dialog").showModal();
+            orderParams = [uid, oid, 1];    //1 reps partly-paid invoice
+        } else if (ix == 1) {
+            document.querySelector("#full-invoice-dialog").showModal();
+            orderParams = [uid, oid, 2];    //2 reps fully-paid invoice
+        }
     });
 });
+
+const fidYesBtn = document.querySelector('dialog#full-invoice-dialog .jsYesBtn');
+fidYesBtn.addEventListener('click', (e) => {
+    confirmOrder([...orderParams]);
+})
+
+function confirmOrder(uid, oid, stat) {
+    console.log(uid, oid, stat);
+    setTimeout(() => {
+        document.querySelector('dialog > div.wrapper').classList.replace('stg01', 'stg02');
+    }, 3000);
+    setTimeout(() => {
+        document.querySelector('dialog > div.wrapper').classList.replace('stg02', 'stg03');
+    }, 6000);
+    /*
+    const orderRef = doc(db, "users", uid, "Orders", oid);
+    batch.update(orderRef, {'oid': reviewData, 'status': 1});
+
+    const entr = Object.entries(reviewData);
+    const prom = entr.map(async (el, ix) => {
+        const pid = el[0];
+        const qty = Number(el[1][2]);
+        batch.update(doc(db, "products", pid), {'qty': increment(-qty)});
+    });
+    await batch.commit();
+    window.alert("Document has been updated.");
+    */
+}
