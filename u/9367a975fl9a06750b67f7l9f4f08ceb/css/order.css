@@ -1,3 +1,7 @@
+/* <style> */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap'); */
+/* </style> */
 * {margin: 0;padding: 0;box-sizing: border-box;scroll-behavior: smooth;}
 html, body {
     font: 15px system-ui;
@@ -80,11 +84,20 @@ main {
 }
 section {
     margin: 2em 0;
-    border: 1px solid #ccc;
     border-radius: 7px;
     padding: 1em;
 }
+section:not(section:nth-child(1)) {
+    border: 1px solid #ccc;
+}
 section:nth-child(1) {
+    text-align: center;
+}
+section:nth-child(1) #owner {
+    /* font-family: 'Cedarville Cursive', cursive; */
+    font-family: 'Dancing Script', cursive;
+    font-weight: 400;
+    font-size: 3em;
     text-align: center;
 }
 section:nth-child(1) > div:nth-of-type(2) {
@@ -202,9 +215,6 @@ section:nth-child(3) > div:nth-of-type(1) {
     font-family: monospace;
 }
 .stat_bar + div > .more_icon {
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
     border-radius: 50%;
     transition: background-color 200ms ease;
 }
@@ -218,11 +228,64 @@ section:nth-child(3) > div:nth-of-type(1) {
     width: max-content;
     box-shadow: 0 0 5px #ccc;
     background-color: #fff;
-    display: none;
+    transform: translateY(-15px);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1;
+    transition: transform 400ms ease, opacity 200ms ease;
+}
+.more_icon + menu.shw {
+    pointer-events: fill;
+    opacity: 1;
+    transform: translateY(0);
 }
 .more_icon + menu > li {
     display: block;
     padding: .7em 2em;
+    transition: background-color 200ms ease;
+}
+.more_icon + menu > li:hover {
+    background-color: #daeaff85;
+}
+section .main {
+    position: relative;
+    border-top: 1px solid #ccc;
+    margin-top: 2em;
+    padding-top: 2em;
+    color: #777;
+}
+section .main > .head {
+    padding: 0 1em;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;align-items: center;
+    gap: 1em;
+    background-color: #fff;
+}
+.head > span {
+    font-family: monospace;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+.details {
+    display: flex;
+    justify-content: space-between;
+}
+div.table {
+    padding-top: 2em;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+thead th:nth-child(2), tbody td:nth-child(2) {
+    text-align: left;
+}
+td, th {
+    padding: .5em;
 }
 /* .svg { /*appears to be redundant (check with .link selector)/
     position: relative;
@@ -275,37 +338,20 @@ nav > a.active {
     left: 0;
     right: 0;
 } */
+ @media print {
+    header {display: none;}
+    main {width: 95%;}
+ }
 @media screen and (max-width: 768px) {
     main {
         width: 75%;
     }
-    .chevron {
+    /* .chevron {
         display: none;
-    }
-    /* nav {
-        display: block;
-        transform: translateX(-100%);
-        position: absolute;
-        top: 0;
-        left: 0;
-        min-width: 40%;
-        max-width: 50%;
-        height: 100vh;
-        transition: transform 400ms ease-out;
-    }
-    nav > a, nav > .arrow {
-        display: block;
-    }
-    nav > .arrow {
-        margin-bottom: 4em;
-    }
-    nav.show {
-        box-shadow: 3px 0 5px #ccc;
-        transform: translateX(0);
-    }
-    .menu_btn {
-        visibility: visible;
     } */
 }
-/* @media screen and (max-width: 667px) {
-} */
+@media screen and (max-width: 667px) {
+    main {
+        width: 95%;
+    }
+}
