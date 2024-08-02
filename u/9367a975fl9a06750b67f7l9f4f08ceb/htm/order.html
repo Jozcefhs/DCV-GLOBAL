@@ -4,199 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orders</title>
-    <link rel="stylesheet" href="./css/order.css">
+    <link rel="stylesheet" href="../css/order.css">
 </head>
 <body class>
     <header>
         <div class="top">
-            <a href="#"><img src="./img/picture-image-svgrepo-com (1).svg" alt="default"></a>
+            <a href="#"><img src="../../../img/picture-image-svgrepo-com (1).svg" alt="default"></a>
             <div class="topnav">
                 <a href="#" class="active">Orders</a>
                 <a href="#">Wishlist</a>
             </div>
-            <div class="svg link wish">
-                <i>0</i>
-                <svg width="2em" height="2em"><use href="#wish" xlink:href="#wish"></use></svg>
-            </div>
-            <div class="svg link cart">
-                <i>0</i>
-                <svg width="2em" height="2em"><use href="#cart" xlink:href="#cart"></use></svg>
-            </div>
             <div id="user-pic" class="link">
-                <img src="./img/user-profile-circle-svgrepo-com.svg" alt="user-pic">
+                <img src="../../../img/user-profile-circle-svgrepo-com.svg" alt="user-pic">
             </div>
         </div>
-        <!-- <div class="bottom">
-            <div class="svg menu_btn jsbtn">
-                <svg width="2em" height="2em"><use href="#menu" xlink:href="#menu"></use></svg>
-            </div>
-            <div class="link chevron left">
-                <svg width="1em" height="1em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
-            </div>
-            <nav>
-                <div class="link arrow jsbtn">
-                    <svg width="2em" height="2em"><use href="#arrow" xlink:href="#arrow"></use></svg>
-                </div>
-                <a href="#" id="all" class="active">All</a>
-            </nav>
-            <div class="link chevron right">
-                <svg width="1em" height="1em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
-            </div>
-            <div class="link filter" onclick="discloseForm(this);">
-                <img src="./img/filter.97c596624d8d10e6722d.svg" alt="filter">
-            </div>
-            <form action="#" name="form-filter" id="form-filter">
-                <input type="text" placeholder="Filter...">
-                <button type="submit" class="svg">
-                    <svg width="2em" height="2em"><use href="#arrow" xlink:href="#arrow"></use></svg>
-                </button>
-            </form>
-            <div class="link search" onclick="discloseForm(this);" style="display:none">
-                <img src="./img/search.cebfd63a204ba9fefa74.svg" alt="search">
-            </div>
-            <form action="#" name="form-search" id="form-search">
-                <input type="search" name="search" id="search" placeholder="Search...">
-                <button type="submit" class="svg">
-                    <svg width="2em" height="2em"><use href="#arrow" xlink:href="#arrow"></use></svg>
-                </button>
-            </form>
-        </div> -->
     </header>
     <main>
-        <template>
-            <div class="card">
-                <img src="./img/picture-image-svgrepo-com (1).svg">
-                <div class="title"></div>
-                <div class="price"></div>
-                <!-- <div class="footer">
-                    <div class="link wish">
-                        <img src="../../../img/wishlist-svgrepo-com.svg" alt="wish">
-                    </div>
-                    <div class="link cart">
-                        <img src="../../../img/shopping-cart-svgrepo-com.svg" alt="cart">
-                    </div>
-                </div> -->
+        <section>
+            <div></div>
+            <div>DCV Global Nigeria Limited | 080-000-0000 | christopher@gmail.com</div>
+        </section>
+        <section>
+            <h2>Orders</h2>
+            <div>Welcome to the Orders page. Please pick a date for which order you want to view.</div>
+            <div class="btn">
+                <div class="jsDateBtn">Choose an order placed on:</div>
+                <menu>
+                    <li>Wednesday 12, June 1990</li>
+                    <li>Friday 02, September 1979</li>
+                    <li>Sunday 10, August 1890</li>
+                    <li>Tuesday 12, January 1990</li>
+                </menu>
             </div>
-        </template>
+        </section>
+        <section>
+            <div>
+                <div class="stat_bar">
+                    <span class="stat_btn"><i class="check"></i></span>
+                    <span>This order ( refID: <b>xyzABC123456</b> ) has not yet been confirmed. Thank you for your patience.</span>
+                </div>
+                <div>
+                    <div class="more_icon link"><svg width="24" height="24"><use href="#more-icon" xlink:href="#more-icon"></use></svg></div>
+                    <menu>
+                        <li>Print Invoice</li>
+                        <li>Download Invoice</li>
+                    </menu>
+                </div>
+            </div>
+        </section>
     </main>
-    <aside class>
-        <div class="head">
-            <div class="link close">
-                <svg width="1em" height="1em"><use href="#close" xlink:href="#close"></use></svg>
-            </div>
-        </div>
-        <div class="progress_bar"></div>
-        <img src="./img/picture-image-svgrepo-com (1).svg" alt="aside-img">
-        <div class="body">
-        </div>
-        <div class="footer" style="opacity: 0;pointer-events: none;">
-            <div class="link chevron left jsChevron">
-                <svg width="1.5em" height="1.5em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
-            </div>
-            <span id="qty">12</span>
-            <div class="link chevron right jsChevron">
-                <svg width="1.5em" height="1.5em"><use href="#chevvy" xlink:href="#chevvy"></use></svg>
-            </div>
-        </div>
-        <button type="button" id="add-to-cart">Add to cart &ndash;&nbsp; <span>&#8358; 0</span></button>
-        <button type="button" class="link check">
-            <span>&checkmark;</span>
-        </button>
-    </aside>
-    <section>
-            <div class="head">
-                <span>Cart</span>
-                <button id="checkout-btn" form="checkout-form">Checkout &ndash;&nbsp; &#8358;<span>0</span></button>
-                <div class="link close">
-                    <svg width="1em" height="1em"><use href="#close" xlink:href="#close"></use></svg>
-                </div>
-            </div>
-        </div>
-        <form name="checkout-form" id="checkout-form">
-            <template id="cart-temp">
-                <div class="cart_wrap">
-                    <div class="serial"></div>
-                    <div class="fxl"> <!--FleX Left-->
-                        <p></p>
-                        <p>&#8358; <span></span></p>
-                        <input type="number" name="pid" placeholder="QTY" value="1" min="1" data-ppu> <!--Price Per Unit-->
-                        <input type="hidden" name="n">
-                        <input type="hidden" name="p">
-                    </div>
-                    <div class="fxr">
-                        <div class="subtotal">&#8358; <span></span></div>
-                        <button type="button">
-                            <span>&CircleMinus;</span>
-                            <span>Remove</span>
-                        </button>
-                    </div>
-                </div>
-            </template>
-        </form>
-        <template id="search-temp"></template>
-    </section>
-    <div class="nli dialog">
-        <div>
-            <span>You're not logged in.</span>
-            <span class="link">SIGN UP</span>
-            <span class="link">LOG IN</span>
-        </div>
-        <img src="./img/close-outline.svg" alt="close-svg" class="link">
-    </div>
-    <dialog id="sign-up-dialog">
-        <div class="h2">Sign Up Form</div>
-        <form name="sign-up-form" id="sign-up-form">
-            <div class="form_group">
-                <input type="text" name="uname" id="uname" placeholder="Enter your username" autofocus required>
-            </div>
-            <div class="form_group">
-                <input type="email" name="email" id="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form_group">
-                <input type="password" name="pword" id="pword" placeholder="Enter your password" required>
-                <svg width="2em" height="2em" class="shut opq"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
-                <svg width="2em" height="2em" class="open"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
-            </div>
-            <div class="form_group">
-                <input type="password" name="pword-chk" id="pword-chk" placeholder="Re-type your password" required>
-                <svg width="2em" height="2em" class="shut opq"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
-                <svg width="2em" height="2em" class="open"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
-            </div>
-            <div class="form_group">
-                <input type="tel" name="phone" id="phone" placeholder="Enter phone number" required>
-            </div>
-            <div class="form_group">
-                <input type="submit" value="Sign Up">
-                <input type="button" onclick="this.closest('dialog').close()" value="Cancel">
-            </div>
-        </form>
-        <p>Already a user? <span class="link login">Log in</span></p>
-        <output class="opq">
-            <div class="checkmark">&checkmark;</div>
-            <div class="output">You are registered and logged in.</div>
-            <input type="button" onclick="this.closest('dialog').close()" value="CLOSE">
-        </output>
-    </dialog>
-    <dialog id="login-dialog">
-        <div class="h2">Login Form</div>
-        <form name="login-form" id="login-form">
-            <div class="form_group">
-                <input type="text" name="username" id="username" placeholder="Enter your username or email" autofocus required>
-            </div>
-            <div class="form_group">
-                <input type="password" name="pwd" id="pwd" placeholder="Enter your password" autocomplete="current-password" required>
-                <svg width="2em" height="2em" class="shut opq"><use href="#eye-closed" xlink:href="#eye-closed"></use></svg>
-                <svg width="2em" height="2em" class="open"><use href="#eye-opened" xlink:href="#eye-opened"></use></svg>
-            </div>
-            <div class="form_group">
-                <input type="submit" value="Login">
-                <input type="button" onclick="this.closest('dialog').close()" value="Cancel">
-            </div>
-        </form>
-        <p>Not a user? <span class="link signup">Sign up</span></p>
-    </dialog>
     <div class="svgrepo" style="display: none;">
+
         <svg xmlns="http://www.w3.org/2000/svg">
+            <symbol id="more-icon"  width="24" height="24" fill="#5F6368">
+                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+            </symbol>
+        </svg>
+        <!-- <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="separator-line" viewBox="0 0 1 13" fill="none">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M0.571726 11.6904V0.875681V11.6904Z" fill="#FF1C1C"/>
                 <path d="M0.571726 11.6904V0.875681" stroke="#aaa" stroke-width="0.866667" stroke-linecap="square"/>
@@ -249,35 +113,51 @@
                 <path d="M12 5C8.24261 5 5.43602 7.4404 3.76737 9.43934C2.51521 10.9394 2.51521 13.0606 3.76737 14.5607C5.43602 16.5596 8.24261 19 12 19C15.7574 19 18.564 16.5596 20.2326 14.5607C21.4848 13.0606 21.4848 10.9394 20.2326 9.43934C18.564 7.4404 15.7574 5 12 5Z" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </symbol>
-        </svg>
+        </svg> -->
     </div>
-    <script type="module" src="/js/index.js"></script>
+    <script type="module" src="../js/order.js"></script>
     <script>
+        let activeMenu;
+        window.addEventListener('click', (e) => {
+            if (activeMenu) activeMenu.classList.remove('shw');
+        }, true);
+        const jsDateBtn = document.querySelector('.jsDateBtn');
+        jsDateBtn.addEventListener('click', (e) => {
+            e.target.classList.toggle('shw');
+            activeMenu = e.target;
+        });
+        const menuItems = document.querySelectorAll('section:nth-child(2) menu > li');
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                jsDateBtn.innerText = item.innerText;
+                jsDateBtn.classList.remove('shw');
+            });
+        });
         //window.scrollTop 105.5 is the exact height of the header
-        const nav = document.querySelector("nav");
-        const chevrons = document.querySelectorAll(".chevron");
-        chevrons.forEach(chevron => {
-            chevron.addEventListener("click", () => {
-                chevron.classList.contains("left") ? nav.scrollBy(-100,0) : nav.scrollBy(100,0);
-            });
-        });
-        const jsbtns = document.querySelectorAll(".jsbtn");
-        jsbtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                nav.classList.toggle("show");
-            })
-        })
-        function discloseForm(button) {
-            button.nextElementSibling.classList.toggle("show");
-        }
+        // const nav = document.querySelector("nav");
+        // const chevrons = document.querySelectorAll(".chevron");
+        // chevrons.forEach(chevron => {
+        //     chevron.addEventListener("click", () => {
+        //         chevron.classList.contains("left") ? nav.scrollBy(-100,0) : nav.scrollBy(100,0);
+        //     });
+        // });
+        // const jsbtns = document.querySelectorAll(".jsbtn");
+        // jsbtns.forEach(btn => {
+        //     btn.addEventListener("click", () => {
+        //         nav.classList.toggle("show");
+        //     })
+        // })
+        // function discloseForm(button) {
+        //     button.nextElementSibling.classList.toggle("show");
+        // }
 
-        const formRedirectBtns = document.querySelectorAll(".login, .signup");
-        formRedirectBtns.forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                const dialogs = document.querySelectorAll('#sign-up-dialog, #login-dialog');
-                dialogs.forEach(dialog => dialog.contains(btn) ? dialog.close() : dialog.showModal());
-            });
-        });
+        // const formRedirectBtns = document.querySelectorAll(".login, .signup");
+        // formRedirectBtns.forEach(btn => {
+        //     btn.addEventListener("click", (e) => {
+        //         const dialogs = document.querySelectorAll('#sign-up-dialog, #login-dialog');
+        //         dialogs.forEach(dialog => dialog.contains(btn) ? dialog.close() : dialog.showModal());
+        //     });
+        // });
     </script>
 </body>
 </html>

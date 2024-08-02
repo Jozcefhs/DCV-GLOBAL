@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="body">
-                <output>Send <span class="customer">Customer 02</span> a full invoice?</output>
+                <output>Send <span class="customer"></span> a full invoice?</output>
                 <div class="footer">
                     <button type="button" class="button jsYesBtn">YES</button>
                     <button type="button" class="button" onclick="this.closest('dialog').close();">NO</button>
@@ -89,6 +89,29 @@
             </div>
             <div class="done">
                 <output>Full invoice sent.</output>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="part-invoice-dialog">
+        <div class="wrapper stg01">
+            <div class="header">
+                <div class="button close_icon" onclick="this.closest('dialog').close();this.closest('div.wrapper').classList.replace('stg03','stg01');">
+                    <svg width="1em" height="1em"><use href="#close-icon" xlink:href="#close-icon"></use></svg>
+                </div>
+            </div>
+            <div class="body">
+                <output>Send <span class="customer"></span> an invoice for the part payment of:?</output>
+                <input type="number" name="bal" id="bal" placeholder="Amount paid for"/>
+                <div class="footer">
+                    <button type="button" class="button jsYesBtn">YES</button>
+                    <button type="button" class="button" onclick="this.closest('dialog').close();">NO</button>
+                </div>
+            </div>
+            <div class="process">
+                <div class="loader"></div>
+            </div>
+            <div class="done">
+                <output>Partial invoice sent.</output>
             </div>
         </div>
     </dialog>

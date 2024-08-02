@@ -22,7 +22,7 @@ prevBtn.addEventListener('click', (e) => {
 const subMenu = document.querySelector('.submenu');
 const asideTemplate = aside.querySelector('template');
 const navBtns = document.querySelectorAll('nav > a');
-let docArray, docIds, lastVisible, reviewData, prevDiscount = 0;
+let docArray, docIds, lastVisible, reviewData, username, prevDiscount = 0;
 navBtns.forEach((navBtn, index) => {
     navBtn.addEventListener('click', async (e) => {
         navBtns.forEach((btn, idx) => btn.classList.toggle('active', index === idx));
@@ -51,6 +51,7 @@ navBtns.forEach((navBtn, index) => {
         });
         for (let s = 0; s < querySnapshot.size; s++) {
             document.querySelectorAll('.card')[s].addEventListener('click', (e) => {
+                username = e.target.lastElementChild.firstElementChild.textContent;
                 prevBtn.click();    //for mobile responsive design
                 subMenu.style.visibility = 'visible';
                 tbody.innerHTML = '', reviewData = docArray[s].oid;
@@ -131,14 +132,14 @@ downloadBtn.addEventListener('click', async (e) => {
 });
 
 //order-form
-const orderForm = document.querySelector('#order-form');
-orderForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const fd = new FormData(orderForm);
-    for (const [k, v] of fd.entries()) {
-        console.log(k, v, 'end');
-    }
-});
+// const orderForm = document.querySelector('#order-form');
+// orderForm.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     const fd = new FormData(orderForm);
+//     for (const [k, v] of fd.entries()) {
+//         console.log(k, v, 'end');
+//     }
+// });
 
 //menu btns
 let orderParams;
@@ -147,8 +148,10 @@ menuBtns.forEach((menuBtn, ix) => {
     menuBtn.addEventListener('click', async (e) => {
         const uid = e.target.parentElement.dataset.uid;
         const oid = e.target.parentElement.id;
+        const customers = document.getElementsByClassName('customer');
+        for (let c = 0; c < customers.length; c++) customers.item(c).textContent = username;
         if (ix == 0) {
-            document.querySelector("#full-invoice-dialog").showModal();
+            document.querySelector("#part-invoice-dialog").showModal();
             orderParams = [uid, oid, 1];    //1 reps partly-paid invoice
         } else if (ix == 1) {
             document.querySelector("#full-invoice-dialog").showModal();
@@ -157,6 +160,9 @@ menuBtns.forEach((menuBtn, ix) => {
     });
 });
 
+document.addEventListener('timeout', () => {
+    alert("The time has timed out.");
+})
 const fidYesBtn = document.querySelector('dialog#full-invoice-dialog .jsYesBtn');
 fidYesBtn.addEventListener('click', (e) => {
     confirmOrder([...orderParams]);
@@ -164,15 +170,18 @@ fidYesBtn.addEventListener('click', (e) => {
 
 function confirmOrder(uid, oid, stat) {
     console.log(uid, oid, stat);
+    /*
     setTimeout(() => {
         document.querySelector('dialog > div.wrapper').classList.replace('stg01', 'stg02');
     }, 3000);
     setTimeout(() => {
         document.querySelector('dialog > div.wrapper').classList.replace('stg02', 'stg03');
     }, 6000);
+    */
+    console.log(reviewData, prevDiscount);
     /*
     const orderRef = doc(db, "users", uid, "Orders", oid);
-    batch.update(orderRef, {'oid': reviewData, 'status': 1});
+    batch.update(orderRef, {'oid': reviewData, 'status': 1, 'discount': prevDiscount}); // use batch.set..merge:true if update doesn't work for discount
 
     const entr = Object.entries(reviewData);
     const prom = entr.map(async (el, ix) => {

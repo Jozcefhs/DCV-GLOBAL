@@ -217,6 +217,17 @@ td > input[type="number"] {
     text-align: center;
 }
 input#discount {color: #ff4500;}
+input#bal {
+    display: block;
+    padding: .7em 1em;
+    margin: 1em auto 0;
+    border: 0;
+    border-radius: 30px;
+    font-size: .8em;
+    color: #555;
+    text-align: center;
+    letter-spacing: 3px;
+}
 ::backdrop {
     background-color: rgba(255,255,255,.2);
     backdrop-filter: blur(2px);
