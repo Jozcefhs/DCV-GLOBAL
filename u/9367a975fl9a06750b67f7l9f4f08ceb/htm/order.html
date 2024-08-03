@@ -36,6 +36,7 @@
                     <li>Friday 02, September 1979</li>
                     <li>Sunday 10, August 1890</li>
                     <li>Tuesday 12, January 1990</li>
+                    <li id="other">Other</li>
                 </menu>
             </div>
         </section>
@@ -49,7 +50,7 @@
                     <div class="more_icon link"><svg width="24" height="24"><use href="#more-icon" xlink:href="#more-icon"></use></svg></div>
                     <menu class="btn">
                         <li>Print Invoice</li>
-                        <li>Download Invoice</li>
+                        <li>Save PDF</li>
                     </menu>
                 </div>
             </div>
@@ -65,8 +66,8 @@
                         <p>0808-800-9999</p>
                     </div>
                     <div>
-                        <h4>Inv#: 123456;7890</h4>
-                        <p>Issue Date: 11/11/11</p>
+                        <h4>IVN: 1234567890-003</h4>
+                        <p>ISSD: 11111091</p>
                     </div>
                 </div>
                 <div class="table">
@@ -113,7 +114,7 @@
                     </table>
                 </div>
                 <div class="tfoot">
-                    <div>
+                    <div id="stDiv">
                         <span>Subtotal</span>
                         <span>12000000</span>
                     </div>
@@ -126,9 +127,14 @@
                         <span>12000000</span>
                     </div>
                     <div>
-                        <span>Amount paid</span>
+                        <span>Paid</span>
                         <span>1200000</span>
                     </div>
+                    <div id="balDiv">
+                        <span>Balance</span>
+                        <span>999990</span>
+                    </div>
+                    <div class="stamp is_deposit">Deposit</div>
                 </div>
                 <div id="acctDetails">
                     <p>Account Details</p>
@@ -166,6 +172,9 @@
         </svg>
     </div>
     <script type="module" src="../js/order.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> -->
     <script>
         let activeMenu;
         window.addEventListener('click', (e) => {
@@ -198,17 +207,32 @@
                 }
             });
         });
+
+        function downloadPDF() {
+            const main = document.querySelector('main');
+            // const dh = main.getBoundingClientRect().height;
+            // const dw = main.getBoundingClientRect().width;
+            const dh = main.clientHeight;
+            const dw = main.clientWidth;
+            var opt = {
+                margin: 20,
+                filename: 'mypdf.pdf',
+                html2canvas: {scale: 3},
+                jsPDF: { unit: 'px', format: [dw, dh], orientation: 'portrait', hotfixes: ['px_scaling'] }
+            }
+
+            html2pdf().set(opt).from(main).save();
+        }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
+        /*
         window.jsPDF = window.jspdf.jsPDF;
-        var docPDF = new jsPDF({
-            orientation: 'portrait',
-            format: 'a4',
-            unit: 'px',
+        var docPDF = new jsPDF(
+            // orientation: 'portrait',
+            // format: 'a4',
+            // unit: 'px',
             // putOnlyUsedFonts: true,
-        });
+        );
 
         function downloadPDF() {
             const main = document.querySelector('main');
@@ -217,12 +241,16 @@
                 callback: function (docPDF) {
                     docPDF.save('mypdf.pdf');
                 },
+                orientation: 'p',
+                format: 'a4',
+                unit: 'px',
                 x: 10,
                 y: 10,
                 width: main.getBoundingClientRect().width,
                 height: main.getBoundingClientRect().height,
             });
         }
+        */
     </script>
 </body>
 </html>

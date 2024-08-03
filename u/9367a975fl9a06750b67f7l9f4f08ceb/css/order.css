@@ -5,7 +5,7 @@
 * {margin: 0;padding: 0;box-sizing: border-box;scroll-behavior: smooth;}
 html, body {
     font: 15px system-ui;
-    color: #555;
+    color: #333;
 }
 button, .btn, .link/*, input[type="submit"], input[type="button"]*/ {
     cursor: pointer;
@@ -253,7 +253,7 @@ section .main {
     border-top: 1px solid #ccc;
     margin-top: 2em;
     padding-top: 2em;
-    color: #777;
+    color: #333;
 }
 section .main > .head {
     padding: 0 1em;
@@ -291,18 +291,43 @@ td, th {
 .tfoot {
     margin-top: 1em;
     padding: .5em 1em;
-    border: solid #ccc;
-    border-width: 1px 0 0;
+    /* border: solid #ccc;
+    border-width: 1px 0 0; */
+    position: relative;
 }
-.tfoot > div {
+.tfoot > div:not(:last-child) {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: .3em .3em;
 }
+.tfoot > #stDiv {
+    font-weight: 700;
+}
 .tfoot > #gtDiv {
     margin-top: 2em;
-    font-weight: 600;
+    font-weight: 700;
+}
+.tfoot > .stamp {
+    font-family: monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #555;
+    padding: .3em .5em;
+    border: 0.4rem solid #555;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-12deg);
+    text-transform: uppercase;
+    -webkit-mask-image: url('../img/grunge.png');
+    -webkit-mask-size: 398px 242px;
+    mix-blend-mode: multiply;
+}
+.stamp.is_paid {
+	color: #0A9928;
+	border: 0.5rem solid #0A9928;
+	-webkit-mask-position: 13rem 6rem;
 }
 #acctDetails {
     font-size: .9em;
@@ -344,6 +369,6 @@ footer > p > span {
     }
 }
 @media print {
-    header {display: none;}
+    header, .stat_bar + div {display: none;}
     main {width: 95%;}
 }
