@@ -330,61 +330,6 @@ footer {
 footer > p > span {
     font-family: 'Dancing Script', cursive;
 }
-/* .svg { /*appears to be redundant (check with .link selector)/
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-.svg > i {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(20%, 20%);
-    min-height: 1.5em;
-    min-width: 1.5em;
-    border: 1px solid #ccc;
-    border-radius: 7px;
-    color: #777;
-    padding: .1em .5em;
-    font-style: normal;
-    font-weight: bold;
-    font-size: .8em;
-    background-color: #fff;
-} */
-/* .menu_btn {
-    visibility: hidden;
-} */
-/* nav::-webkit-scrollbar {
-    display: none;
-}
-nav {
-    display: flex;
-    min-width: 50px;
-    overflow: scroll;
-    max-width: 75%;
-    background-color: #fff;
-}
-nav > .arrow {
-    display: none;
-}
-nav > a, .topnav > a {
-    padding: 0.8em;
-    background-color: inherit;
-}
-nav > a.active {
-    border-bottom: 2px solid #1a73e8;
-    background-color: #daeaff85;
-    color: #1a73e8;
-    position: sticky;
-    left: 0;
-    right: 0;
-} */
- @media print {
-    header {display: none;}
-    main {width: 95%;}
- }
 @media screen and (max-width: 768px) {
     main {
         width: 75%;
@@ -397,4 +342,8 @@ nav > a.active {
     main {
         width: 95%;
     }
+}
+@media print {
+    header {display: none;}
+    main {width: 95%;}
 }
