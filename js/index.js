@@ -2,8 +2,7 @@ import { addDoc, and, collection, deleteField, doc, fbInitializer, getCountFromS
 const app = fbInitializer();
 const db = getFirestore(app);
 const batch = writeBatch(db);
-//../../../img/picture-image-svgrepo-com (1).svg
-//&#8358;
+
 const untemplatedMain = document.querySelectorAll("main > *:not(template)");
 const main = document.querySelector("main");
 const cardTemplate = document.querySelector("template");
@@ -11,9 +10,21 @@ const cardTemplate = document.querySelector("template");
 //check if user is available, then update image icon, cart. Else, display LOG IN.
 const userCart = document.querySelectorAll('.top .cart, #user-pic');
 let ss_user = JSON.parse(localStorage.getItem("user"));
+const topNavAnchors = document.querySelectorAll('.topnav > a');
+topNavAnchors.forEach((anchor, idx) => {
+    anchor.addEventListener('click', e => {
+        e.preventDefault();
+        if (ss_user) {
+            location.assign(["./u/9367a975fl9a06750b67f7l9f4f08ceb/htm/order.html", "#"][idx]);
+        } else {
+            notLoggedInNotice.classList.add('show');
+        }
+    });
+});
 if (ss_user) {
     const cartLen = Object.entries(ss_user.profile.cart).length;
     userPresenceIndicator(cartLen);
+    
 }
 //function to indicate user has logged in
 function userPresenceIndicator(cart_len) {

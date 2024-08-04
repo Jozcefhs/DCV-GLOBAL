@@ -19,6 +19,7 @@ const orders = orderSnap.data().count;
 
 console.log(`You have ${orders} orders.`)
 const orderMenu = document.querySelector('.jsDateBtn + menu');
+const ldmr_loader = document.querySelectorAll('#ldmr, #ldmr + div');
 let myOrders = [], lastVisible;
 if (orders) {
     jsDateBtn.parentElement.classList.remove('disabled');
@@ -36,6 +37,7 @@ if (orders) {
             </li>
         `);
     });
+    if (myOrders.length == orders) ldmr_loader.forEach(ldmrLoader => ldmrLoader.remove());  //hide LOAD MORE btn
 }
 
 let activeMenu;
@@ -44,8 +46,6 @@ jsDateBtn.addEventListener('click', (e) => {
     e.target.classList.toggle('shw');
     // activeMenu = e.target;
 });
-
-//if myOrders.length == orders, hide LOAD MORE btn
 
 
 // const myOrders = ''

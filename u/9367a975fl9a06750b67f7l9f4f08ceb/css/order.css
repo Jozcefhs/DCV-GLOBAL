@@ -160,14 +160,14 @@ section:nth-of-type(2) > div:nth-of-type(2) > menu {
     max-height:  207px;
     overflow-y: scroll;
 }
-section:nth-of-type(2) menu > li:not(:last-of-type) {
+section:nth-of-type(2) menu > li:not(#ldmr) {
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
     padding: .7em 2em;
     transition: background-color 200ms ease;
 }
-section:nth-of-type(2) menu > li:not(:last-of-type) > * {
+section:nth-of-type(2) menu > li:not(#ldmr) > * {
     pointer-events: none;
 }
 section:nth-of-type(2) menu > li:hover {
