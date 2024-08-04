@@ -29,133 +29,136 @@
         <section>
             <h2>Orders</h2>
             <div>Welcome to the Orders page. Please pick a date for which order you want to view.</div>
-            <div class="btn">
+            <div class="btn disabled">
                 <div class="jsDateBtn">Choose an order placed on:</div>
                 <menu>
-                    <li>Wednesday 12, June 1990</li>
-                    <li>Friday 02, September 1979</li>
-                    <li>Sunday 10, August 1890</li>
-                    <li>Tuesday 12, January 1990</li>
-                    <li id="other">Other</li>
+                    <!-- <li>
+                        <span></span>
+                        <span></span>
+                    </li> -->
+                    <li id="ldmr">Load More</li>
+                    <div class="loader"><div></div></div>
                 </menu>
             </div>
         </section>
-        <section>
-            <div>
-                <div class="stat_bar">
-                    <span class="stat_btn"><i class="check"></i></span>
-                    <span>This order ( refID: <b>xyzABC123456</b> ) has not yet been confirmed. Thank you for your patience.</span>
-                </div>
+        <template id="invTemp">
+            <section>
                 <div>
-                    <div class="more_icon link"><svg width="24" height="24"><use href="#more-icon" xlink:href="#more-icon"></use></svg></div>
-                    <menu class="btn">
-                        <li>Print Invoice</li>
-                        <li>Save PDF</li>
-                    </menu>
-                </div>
-            </div>
-            <div class="main">
-                <div class="head">
-                    <svg width="20" height="20"><use href="#aster" xlink:href="#aster"></use></svg>
-                    <span>Invoice</span>
-                    <svg width="20" height="20"><use href="#aster" xlink:href="#aster"></use></svg>
-                </div>
-                <div class="details">
-                    <div>
-                        <h4>Customer 002</h4>
-                        <p>0808-800-9999</p>
+                    <div class="stat_bar">
+                        <span class="stat_btn"><i class="check"></i></span>
+                        <!-- <span>This order ( refID: <b>xyzABC123456</b> ) has not yet been confirmed. Thank you for your patience.</span> -->
                     </div>
-                    <div>
-                        <h4>IVN: 1234567890-003</h4>
-                        <p>ISSD: 11111091</p>
+                    <div class="actionBtns hdn">
+                        <div class="more_icon link"><svg width="24" height="24"><use href="#more-icon" xlink:href="#more-icon"></use></svg></div>
+                        <menu class="btn">
+                            <li>Print Invoice</li>
+                            <li>Save PDF</li>
+                        </menu>
                     </div>
                 </div>
-                <div class="table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Description</th>
-                                <th>Unit Price</th>
-                                <th>Qty</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Item 1 description is to be placed here.</td>
-                                <td>1001</td>
-                                <td>102</td>
-                                <td>10000000</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Item 2 description is to be placed here.</td>
-                                <td>1001</td>
-                                <td>102</td>
-                                <td>10000000</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Item 3 description is to be placed here.</td>
-                                <td>1001</td>
-                                <td>102</td>
-                                <td>10000000</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Item 4 description is to be placed here.</td>
-                                <td>1001</td>
-                                <td>102</td>
-                                <td>10000000</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tfoot">
-                    <div id="stDiv">
-                        <span>Subtotal</span>
-                        <span>12000000</span>
+                <div class="main hdn">
+                    <div class="head">
+                        <svg width="20" height="20"><use href="#aster" xlink:href="#aster"></use></svg>
+                        <span>Invoice</span>
+                        <svg width="20" height="20"><use href="#aster" xlink:href="#aster"></use></svg>
                     </div>
-                    <div>
-                        <span>Discount</span>
-                        <span>0</span>
-                    </div>
-                    <div id="gtDiv">
-                        <span>Grand Total</span>
-                        <span>12000000</span>
-                    </div>
-                    <div>
-                        <span>Paid</span>
-                        <span>1200000</span>
-                    </div>
-                    <div id="balDiv">
-                        <span>Balance</span>
-                        <span>999990</span>
-                    </div>
-                    <div class="stamp is_deposit">Deposit</div>
-                </div>
-                <div id="acctDetails">
-                    <p>Account Details</p>
-                    <div>
+                    <div class="details">
                         <div>
-                            <p>Christopher Raphael</p>
-                            <p>0123465783</p>
-                            <p>GTB</p>
+                            <h4>Customer 002</h4>
+                            <p>0808-800-9999</p>
                         </div>
                         <div>
-                            <p>Christopher Raphael</p>
-                            <p>09876543212</p>
-                            <p>OPAY</p>
+                            <h4>IVN: 1234567890-003</h4>
+                            <p>ISSD: 11111091</p>
                         </div>
                     </div>
+                    <div class="table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Description</th>
+                                    <th>Unit Price</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Item 1 description is to be placed here.</td>
+                                    <td>1001</td>
+                                    <td>102</td>
+                                    <td>10000000</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Item 2 description is to be placed here.</td>
+                                    <td>1001</td>
+                                    <td>102</td>
+                                    <td>10000000</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Item 3 description is to be placed here.</td>
+                                    <td>1001</td>
+                                    <td>102</td>
+                                    <td>10000000</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Item 4 description is to be placed here.</td>
+                                    <td>1001</td>
+                                    <td>102</td>
+                                    <td>10000000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tfoot">
+                        <div id="stDiv">
+                            <span>Subtotal</span>
+                            <span>12000000</span>
+                        </div>
+                        <div>
+                            <span>Discount</span>
+                            <span>0</span>
+                        </div>
+                        <div id="gtDiv">
+                            <span>Grand Total</span>
+                            <span>12000000</span>
+                        </div>
+                        <div>
+                            <span>Paid</span>
+                            <span>1200000</span>
+                        </div>
+                        <div id="balDiv">
+                            <span>Balance</span>
+                            <span>999990</span>
+                        </div>
+                        <div class="stamp is_deposit">Deposit</div>
+                    </div>
+                    <div id="acctDetails">
+                        <p>Account Details</p>
+                        <div>
+                            <div>
+                                <p>Christopher Raphael</p>
+                                <p>0123465783</p>
+                                <p>GTB</p>
+                            </div>
+                            <div>
+                                <p>Christopher Raphael</p>
+                                <p>09876543212</p>
+                                <p>OPAY</p>
+                            </div>
+                        </div>
+                    </div>
+                    <footer>
+                        <p>Thank you for your patronage.<br><span>Chris' Stores</span></p>
+                    </footer>
                 </div>
-                <footer>
-                    <p>Thanks for your patronage.<br><span>Chris' Stores</span></p>
-                </footer>
-            </div>
-        </section>
+            </section>
+        </template>
     </main>
     <div class="svgrepo" style="display: none;">
         <svg xmlns="http://www.w3.org/2000/svg">
@@ -176,27 +179,8 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> -->
     <script>
-        let activeMenu;
-        window.addEventListener('click', (e) => {
-            if (activeMenu) activeMenu.classList.remove('shw');
-        }, true);
-        const jsDateBtn = document.querySelector('.jsDateBtn');
-        jsDateBtn.addEventListener('click', (e) => {
-            e.target.classList.toggle('shw');
-            activeMenu = e.target;
-        });
-        const menuItems = document.querySelectorAll('section:nth-child(2) menu > li');
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                jsDateBtn.innerText = item.innerText;
-                jsDateBtn.classList.remove('shw');
-            });
-        });
-        const moreIcon = document.querySelector('.more_icon');
-        moreIcon.onclick = (e) => {
-            e.target.nextElementSibling.classList.toggle('shw');
-            activeMenu = e.target.nextElementSibling;
-        }
+        
+        /*
         const invoiceMenu = moreIcon.nextElementSibling.querySelectorAll('li');
         invoiceMenu.forEach((btn, idx) => {
             btn.addEventListener('click', e => {
@@ -208,6 +192,7 @@
             });
         });
 
+        */
         function downloadPDF() {
             const main = document.querySelector('main');
             // const dh = main.getBoundingClientRect().height;

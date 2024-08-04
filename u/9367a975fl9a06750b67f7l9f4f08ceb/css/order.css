@@ -88,35 +88,35 @@ section {
     border-radius: 7px;
     padding: 1em;
 }
-section:not(section:nth-child(1)) {
+section:not(section:nth-of-type(1)) {
     border: 1px solid #ccc;
 }
-section:nth-child(1) {
+section:nth-of-type(1) {
     text-align: center;
 }
-section:nth-child(1) #owner {
+section:nth-of-type(1) #owner {
     /* font-family: 'Cedarville Cursive', cursive; */
     font-family: 'Dancing Script', cursive;
     font-weight: 400;
     font-size: 3em;
     text-align: center;
 }
-section:nth-child(1) > div:nth-of-type(2) {
+section:nth-of-type(1) > div:nth-of-type(2) {
     font-size: .8em;
     font-weight: 500;
 }
 section > h2 {
     font-weight: 400;
 }
-section:nth-child(2) > div:nth-of-type(1) {
+section:nth-of-type(2) > div:nth-of-type(1) {
     padding: 1em 0;
     font-size: .9em;
 }
-section:nth-child(2) > div:nth-of-type(2) {
+section:nth-of-type(2) > div:nth-of-type(2) {
     position: relative;
 }
-section:nth-child(2) > div:nth-of-type(2) > div {
-    padding: .5em 1em;
+section:nth-of-type(2) > div:nth-of-type(2) > div {
+    padding: .5em 3em .5em .5em;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 7px;
@@ -124,7 +124,7 @@ section:nth-child(2) > div:nth-of-type(2) > div {
     transition: box-shadow 200ms ease;
     position: relative;
 }
-section:nth-child(2) > div:nth-of-type(2) > div::after {
+section:nth-of-type(2) > div:nth-of-type(2) > div::after {
     content: '';
     position: absolute;
     top: 40%;
@@ -133,16 +133,16 @@ section:nth-child(2) > div:nth-of-type(2) > div::after {
     border-color: transparent #888 #888 transparent;
     transform: translateY(-40%) rotate(45deg);
 }
-section:nth-child(2) > div:nth-of-type(2) > div.shw + menu {
+section:nth-of-type(2) > div:nth-of-type(2) > div.shw + menu {
     opacity: 1;
     pointer-events: fill;
     z-index: 1;
     top: 110%;
 }
-section:nth-child(2) > div:nth-of-type(2) > div:hover {
+section:nth-of-type(2) > div:nth-of-type(2) > div:hover {
     box-shadow: 0 0 3px #ccc;
 }
-section:nth-child(2) > div:nth-of-type(2) > menu {
+section:nth-of-type(2) > div:nth-of-type(2) > menu {
     opacity: 0;
     pointer-events: none;
     list-style-type: none;
@@ -157,15 +157,60 @@ section:nth-child(2) > div:nth-of-type(2) > menu {
     transition: top 400ms ease;
     z-index: -1;
     font-weight: 500;
+    max-height:  207px;
+    overflow-y: scroll;
 }
-section:nth-child(2) menu > li {
+section:nth-of-type(2) menu > li:not(:last-of-type) {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
     padding: .7em 2em;
     transition: background-color 200ms ease;
 }
-section:nth-child(2) menu > li:hover {
+section:nth-of-type(2) menu > li:not(:last-of-type) > * {
+    pointer-events: none;
+}
+section:nth-of-type(2) menu > li:hover {
     background-color: #daeaff85;
 }
-section:nth-child(3) > div:nth-of-type(1) {
+#ldmr {
+    padding: .7em 2em;
+    text-align: center;
+    color: #1a73e8;
+}
+#ldmr.swap {
+    display: none;
+}
+#ldmr.swap + .loader {
+    display: block;
+}
+#ldmr.swap + .loader > div {
+    animation-name: load;
+}
+@keyframes load {
+    100% {
+        transform: rotate(350deg);
+    }
+}
+.loader {
+    display: none;
+    width: 100%;
+    background-color: #fff;
+    text-align: center;
+}
+.loader > div {
+    height: 2em;
+    width: 2em;
+    border-radius: 50%;
+    border: 4px solid;
+    border-color: #777 #777 #777 transparent;
+    margin: auto;
+    animation-duration: 1s;
+    animation-iteration-count: 7;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+}
+section:nth-of-type(3) > div:nth-of-type(1) {
     display: flex;
     justify-content: space-between;
     /* align-items: center; */
@@ -354,6 +399,13 @@ footer {
 }
 footer > p > span {
     font-family: 'Dancing Script', cursive;
+}
+.hdn {
+    display: none;
+}
+.disabled {
+    opacity: .4;
+    cursor: auto;
 }
 @media screen and (max-width: 768px) {
     main {
