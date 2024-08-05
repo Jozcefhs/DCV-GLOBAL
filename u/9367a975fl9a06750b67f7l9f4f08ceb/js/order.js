@@ -9,10 +9,12 @@ const tmp1 = document.getElementById('invTemp'); //invoice template
 const tmp1Content = tmp1.content.cloneNode(true);
 tmp1.remove();
 const section = tmp1Content.querySelector('section');
+section.classList.add('jsSection');
 
 const main_actionBtns = document.querySelectorAll('.actionBtns, .main'); //selecting the actionBtns containing more_icon & the main containing table
 // '1011'.padStart(3,0); //use to set the order's serial no. (IVN)
 const ME = JSON.parse(localStorage.user);
+const phone = ME.profile.phone;
 
 const orderRef = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate')/*, limit(1)*/);
 const orderSnap = await getCountFromServer(orderRef);
@@ -77,17 +79,39 @@ const viewOrderBtn = document.querySelector('#view-order-btn');
 viewOrderBtn.addEventListener('click', () => {
     const orderID = myOrders[selectedOrder][0];
     const orderData = myOrders[selectedOrder][1];
+    const uname = orderData.uname;
+    const udate = new Intl.DateTimeFormat('en-GB').format(new Date(orderData.orderDate));
+
     main.querySelector('.jsSection')?.remove() || false;
     switch (orderData.status) {
-        case 0:
-            section.firstElementChild.innerHTML = `This order (refID: <strong>${orderID}</strong>) has not yet been confirmed. Thank you for your patience.`;
+        case 0: //unconfirmed
+            section.firstElementChild.innerHTML = `<p>This order (refID: <b>${orderID}</b>) has not yet been confirmed. Thank you for your patience.</p>`;
             main.insertAdjacentHTML('beforeend', `
                 <section class="jsSection">
                     ${section.firstElementChild.outerHTML}
                 </section>
             `);
             break;
-    
+        case 1: //confirmed
+            section.querySelector('.stat_btn + span').innerHTML = `This order (refID: <b>${orderID}</b>) has been confirmed and reviewed. See details in the table below.`;
+            section.querySelectorAll('.details div > *').forEach((chdrn, ix) => chdrn.innerText = [uname, phone, orderID, udate][ix]);
+            const tds = Object.values(orderData.oid);
+            const tbody = section.querySelector('tbody');
+            tds.forEach((td, ix) => {
+                const p = Number(td[1]);
+                const q = Number(td[2]);
+                tbody.insertAdjacentHTML('beforeend', `
+                    <tr>
+                        <td>${ix + 1}</td>
+                        <td>${td[0]}</td>
+                        <td>${p}</td>
+                        <td>${q}</td>
+                        <td>${p * q}</td>
+                    </tr>
+                `)
+            });
+            main.appendChild(section);
+            break;
         default:
             break;
     }
