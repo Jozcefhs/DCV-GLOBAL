@@ -2,6 +2,7 @@ import { and, collectionGroup, doc, fbInitializer, getCountFromServer, getDocs, 
 const app = fbInitializer();
 const db = getFirestore(app);
 
+const main = document.querySelector('main');
 const jsDateBtn = document.querySelector('.jsDateBtn');
 jsDateBtn.parentElement.style.pointerEvents = 'none'; //disable jsDateBtn until orders > 0
 const tmp1 = document.getElementById('invTemp'); //invoice template
@@ -13,7 +14,7 @@ const main_actionBtns = document.querySelectorAll('.actionBtns, .main'); //selec
 // '1011'.padStart(3,0); //use to set the order's serial no. (IVN)
 const ME = JSON.parse(localStorage.user);
 
-const orderRef = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate', 'desc')/*, limit(1)*/);
+const orderRef = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate')/*, limit(1)*/);
 const orderSnap = await getCountFromServer(orderRef);
 const orders = orderSnap.data().count;
 
@@ -47,7 +48,50 @@ jsDateBtn.addEventListener('click', (e) => {
     // activeMenu = e.target;
 });
 
+let selectedOrder = 0;
+const menuItems = document.querySelectorAll('section:nth-of-type(2) menu > li:not(#ldmr)');
+menuItems.forEach((item, idx) => {
+    item.addEventListener('click', () => {
+        selectedOrder = idx;
+        jsDateBtn.innerText = item.firstElementChild.innerText;
+        /*
+        item.classList.add('swap');
+        for (let i = 0; i < 5; i++) { //getOrderCountFromServer to use in the cursor
+            document.querySelector('.jsDateBtn + menu').insertAdjacentHTML('afterbegin', `
+                <li>
+                    <span>The description of an order from customer 002</span>
+                    <span>11/11/1800</span>
+                </li>
+            `);
+        }
+        const id = setTimeout(() => {
+            item.classList.remove('swap');
+            clearInterval(id);
+        }, 8000);
+        */
+       jsDateBtn.classList.remove('shw');
+    });
+});
 
+const viewOrderBtn = document.querySelector('#view-order-btn');
+viewOrderBtn.addEventListener('click', () => {
+    const orderID = myOrders[selectedOrder][0];
+    const orderData = myOrders[selectedOrder][1];
+    main.querySelector('.jsSection')?.remove() || false;
+    switch (orderData.status) {
+        case 0:
+            section.firstElementChild.innerHTML = `This order (refID: <strong>${orderID}</strong>) has not yet been confirmed. Thank you for your patience.`;
+            main.insertAdjacentHTML('beforeend', `
+                <section class="jsSection">
+                    ${section.firstElementChild.outerHTML}
+                </section>
+            `);
+            break;
+    
+        default:
+            break;
+    }
+});
 // const myOrders = ''
 /*
 window.addEventListener('click', (e) => {
@@ -58,28 +102,4 @@ moreIcon.onclick = (e) => {
     e.target.nextElementSibling.classList.toggle('shw');
     activeMenu = e.target.nextElementSibling;
 }
-const menuItems = document.querySelectorAll('section:nth-of-type(2) menu > li');
-menuItems.forEach(item => {
-    item.addEventListener('click', () => {
-        if (!(item.id === 'ldmr')) {
-            jsDateBtn.innerText = item.innerText;
-            jsDateBtn.classList.remove('shw');
-        } else {
-            item.classList.add('swap');
-            for (let i = 0; i < 5; i++) { //getOrderCountFromServer to use in the cursor
-                document.querySelector('.jsDateBtn + menu').insertAdjacentHTML('afterbegin', `
-                    <li>
-                        <span>The description of an order from customer 002</span>
-                        <span>11/11/1800</span>
-                    </li>
-                `);
-            }
-            const id = setTimeout(() => {
-                item.classList.remove('swap');
-                clearInterval(id);
-            }, 8000);
-        }
-        // jsDateBtn.classList.remove('shw');
-    });
-});
 */

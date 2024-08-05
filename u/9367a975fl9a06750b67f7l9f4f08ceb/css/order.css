@@ -115,7 +115,7 @@ section:nth-of-type(2) > div:nth-of-type(1) {
 section:nth-of-type(2) > div:nth-of-type(2) {
     position: relative;
 }
-section:nth-of-type(2) > div:nth-of-type(2) > div {
+.jsDateBtn {
     padding: .5em 3em .5em .5em;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -124,7 +124,7 @@ section:nth-of-type(2) > div:nth-of-type(2) > div {
     transition: box-shadow 200ms ease;
     position: relative;
 }
-section:nth-of-type(2) > div:nth-of-type(2) > div::after {
+.jsDateBtn::after {
     content: '';
     position: absolute;
     top: 40%;
@@ -133,13 +133,7 @@ section:nth-of-type(2) > div:nth-of-type(2) > div::after {
     border-color: transparent #888 #888 transparent;
     transform: translateY(-40%) rotate(45deg);
 }
-section:nth-of-type(2) > div:nth-of-type(2) > div.shw + menu {
-    opacity: 1;
-    pointer-events: fill;
-    z-index: 1;
-    top: 110%;
-}
-section:nth-of-type(2) > div:nth-of-type(2) > div:hover {
+.jsDateBtn:hover {
     box-shadow: 0 0 3px #ccc;
 }
 section:nth-of-type(2) > div:nth-of-type(2) > menu {
@@ -159,6 +153,13 @@ section:nth-of-type(2) > div:nth-of-type(2) > menu {
     font-weight: 500;
     max-height:  207px;
     overflow-y: scroll;
+}
+section:nth-of-type(2) > div:nth-of-type(2) > div.shw + menu {
+/* .jsDateBtn.shw + menu { */
+    opacity: 1;
+    pointer-events: fill;
+    z-index: 1;
+    top: 110%;
 }
 section:nth-of-type(2) menu > li:not(#ldmr) {
     display: flex;
@@ -209,6 +210,24 @@ section:nth-of-type(2) menu > li:hover {
     animation-iteration-count: 7;
     animation-fill-mode: forwards;
     animation-timing-function: ease;
+}
+section:nth-of-type(2) > div:nth-of-type(3) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1.5em 0 0;
+}
+#view-order-btn {
+    padding: .7em 1em;
+    border-radius: 4px;
+    color: #1a73e8;
+    font-weight: bold;
+    font-size: 1em;
+    background-color: #daeaff85;
+    transition: background-color 200ms ease;
+}
+#view-order-btn:hover {
+    background-color: #aed1ff85;
 }
 section:nth-of-type(3) > div:nth-of-type(1) {
     display: flex;

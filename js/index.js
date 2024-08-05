@@ -498,6 +498,7 @@ forms[0].addEventListener("submit", async (e) => {
     console.timeEnd('%c<webmart app>: %cUser cached.', 'color:#1a73e8', 'color: #555');
     // console.log(newUser, newUser.data());
     localStorage.setItem('user', JSON.stringify({id: newUser.id, profile: newUser.data()}));
+    ss_user = JSON.parse(localStorage.getItem('user'));
     const cartLen = Object.entries(Object.values(JSON.parse(sessionStorage.shelf))[0]).length;
     userPresenceIndicator(cartLen);
     const dElems = document.querySelectorAll('#sign-up-form, #sign-up-dialog > p, #sign-up-dialog > output');
@@ -521,6 +522,7 @@ forms[1].addEventListener('submit', async (e) => {
         return;
     }
     localStorage.setItem('user', JSON.stringify({id: snap.docs[0].id, profile: snap.docs[0].data()}));
+    ss_user = JSON.parse(localStorage.getItem('user'));
     userPresenceIndicator(Object.entries(snap.docs[0].get('cart')).length);
     e.submitter.closest('dialog').close();
 });
