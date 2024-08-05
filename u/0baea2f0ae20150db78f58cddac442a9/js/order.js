@@ -192,4 +192,5 @@ function confirmOrder(uid, oid, stat) {
     await batch.commit();
     window.alert("Document has been updated.");
     */
+   //for initial deposit, use { 'deposit': Number }
 }

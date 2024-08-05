@@ -81,7 +81,7 @@ div#user-pic::before {
 main {
     margin: auto;
     min-width: 400px;
-    width: 35%;
+    width: 40%;
 }
 section {
     margin: 2em 0;
@@ -376,9 +376,7 @@ td, th {
     font-family: monospace;
     font-size: 2rem;
     font-weight: 700;
-    color: #555;
     padding: .3em .5em;
-    border: 0.4rem solid #555;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -386,12 +384,16 @@ td, th {
     text-transform: uppercase;
     -webkit-mask-image: url('../img/grunge.png');
     -webkit-mask-size: 398px 242px;
+    -webkit-mask-position: 13rem 6rem;
     mix-blend-mode: multiply;
 }
 .stamp.is_paid {
-	color: #0A9928;
+    color: #0A9928;
 	border: 0.5rem solid #0A9928;
-	-webkit-mask-position: 13rem 6rem;
+}
+.stamp.is_deposit {
+    color: #555;
+    border: 0.4rem solid #555;
 }
 #acctDetails {
     font-size: .9em;
@@ -430,9 +432,6 @@ footer > p > span {
     main {
         width: 75%;
     }
-    /* .chevron {
-        display: none;
-    } */
 }
 @media screen and (max-width: 667px) {
     main {

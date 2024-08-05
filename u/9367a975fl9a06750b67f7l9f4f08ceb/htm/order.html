@@ -49,17 +49,17 @@
                 <div>
                     <div class="stat_bar">
                         <span class="stat_btn"><i class="check"></i></span>
-                        <span></span>
+                        <span></span> <!--order status message-->
                     </div>
-                    <div class="actionBtns hdn">
+                    <div class="actionBtns">
                         <div class="more_icon link"><svg width="24" height="24"><use href="#more-icon" xlink:href="#more-icon"></use></svg></div>
                         <menu class="btn">
-                            <li>Print Invoice</li>
+                            <li>Print</li>
                             <li>Save PDF</li>
                         </menu>
                     </div>
                 </div>
-                <div class="main hdn">
+                <div class="main">
                     <div class="head">
                         <svg width="20" height="20"><use href="#aster" xlink:href="#aster"></use></svg>
                         <span>Invoice</span>
@@ -67,7 +67,7 @@
                     </div>
                     <div class="details">
                         <div>
-                            <h4></h4>
+                            <h4></h4> <!--cutomer name-->
                             <p></p> <!--phn num-->
                         </div>
                         <div>
@@ -93,25 +93,25 @@
                     <div class="tfoot">
                         <div id="stDiv">
                             <span>Subtotal</span>
-                            <span>12000000</span>
+                            <span></span>
                         </div>
-                        <div>
+                        <div id="disc">
                             <span>Discount</span>
-                            <span>0</span>
+                            <span></span>
                         </div>
                         <div id="gtDiv">
                             <span>Grand Total</span>
-                            <span>12000000</span>
+                            <span></span>
                         </div>
-                        <div>
+                        <div id="pdDiv">
                             <span>Paid</span>
-                            <span>1200000</span>
+                            <span></span>
                         </div>
                         <div id="balDiv">
                             <span>Balance</span>
-                            <span>999990</span>
+                            <span></span>
                         </div>
-                        <div class="stamp is_deposit">Deposit</div>
+                        <div class="stamp"></div>
                     </div>
                     <div id="acctDetails">
                         <p>Account Details</p>
@@ -155,34 +155,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> -->
     <script>
         
-        /*
-        const invoiceMenu = moreIcon.nextElementSibling.querySelectorAll('li');
-        invoiceMenu.forEach((btn, idx) => {
-            btn.addEventListener('click', e => {
-                if (idx == 0) {
-                    window.print();
-                } else if (idx == 1) {
-                    downloadPDF();
-                }
-            });
-        });
-
-        */
-        function downloadPDF() {
-            const main = document.querySelector('main');
-            // const dh = main.getBoundingClientRect().height;
-            // const dw = main.getBoundingClientRect().width;
-            const dh = main.clientHeight;
-            const dw = main.clientWidth;
-            var opt = {
-                margin: 20,
-                filename: 'mypdf.pdf',
-                html2canvas: {scale: 3},
-                jsPDF: { unit: 'px', format: [dw, dh], orientation: 'portrait', hotfixes: ['px_scaling'] }
-            }
-
-            html2pdf().set(opt).from(main).save();
-        }
     </script>
     <script>
         /*
