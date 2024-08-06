@@ -54,11 +54,13 @@ function downloadPDF() {
 const ME = JSON.parse(localStorage.user);
 const phone = ME.profile.phone;
 
+//count number of orders
 const orderRef = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate'));
 const orderSnap = await getCountFromServer(orderRef);
 const orders = orderSnap.data().count;
 
-console.log(`You have ${orders} orders.`)
+console.log(`You have ${orders} orders.`);
+let selectedOrder = 0;
 const orderMenu = document.querySelector('.jsDateBtn + menu');
 const ldmr_loader = document.querySelectorAll('#ldmr, #ldmr + div');
 let myOrders = [], lastVisible;
@@ -70,9 +72,9 @@ if (orders) {
 async function findOrders () {
     let orderRefLmt;
     if (!lastVisible) {
-        orderRefLmt = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate'), limit(1));
+        orderRefLmt = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate', 'desc'), limit(1));
     } else {
-        orderRefLmt = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate'), startAfter(lastVisible), limit(1));
+        orderRefLmt = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate', 'desc'), startAfter(lastVisible), limit(1));
     }
     jsDateBtn.parentElement.classList.remove('disabled');
     jsDateBtn.parentElement.style.pointerEvents = 'fill';
@@ -82,12 +84,23 @@ async function findOrders () {
     orderSnap.docs.forEach(order => {
         myOrders.push([order.id, order.data()]);
         //populate orderMenu with <li>
-        orderMenu.insertAdjacentHTML('afterbegin', `
+        ldmr.insertAdjacentHTML('beforebegin', `
             <li>
                 <span>${order.data().uid}</span>
                 <span>${new Intl.DateTimeFormat('en-GB').format(new Date(order.data().orderDate))}</span>
             </li>
         `);
+    });
+    const menuItems = document.querySelectorAll('section:nth-of-type(2) menu > li');
+    menuItems.forEach((item, idx) => {
+        item.addEventListener('click', (e) => {
+            if (item.id != 'ldmr') {
+                console.log(e);
+                // selectedOrder = idx;
+                // jsDateBtn.innerText = e.target.firstElementChild.innerText;
+                // jsDateBtn.classList.remove('shw');
+            }
+        });
     });
     if (myOrders.length == orders) ldmr_loader.forEach(ldmrLoader => ldmrLoader.remove());  //remove LOAD MORE btn
 }
@@ -104,33 +117,9 @@ jsDateBtn.addEventListener('click', (e) => {
     activeMenu = e.target;
 });
 
-let selectedOrder = 0;
-const menuItems = document.querySelectorAll('section:nth-of-type(2) menu > li:not(#ldmr)');
-menuItems.forEach((item, idx) => {
-    item.addEventListener('click', () => {
-        selectedOrder = idx;
-        jsDateBtn.innerText = item.firstElementChild.innerText;
-        /*
-        item.classList.add('swap');
-        for (let i = 0; i < 5; i++) { //getOrderCountFromServer to use in the cursor
-            document.querySelector('.jsDateBtn + menu').insertAdjacentHTML('afterbegin', `
-                <li>
-                    <span>The description of an order from customer 002</span>
-                    <span>11/11/1800</span>
-                </li>
-            `);
-        }
-        const id = setTimeout(() => {
-            item.classList.remove('swap');
-            clearInterval(id);
-        }, 8000);
-        */
-       jsDateBtn.classList.remove('shw');
-    });
-});
-
 const viewOrderBtn = document.querySelector('#view-order-btn');
 viewOrderBtn.addEventListener('click', () => {
+    console.log(selectedOrder);
     const sn = String(selectedOrder + 1).padStart(3,0);
     const orderID = `IVN: ${myOrders[selectedOrder][0]}-${sn}`;
     const orderData = myOrders[selectedOrder][1];
