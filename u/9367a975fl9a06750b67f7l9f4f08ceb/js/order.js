@@ -1,4 +1,4 @@
-import { and, collectionGroup, doc, fbInitializer, getCountFromServer, getDocs, getFirestore, limit, orderBy, query, where } from "../../../js/firebase_xp.js";
+import { and, collectionGroup, doc, fbInitializer, getCountFromServer, getDocs, getFirestore, limit, orderBy, query, startAfter, where } from "../../../js/firebase_xp.js";
 const app = fbInitializer();
 const db = getFirestore(app);
 
@@ -6,6 +6,7 @@ let activeMenu;
 
 const main = document.querySelector('main');
 const jsDateBtn = document.querySelector('.jsDateBtn');
+const ldmr = document.querySelector('#ldmr');
 jsDateBtn.parentElement.style.pointerEvents = 'none'; //disable jsDateBtn until orders > 0
 const tmp1 = document.getElementById('invTemp'); //invoice template
 const tmp1Content = tmp1.content.cloneNode(true);
@@ -13,6 +14,7 @@ tmp1.remove();
 const section = tmp1Content.querySelector('section');
 
 window.addEventListener('click', (e) => {
+    if (e.target.id == 'ldmr') return;
     if (activeMenu) activeMenu.classList.remove('shw');
 }, true);
 
@@ -34,24 +36,21 @@ invoiceMenu.forEach((btn, idx) => {
 });
 
 function downloadPDF() {
+        const mycanvas = document.querySelector('canvas#mycanvas');
         const main = document.querySelector('main');
-        const ddh = main.getBoundingClientRect().height;
-        const ddw = main.getBoundingClientRect().width;
         const dh = main.clientHeight;
-        const dw = 900 || main.clientWidth;
-        console.log(ddh, ddw, dh, dw);
+        const dw = main.clientWidth;
+        console.log(dh, dw);
         var opt = {
             margin: 20,
             filename: 'mypdf.pdf',
-            html2canvas: {scale: 3},
+            html2canvas: { scale: 1, canvas: mycanvas },
             jsPDF: { unit: 'px', format: [dw, dh], orientation: 'portrait', hotfixes: ['px_scaling'] }
         }
 
         html2pdf().set(opt).from(main).save();
 }
 
-const main_actionBtns = document.querySelectorAll('.actionBtns, .main'); //selecting the actionBtns containing more_icon & the main containing table
-// '1011'.padStart(3,0); //use to set the order's serial no. (IVN)
 const ME = JSON.parse(localStorage.user);
 const phone = ME.profile.phone;
 
@@ -63,10 +62,20 @@ console.log(`You have ${orders} orders.`)
 const orderMenu = document.querySelector('.jsDateBtn + menu');
 const ldmr_loader = document.querySelectorAll('#ldmr, #ldmr + div');
 let myOrders = [], lastVisible;
+
 if (orders) {
+    findOrders();
+}
+
+async function findOrders () {
+    let orderRefLmt;
+    if (!lastVisible) {
+        orderRefLmt = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate'), limit(1));
+    } else {
+        orderRefLmt = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate'), startAfter(lastVisible), limit(1));
+    }
     jsDateBtn.parentElement.classList.remove('disabled');
     jsDateBtn.parentElement.style.pointerEvents = 'fill';
-    const orderRefLmt = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate')/*, limit(1)*/);
     const orderSnap = await getDocs(orderRefLmt);
     lastVisible = orderSnap.docs[orderSnap.docs.length - 1];
     // console.log(lastVisible);
@@ -80,12 +89,19 @@ if (orders) {
             </li>
         `);
     });
-    if (myOrders.length == orders) ldmr_loader.forEach(ldmrLoader => ldmrLoader.remove());  //hide LOAD MORE btn
+    if (myOrders.length == orders) ldmr_loader.forEach(ldmrLoader => ldmrLoader.remove());  //remove LOAD MORE btn
 }
+
+//load more items
+ldmr.addEventListener('click', async (e) => {
+    ldmr.classList.add('swap');
+    await findOrders();
+    ldmr.classList.remove('swap');
+});
 
 jsDateBtn.addEventListener('click', (e) => {
     e.target.classList.toggle('shw');
-    // activeMenu = e.target;
+    activeMenu = e.target;
 });
 
 let selectedOrder = 0;

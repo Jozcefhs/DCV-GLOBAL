@@ -40,7 +40,7 @@
                     <div class="loader"><div></div></div>
                 </menu>
             </div>
-            <div>
+            <div data-html2canvas-ignore>
                 <button type="button" id="view-order-btn">View Order</button>
             </div>
         </section>
@@ -51,7 +51,7 @@
                         <span class="stat_btn"><i class="check"></i></span>
                         <span></span> <!--order status message-->
                     </div>
-                    <div class="actionBtns">
+                    <div class="actionBtns" data-html2canvas-ignore>
                         <div class="more_icon link"><svg width="24" height="24"><use href="#more-icon" xlink:href="#more-icon"></use></svg></div>
                         <menu class="btn">
                             <li>Print</li>
@@ -135,6 +135,8 @@
             </section>
         </template>
     </main>
+    <canvas id="mycanvas"></canvas>
+    
     <div class="svgrepo" style="display: none;">
         <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="more-icon"  width="24" height="24" fill="#5F6368">

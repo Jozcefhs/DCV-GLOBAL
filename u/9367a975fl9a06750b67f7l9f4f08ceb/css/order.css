@@ -428,6 +428,15 @@ footer > p > span {
     opacity: .4;
     cursor: auto;
 }
+canvas#mycanvas {
+    border: 1px solid #ccc;
+    position: absolute;
+    top: 0;
+    height: 1068px;
+    width: 569px;
+    right: 100%;
+    transition: right 2000ms ease-out;
+}
 @media screen and (max-width: 768px) {
     main {
         width: 75%;
