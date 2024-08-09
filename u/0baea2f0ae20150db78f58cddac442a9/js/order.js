@@ -1,7 +1,6 @@
 import { fbInitializer, getFirestore, collectionGroup, getDocs, orderBy, query, startAfter, where, doc, updateDoc, increment, writeBatch } from "../../../js/firebase_xp.js";
 const app = fbInitializer();
 const db = getFirestore(app);
-const batch = writeBatch(db);
 
 const main = document.querySelector('main');
 const aside = document.querySelector('aside');
@@ -31,7 +30,7 @@ navBtns.forEach((navBtn, index) => {
         subMenu.style.visibility = 'hidden';
         docArray = [], docIds = [];  //empty docArray
         const discVal = document.getElementById('discount');
-        discVal.value = 0, prevDiscount = 0;  //reset discounts
+        discVal.value = '', prevDiscount = 0;  //reset discounts
         //query collectionGroup for [new orders | reviewed orders | fulfilled orders]
         
         const newOrders = query(collectionGroup(db, 'Orders'), where('status', '==', Number(navBtn.dataset.status)), orderBy('orderDate', 'desc')); //limit(20)
@@ -76,7 +75,7 @@ navBtns.forEach((navBtn, index) => {
                     `);
                 }
                 const discVal = document.getElementById('discount');
-                discVal.value = 0, prevDiscount = 0;  //reset discounts
+                discVal.value = '', prevDiscount = 0;  //reset discounts
                 const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
                 const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
                 tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
@@ -154,11 +153,14 @@ menuBtns.forEach((menuBtn, ix) => {
         const customers = document.getElementsByClassName('customer');
         for (let c = 0; c < customers.length; c++) customers.item(c).textContent = username;
         if (ix == 0) {
-            document.querySelector("#part-invoice-dialog").showModal();
-            orderParams = [uid, oid, 1];    //1 reps partly-paid invoice
+            orderParams = [uid, oid, 1];    //1 reps reviewed order
+            document.querySelector("#reviewed-dialog").showModal();
         } else if (ix == 1) {
+            orderParams = [uid, oid, 2];    //2 reps partly-paid invoice
+            document.querySelector("#part-invoice-dialog").showModal();
+        } else if (ix == 2) {
+            orderParams = [uid, oid, 3];    //3 reps fully-paid invoice
             document.querySelector("#full-invoice-dialog").showModal();
-            orderParams = [uid, oid, 2];    //2 reps fully-paid invoice
         }
     });
 });
@@ -166,25 +168,21 @@ menuBtns.forEach((menuBtn, ix) => {
 document.addEventListener('timeout', () => {
     alert("The time has timed out.");
 })
-const fidYesBtn = document.querySelector('dialog#full-invoice-dialog .jsYesBtn');
-fidYesBtn.addEventListener('click', (e) => {
-    confirmOrder([...orderParams]);
-})
+const fidYesBtn = document.querySelectorAll('dialog .jsYesBtn');
+fidYesBtn.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        confirmOrder(...orderParams, e.target.closest('div.wrapper'));
+    });
+});
 
-function confirmOrder(uid, oid, stat) {
-    console.log(uid, oid, stat);
-    /*
-    setTimeout(() => {
-        document.querySelector('dialog > div.wrapper').classList.replace('stg01', 'stg02');
-    }, 3000);
-    setTimeout(() => {
-        document.querySelector('dialog > div.wrapper').classList.replace('stg02', 'stg03');
-    }, 6000);
-    */
-    console.log(reviewData, prevDiscount);
-    /*
+async function confirmOrder(uid, oid, stat, loadingElem) {
+    const deposit = Number(document.querySelector('input#bal').value) || 0;
+    console.log('deposit', deposit);
+    
+    loadingElem.classList.replace('stg01', 'stg02');
+    const batch = writeBatch(db);
     const orderRef = doc(db, "users", uid, "Orders", oid);
-    batch.update(orderRef, {'oid': reviewData, 'status': 1, 'discount': prevDiscount}); // use batch.set..merge:true if update doesn't work for discount
+    batch.update(orderRef, {'oid': reviewData, 'status': stat, 'discount': prevDiscount, 'deposit': deposit}); // use batch.set.merge:true if update doesn't work for discount
 
     const entr = Object.entries(reviewData);
     const prom = entr.map(async (el, ix) => {
@@ -193,7 +191,7 @@ function confirmOrder(uid, oid, stat) {
         batch.update(doc(db, "products", pid), {'qty': increment(-qty)});
     });
     await batch.commit();
-    window.alert("Document has been updated.");
-    */
+    loadingElem.classList.replace('stg02', 'stg03');
+    
    //for initial deposit, use { 'deposit': Number }
 }

@@ -95,12 +95,19 @@ section:not(section:nth-of-type(1)) {
 section:nth-of-type(1) {
     text-align: center;
 }
-section:nth-of-type(1) #owner {
+#owner {
     /* font-family: 'Cedarville Cursive', cursive; */
-    font-family: 'Dancing Script', cursive;
     font-weight: 400;
     font-size: 3em;
     text-align: center;
+}
+#owner, footer > p > span {
+    font-family: 'Dancing Script', cursive;
+    color: #1a73e8;
+    font-weight: 600;
+}
+footer > p > span {
+    font-size: 2em;
 }
 section:nth-of-type(1) > div:nth-of-type(2) {
     font-size: .8em;
@@ -349,6 +356,7 @@ section .main > .head {
 .details {
     display: flex;
     justify-content: space-between;
+    gap: 1em;
 }
 div.table {
     padding-top: 2em;
@@ -364,35 +372,22 @@ thead th:nth-child(2), tbody td:nth-child(2) {
 td, th {
     padding: .5em;
 }
-.tfoot {
-    margin-top: 1em;
-    padding: .5em 1em;
-    /* border: solid #ccc;
-    border-width: 1px 0 0; */
+.table {
     position: relative;
 }
-.tfoot > div:not(:last-child) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: .3em .3em;
-}
-.tfoot > #stDiv {
+#stDiv > td:not(:nth-of-type(1)),
+#gtDiv > td:not(:nth-of-type(1)) {
     font-weight: 700;
 }
-.tfoot > #gtDiv {
-    margin-top: 2em;
-    font-weight: 700;
-}
-.tfoot > .stamp {
+.table > .stamp {
     font-family: monospace;
     font-size: 2rem;
     font-weight: 700;
     padding: .3em .5em;
     position: absolute;
-    top: 50%;
+    top: 90%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-12deg);
+    transform: translate(-50%, -90%) rotate(-12deg);
     text-transform: uppercase;
     -webkit-mask-image: url('../img/grunge.png');
     mask-image: url('../img/grunge.png');
@@ -401,6 +396,9 @@ td, th {
     -webkit-mask-position: 13rem 6rem;
     mask-position: 13rem 6rem;
     mix-blend-mode: multiply;
+}
+tfoot td:nth-child(2) {
+    text-align: left;
 }
 .stamp.is_paid {
     color: #0A9928;
@@ -432,9 +430,6 @@ footer {
     padding-top: 1em;
     text-align: center;
     border-top: 1px solid #ccc;
-}
-footer > p > span {
-    font-family: 'Dancing Script', cursive;
 }
 .hdn {
     display: none;
