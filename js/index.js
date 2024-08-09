@@ -23,9 +23,35 @@ topNavAnchors.forEach((anchor, idx) => {
 });
 if (ss_user) {
     const cartLen = Object.entries(ss_user.profile.cart).length;
-    userPresenceIndicator(cartLen);
-    
+    userPresenceIndicator(cartLen);    
 }
+
+const checkoutForm = document.querySelector('#checkout-form');
+let orderDesc;
+const orderDescDial = document.querySelector('dialog#order-desc-dialog');
+const orderDescForm = document.querySelector('form#order-desc-form');
+const orderDescInp = document.querySelector('input#orderDesc');
+// orderDescForm.addEventListener('input', (e) => {
+//     console.log(e.type);
+//     orderDesc = e.target.value;
+// });
+orderDescForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    orderDesc = orderDescInp.value //to be sliced, if longer than 30 chars (e.g. orderDescInp.value.slice(0,30));
+    orderDescDial.close();
+    checkoutForm.requestSubmit(); //if this doesn't work, then globalize checkoutbtn, and call the click() method on it.
+});
+
+//close dialog with the dataset id of the Close btn
+const closeDialogBtns = document.querySelectorAll('.close_dial');
+closeDialogBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        document.getElementById(e.target.dataset.dialId).close();
+    });
+});
+
+const notLoggedInNotice = document.querySelector("div.nli");
+const notice = document.querySelector('div.notice');
 //function to indicate user has logged in
 function userPresenceIndicator(cart_len) {
     const checkoutForm = document.querySelector('#checkout-form');
@@ -82,9 +108,15 @@ function userPresenceIndicator(cart_len) {
             location.assign(`./u/${ss_user.profile.userPath}/htm/home.html`);
         }
     });
-    const closeButton = document.querySelector('section .head .close'); //close button of <section>
-    closeButton.addEventListener('click', () => {
-        section.style.transform = 'translateY(-100%)';
+    // const closeButton = document.querySelector('section .head .close'); //close button of <section>
+
+    const closeButtons = document.querySelectorAll('.close'); //close button of <section>
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (section.contains(btn)) return section.style.transform = 'translateY(-100%)';
+            if (notLoggedInNotice.contains(btn)) return notLoggedInNotice.classList.remove('show');
+            if (notice.contains(btn)) return notice.classList.remove('show');
+        });
     });
     checkoutForm.addEventListener('input', (e) => {
         const q = Number(e.target.value);
@@ -118,13 +150,19 @@ function userPresenceIndicator(cart_len) {
     });
     checkoutForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        if (!orderDesc) {
+            orderDescDial.showModal();
+            return;
+        }
+        //if DESC NO btn, return; else if DESC YES btn,
+        const checkoutBtn = document.querySelector('#checkout-btn');
         ss_user = JSON.parse(localStorage.getItem('user'));
-        e.submitter.disabled = true;
-        e.submitter.style.cursor = 'not-allowed';
+        checkoutBtn.disabled = true;
+        checkoutBtn.style.cursor = 'not-allowed';
         const fd = new FormData(checkoutForm);
         let data = {};
         for (const [k, v] of fd.entries()) {
-            data[k] = [fd.getAll([k])[1], fd.getAll([k])[2], fd.getAll([k])[0]];
+            data[k] = [fd.getAll([k])[1], Number(fd.getAll([k])[2]), Number(fd.getAll([k])[0])];
         }
         const newOrder = await addDoc(collection(db, 'users'), {}); //this is to get an auto-generated ID from firestore
         const orderRef = doc(db, "users", `${ss_user.id}/Orders/${newOrder.id}`);
@@ -132,6 +170,7 @@ function userPresenceIndicator(cart_len) {
             uid: ss_user.id,
             uname: ss_user.profile.uname,
             alias: ss_user.profile.alias,
+            desc: orderDesc,
             hex: ss_user.profile.hex,
             oid: data,
             status: 0,
@@ -149,8 +188,10 @@ function userPresenceIndicator(cart_len) {
         localStorage.setItem('user', JSON.stringify(ss_user));
         document.querySelector('div.cart > i').textContent = 0;
         
-        e.submitter.disabled = false;
-        e.submitter.style.cursor = 'pointer';
+        checkoutBtn.disabled = false;
+        checkoutBtn.style.cursor = 'pointer';
+        notice.firstElementChild.innerHTML = "Your order has been placed.<br>Check the Orders page for when the store will confirm it.";
+        notice.classList.add('show');
     });
 }
 
@@ -371,7 +412,6 @@ window.addEventListener("storage", (e) => {
 })
 
 const progressBar = document.querySelector(".progress_bar");
-const notLoggedInNotice = document.querySelector("div.nli");
 let shelf = {};
 sessionStorage.getItem('shelf') == null ? sessionStorage.setItem('shelf', JSON.stringify([shelf])) : console.info('%c<webmart app>: %cUser has already set up shelf.', 'color: #1a73e8', 'color: #555');   //checks if ss.shelf exists; if not, creates it
 addToCartBtn.addEventListener("click", async (e) => {
@@ -381,7 +421,7 @@ addToCartBtn.addEventListener("click", async (e) => {
     let id = addToCartBtn.dataset.prodId;
     //check if item in cart is up to ten
     if (user)  {
-        if (Object.keys(user?.profile.cart).length > 1) return alert("Your cart is full. Please, checkout items before continuing shopping.");
+        if (Object.keys(user?.profile.cart).length > 9) return alert("Your cart is full. Please, checkout items before continuing shopping.");
         //check if item already in the cart
         if (user.profile.cart.hasOwnProperty(id)) {
             alert('This item is already in the cart.');
@@ -472,7 +512,7 @@ forms[0].addEventListener("submit", async (e) => {
     const q = query(collection(db, "users"), where('email', '==', fd.get('email')));
     const snapShot = await getCountFromServer(q);
     console.timeEnd('%c<webmart app>: %cEmail checked.', 'color:#1a73e8', 'color: #555');
-    if (snapShot.data().count) return alert('A user already exists for this email.');
+    if (snapShot.data().count) return alert('A user already exists with this email.');
     
     let data = {
         userPath: '9367a975fl9a06750b67f7l9f4f08ceb',
@@ -525,4 +565,6 @@ forms[1].addEventListener('submit', async (e) => {
     ss_user = JSON.parse(localStorage.getItem('user'));
     userPresenceIndicator(Object.entries(snap.docs[0].get('cart')).length);
     e.submitter.closest('dialog').close();
+    notice.firstElementChild.innerHTML = "Welcome to <b>Chris' Store</b>!";
+    notice.classList.add('show');
 });

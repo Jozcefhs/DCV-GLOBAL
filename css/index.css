@@ -167,9 +167,6 @@ nav > a.active {
 #form-search {
     right: 2em;
 }
-/* body.fx > main {
-    width: 70%;
-} */
 body.fx > aside {
     transform: translateX(-100%);
 }
@@ -178,7 +175,7 @@ main {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(11.5em, 1fr));
-    gap: 3em;
+    gap: 1em;
     transition: width 300ms ease-out;
 }
 main.loading, .progress_bar.checked ~ *:not(.head, .check), .out_of_stock {
@@ -279,7 +276,7 @@ aside .body > div {
     border-radius: 50%;
     padding: 1em;
 }
-.close:hover {
+section .close:hover {
     background-color: #f6faff;
 }
 img[alt="aside-img"], #add-to-cart, #checkout-btn {
@@ -337,23 +334,30 @@ span#qty {
     color: #fff;
     transition: transform 250ms ease;
 }
-.nli {
+.dialog {
     position: absolute;
     top: 0;
     padding: .5em 2em;
     width: max-content;
     border-radius: 0 0 1em 1em;
-    background-color: #1a73e8;
     color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
     left: 50%;
     transform: translate(-50%, -100%);
     transition: transform 500ms ease-out;
 }
-.nli.show {
+.dialog > div {
+    font-weight: 100;
+}
+.nli, .notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+.nli {
+    background-color: #555;
+}
+.nli.show, .notice.show {
     transform: translate(-50%, 0%);
 }
 .nli > div {
@@ -366,8 +370,19 @@ span#qty {
 .nli .link {
     font-weight: bold;
 }
+.notice {
+    max-width: 400px;
+    background-color: #1a73e8;
+}
 img[alt="close-svg"] {
     margin-left: 2em;
+    transition: background-color 200ms ease;
+}
+.nli img[alt="close-svg"]:hover {
+    background-color: #444;
+}
+.notice img[alt="close-svg"]:hover {
+    background-color: #0c66dd;
 }
 dialog /*#sign-up-dialog*/ {
     min-width: 340px;
@@ -538,6 +553,18 @@ div.fxr button {
 div.fxr button > span:first-child {
     margin-right: 5px;
     transform: rotate(-45deg);
+}
+#order-desc-dialog {
+    max-width: 200px;
+}
+#order-desc-form {
+    margin: 0;
+}
+input#orderDesc {
+    padding: .7em 1em;
+    border: 1px solid #aaa;
+    font-size: 1em;
+    border-radius: 7px;
 }
 .wished, .carted {
     fill: #1a73e8;

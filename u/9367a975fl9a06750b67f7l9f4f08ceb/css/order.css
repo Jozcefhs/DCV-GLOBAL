@@ -6,6 +6,7 @@
 html, body {
     font: 15px system-ui;
     color: #333;
+    user-select: none;
 }
 button, .btn, .link/*, input[type="submit"], input[type="button"]*/ {
     cursor: pointer;
@@ -394,8 +395,11 @@ td, th {
     transform: translate(-50%, -50%) rotate(-12deg);
     text-transform: uppercase;
     -webkit-mask-image: url('../img/grunge.png');
+    mask-image: url('../img/grunge.png');
     -webkit-mask-size: 398px 242px;
+    mask-size: 398px 242px;
     -webkit-mask-position: 13rem 6rem;
+    mask-position: 13rem 6rem;
     mix-blend-mode: multiply;
 }
 .stamp.is_paid {

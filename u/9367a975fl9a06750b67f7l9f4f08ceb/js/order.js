@@ -55,6 +55,7 @@ const ME = JSON.parse(localStorage.user);
 const phone = ME.profile.phone;
 
 //count number of orders
+//re-structure this code to get the number of orders from ME.profile.orderCount, without having to make a call to the server
 const orderRef = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate'));
 const orderSnap = await getCountFromServer(orderRef);
 const orders = orderSnap.data().count;
@@ -72,9 +73,9 @@ if (orders) {
 async function findOrders () {
     let orderRefLmt;
     if (!lastVisible) {
-        orderRefLmt = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate', 'desc'), limit(1));
+        orderRefLmt = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate', 'desc'), limit(10));
     } else {
-        orderRefLmt = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate', 'desc'), startAfter(lastVisible), limit(1));
+        orderRefLmt = query(collectionGroup(db, "Orders"), where('uid', '==', ME.id), orderBy('orderDate', 'desc'), startAfter(lastVisible), limit(10));
     }
     jsDateBtn.parentElement.classList.remove('disabled');
     jsDateBtn.parentElement.style.pointerEvents = 'fill';
@@ -84,26 +85,31 @@ async function findOrders () {
     orderSnap.docs.forEach(order => {
         myOrders.push([order.id, order.data()]);
         //populate orderMenu with <li>
+        const desc = order.data().desc.length > 25 ? order.data().desc.slice(0,25) + '...' : order.data().desc;
         ldmr.insertAdjacentHTML('beforebegin', `
             <li>
-                <span>${order.data().uid}</span>
+                <span>${desc}</span>
                 <span>${new Intl.DateTimeFormat('en-GB').format(new Date(order.data().orderDate))}</span>
             </li>
         `);
     });
-    const menuItems = document.querySelectorAll('section:nth-of-type(2) menu > li');
-    menuItems.forEach((item, idx) => {
-        item.addEventListener('click', (e) => {
-            if (item.id != 'ldmr') {
-                console.log(e);
-                // selectedOrder = idx;
-                // jsDateBtn.innerText = e.target.firstElementChild.innerText;
-                // jsDateBtn.classList.remove('shw');
-            }
-        });
-    });
     if (myOrders.length == orders) ldmr_loader.forEach(ldmrLoader => ldmrLoader.remove());  //remove LOAD MORE btn
 }
+
+const menuItems = document.querySelectorAll('section:nth-of-type(2) menu > li');
+menuItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+        const lists = [...document.querySelectorAll('section:nth-of-type(2) menu > li')];
+        const idx = lists.indexOf(item);
+
+        if (item.id != 'ldmr') {
+            console.log(idx);
+            // jsDateBtn.innerText = e.target.firstElementChild.innerText;
+            // selectedOrder = idx;
+            // jsDateBtn.classList.remove('shw');
+        }
+    });
+});
 
 //load more items
 ldmr.addEventListener('click', async (e) => {

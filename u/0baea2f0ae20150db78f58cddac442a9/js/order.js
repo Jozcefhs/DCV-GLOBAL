@@ -30,6 +30,8 @@ navBtns.forEach((navBtn, index) => {
         tbody.innerHTML = '';   //clear tbody
         subMenu.style.visibility = 'hidden';
         docArray = [], docIds = [];  //empty docArray
+        const discVal = document.getElementById('discount');
+        discVal.value = 0, prevDiscount = 0;  //reset discounts
         //query collectionGroup for [new orders | reviewed orders | fulfilled orders]
         
         const newOrders = query(collectionGroup(db, 'Orders'), where('status', '==', Number(navBtn.dataset.status)), orderBy('orderDate', 'desc')); //limit(20)
@@ -74,6 +76,7 @@ navBtns.forEach((navBtn, index) => {
                     `);
                 }
                 const discVal = document.getElementById('discount');
+                discVal.value = 0, prevDiscount = 0;  //reset discounts
                 const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
                 const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
                 tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;

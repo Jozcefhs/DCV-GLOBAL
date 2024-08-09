@@ -136,13 +136,17 @@
         </form>
         <template id="search-temp"></template>
     </section>
-    <div class="nli dialog">
+    <div class="dialog nli">
         <div>
             <span>You're not logged in.</span>
             <span class="link">SIGN UP</span>
             <span class="link">LOG IN</span>
         </div>
-        <img src="./img/close-outline.svg" alt="close-svg" class="link">
+        <img src="./img/close-outline.svg" alt="close-svg" class="link close">
+    </div>
+    <div class="dialog notice">
+        <div></div>
+        <img src="./img/close-outline.svg" alt="close-svg" class="link close">
     </div>
     <dialog id="sign-up-dialog">
         <div class="h2">Sign Up Form</div>
@@ -195,6 +199,16 @@
             </div>
         </form>
         <p>Not a user? <span class="link signup">Sign up</span></p>
+    </dialog>
+    <dialog id="order-desc-dialog">
+        <form name="order-desc-form" id="order-desc-form">
+            <label>Enter a brief description to remember this order by.</label>
+            <input type="text" name="orderDesc" id="orderDesc" placeholder="Description" required>
+            <div class="form_group">
+                <input type="submit" value="SUBMIT">
+                <input type="button" value="CLOSE" class="close-dial" data-dial-id="order-desc-dialog">
+            </div>
+        </form>
     </dialog>
     <div class="svgrepo" style="display: none;">
         <svg xmlns="http://www.w3.org/2000/svg">
