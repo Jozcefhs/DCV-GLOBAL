@@ -95,7 +95,7 @@ div#user-pic::before {
     padding: .5em 1em;
 }
 #user-bio {
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 #user-bio > div:nth-of-type(1) {
     font-weight: 500;

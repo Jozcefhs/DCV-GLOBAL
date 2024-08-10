@@ -105,7 +105,10 @@ function userPresenceIndicator(cart_len) {
         ss_user = JSON.parse(localStorage.getItem('user'));
         if (ss_user) {
             if (ss_user.profile.isSubscriber) {
-                //LATER, THIS SHOULD LEAD TO FUTURE SUBSCRIBER'S PROFILE PAGE             
+                //LATER, THIS SHOULD LEAD TO FUTURE SUBSCRIBER'S PROFILE PAGE
+                //set up the user profile
+                userProfile.querySelector('#user-bio').firstElementChild.innerText = ss_user.profile.uname;
+                userProfile.querySelector('#user-bio').lastElementChild.innerText = ss_user.profile.email;
                 userProfile.classList.add('show');
                 activeMenu = userProfile;
                 // alert(`Profile Info:\nNAME :: ${ss_user.profile.uname}\nEMAIL ::  ${ss_user.profile.email}`);
