@@ -35,6 +35,7 @@ header > .top, header > .bottom {
 }
 header > .top {
     padding: 1em 2em;
+    position: relative;
 }
 header > .bottom {
     padding: 0.5em 2em 0;
@@ -74,6 +75,41 @@ div#user-pic::before {
 }
 .top.usr > div#user-pic::before {
     content: '';
+}
+#user-profile {
+    position: absolute;
+    right: 20px;
+    top: 50px;
+    z-index: 2;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 7px #bbb;
+    visibility: hidden;
+    transition: visibility 150ms ease-out, top 250ms ease-out;
+}
+#user-profile.show {
+    top: 70px;
+    visibility: visible;
+}
+#user-profile > div {
+    padding: .5em 1em;
+}
+#user-bio {
+    border: 1px solid #ccc;
+}
+#user-bio > div:nth-of-type(1) {
+    font-weight: 500;
+    font-size: 1.1em;
+}
+#logout {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1em;
+    transition: text-shadow 150ms ease;
+}
+#logout:hover {
+    text-shadow: 0 0 #555;
+    /* stroke: #ffa500; */
 }
 .svg { /*appears to be redundant (check with .link selector)*/
     position: relative;

@@ -50,8 +50,10 @@ closeDialogBtns.forEach(btn => {
     });
 });
 
+let activeMenu;
 const notLoggedInNotice = document.querySelector("div.nli");
 const notice = document.querySelector('div.notice');
+const userProfile = document.querySelector('#user-profile');
 //function to indicate user has logged in
 function userPresenceIndicator(cart_len) {
     const checkoutForm = document.querySelector('#checkout-form');
@@ -101,11 +103,17 @@ function userPresenceIndicator(cart_len) {
     });
     userCart[1].addEventListener('click', () => {
         ss_user = JSON.parse(localStorage.getItem('user'));
-        if (ss_user.profile.isSubscriber) {
-            //LATER, THIS SHOULD LEAD TO FUTURE SUBSCRIBER'S PROFILE PAGE
-            alert(`Profile Info:\nNAME :: ${ss_user.profile.uname}\nEMAIL ::  ${ss_user.profile.email}`);
+        if (ss_user) {
+            if (ss_user.profile.isSubscriber) {
+                //LATER, THIS SHOULD LEAD TO FUTURE SUBSCRIBER'S PROFILE PAGE             
+                userProfile.classList.add('show');
+                activeMenu = userProfile;
+                // alert(`Profile Info:\nNAME :: ${ss_user.profile.uname}\nEMAIL ::  ${ss_user.profile.email}`);
+            } else {
+                location.assign(`./u/${ss_user.profile.userPath}/htm/home.html`);
+            }
         } else {
-            location.assign(`./u/${ss_user.profile.userPath}/htm/home.html`);
+            notLoggedInNotice.classList.add('show');
         }
     });
     // const closeButton = document.querySelector('section .head .close'); //close button of <section>
@@ -203,6 +211,15 @@ userCart.forEach((btn, idx) => {
             notLoggedInNotice.classList.add("show");
         }
     });
+});
+
+//logout function
+const logoutBtn = document.querySelector('div#logout');
+logoutBtn.addEventListener('click', (e) => {
+    //remove ss and ls
+    sessionStorage.removeItem('shelf'), localStorage.removeItem('user');
+    //reload index.html
+    document.location.reload();
 });
 
 //add links to nav menu
@@ -406,6 +423,11 @@ chevrons.forEach(chv => {
     });
 });
 
+//toggle context menus off
+window.addEventListener('click', (e) => {
+    if (activeMenu) activeMenu.classList.remove('show');
+}, true);
+
 window.addEventListener("storage", (e) => {
     // console.log(JSON.parse(e.storageArea).user)
     //console.log(e.url); console.log(e.oldValue); console.log(e.newValue); console.log(e.key); console.log(e.storageArea);
@@ -543,6 +565,8 @@ forms[0].addEventListener("submit", async (e) => {
     userPresenceIndicator(cartLen);
     const dElems = document.querySelectorAll('#sign-up-form, #sign-up-dialog > p, #sign-up-dialog > output');
     dElems.forEach((elem, idx) => elem.classList.toggle('opq', idx < 2));
+    //set up the user profile
+    userProfile.querySelector('#user-bio').firstElementChild.innerText = newUser.data().uname, userProfile.querySelector('#user-bio').lastElementChild.innerText = newUser.data().email;
 });
 
 //login form
@@ -565,6 +589,11 @@ forms[1].addEventListener('submit', async (e) => {
     ss_user = JSON.parse(localStorage.getItem('user'));
     userPresenceIndicator(Object.entries(snap.docs[0].get('cart')).length);
     e.submitter.closest('dialog').close();
+    //set up the user profile
+    userProfile.querySelector('#user-bio').firstElementChild.innerText = snap.docs[0].data().uname, userProfile.querySelector('#user-bio').lastElementChild.innerText = snap.docs[0].data().email;
     notice.firstElementChild.innerHTML = "Welcome to <b>Chris' Store</b>!";
     notice.classList.add('show');
+    setTimeout(() => {
+        notice.classList.remove('show');
+    }, 3000);
 });
