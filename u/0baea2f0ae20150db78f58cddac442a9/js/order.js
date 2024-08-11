@@ -26,7 +26,7 @@ navBtns.forEach((navBtn, index) => {
     navBtn.addEventListener('click', async (e) => {
         navBtns.forEach((btn, idx) => btn.classList.toggle('active', index === idx));
         aside.classList.add('ldg');
-        tbody.innerHTML = '';   //clear tbody
+        tbody.innerHTML = '', table.querySelector('tfoot tr:last-child td:last-child').innerHTML = '&#8358; 0';   //clear tbody and tfoot
         subMenu.style.visibility = 'hidden';
         docArray = [], docIds = [];  //empty docArray
         const discVal = document.getElementById('discount');
@@ -52,6 +52,7 @@ navBtns.forEach((navBtn, index) => {
         });
         for (let s = 0; s < querySnapshot.size; s++) {
             document.querySelectorAll('.card')[s].addEventListener('click', (e) => {
+                document.querySelectorAll('.card').forEach(card => card.classList.toggle('active', card == e.target));
                 username = e.target.lastElementChild.firstElementChild.textContent;
                 prevBtn.click();    //for mobile responsive design
                 subMenu.style.visibility = 'visible';
@@ -75,7 +76,7 @@ navBtns.forEach((navBtn, index) => {
                     `);
                 }
                 const discVal = document.getElementById('discount');
-                discVal.value = '', prevDiscount = 0;  //reset discounts
+                discVal.value = docArray[s]?.discount || '', prevDiscount = 0;  //reset discounts
                 const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
                 const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
                 tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
@@ -166,7 +167,7 @@ menuBtns.forEach((menuBtn, ix) => {
 });
 
 document.addEventListener('timeout', () => {
-    alert("The time has timed out.");
+    alert("The timer has timed out.");
 })
 const fidYesBtn = document.querySelectorAll('dialog .jsYesBtn');
 fidYesBtn.forEach(btn => {
@@ -192,6 +193,4 @@ async function confirmOrder(uid, oid, stat, loadingElem) {
     });
     await batch.commit();
     loadingElem.classList.replace('stg02', 'stg03');
-    
-   //for initial deposit, use { 'deposit': Number }
 }
