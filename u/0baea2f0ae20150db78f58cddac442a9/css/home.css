@@ -127,6 +127,9 @@ section > div.heading {
     animation-iteration-count: infinite;
     animation-fill-mode: backwards;
 }
+.number > i {
+    font-style: normal;
+}
 @keyframes searcher {
     from {
         transform: rotate(0deg);

@@ -34,7 +34,10 @@ a {
 }
 header {
     display: flex;
-    padding: 1em;
+    gap: .5em;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
 }
 .prev_btn {
     font-size: .8em;
@@ -46,8 +49,18 @@ header {
 .prev_btn.clk {
     transform: rotate(90deg);
 }
+header > .topic {
+    margin: 1em auto 1em 0;
+}
 nav {
-    margin-right: auto;
+    width: 90%;
+    margin: 0 auto 10px;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: scroll;
+}
+nav::-webkit-scrollbar {
+    display: none;
 }
 nav > a {
     display: inline-block;
@@ -62,6 +75,7 @@ nav > a:hover {
     color: #1a73e8;
 }
 .submenu {
+    margin-top: .5em;
     position: relative;
     visibility: hidden;
 }
@@ -311,6 +325,23 @@ div.wrapper.stg03 > *:not(div.header, div.done) {
     display: none;
 }
 @media screen and (max-width: 768px) {
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    header {
+        padding: 1em;
+        z-index: 3;
+    }
+    nav {
+        width: 100%;
+        margin: 0;
+        top: 70px;
+        box-shadow: 0 7px 7px #1a73e833;
+        position: sticky;
+        top: 75px;
+        background-color: #fff;
+        z-index: 1;
+    }
     main {
         margin: 0;
         border-radius: 0;
@@ -322,6 +353,9 @@ div.wrapper.stg03 > *:not(div.header, div.done) {
     }
     main.shw > aside div.download_more {
         display: none;
+    }
+    aside {
+        padding: 0;
     }
     .prev_btn {
         visibility: visible;

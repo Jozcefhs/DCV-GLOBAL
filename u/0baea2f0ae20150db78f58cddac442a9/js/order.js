@@ -4,6 +4,7 @@ const db = getFirestore(app);
 
 const main = document.querySelector('main');
 const aside = document.querySelector('aside');
+const subMenu = document.querySelector('.submenu');
 const section = document.querySelector('section');
 const table = section.querySelector('table');
 const tbody = table.querySelector('tbody');
@@ -14,11 +15,15 @@ aside.addEventListener('scrollend', (e) => {
 //prev_btn
 const prevBtn = document.querySelector('div.prev_btn');
 prevBtn.addEventListener('click', (e) => {
-    prevBtn.classList.toggle('clk');
+    const bool = prevBtn.classList.toggle('clk');
     main.classList.toggle('shw');
+    if (bool) {
+        subMenu.style.visibility = 'visible';
+    } else {
+        subMenu.style.visibility = 'hidden';
+    }
 })
 //nav btns
-const subMenu = document.querySelector('.submenu');
 const asideTemplate = aside.querySelector('template');
 const navBtns = document.querySelectorAll('nav > a');
 let docArray, docIds, lastVisible, reviewData, username, prevDiscount = 0;
