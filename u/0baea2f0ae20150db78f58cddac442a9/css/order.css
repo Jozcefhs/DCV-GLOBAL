@@ -19,6 +19,7 @@
 html, body {
     font: 15px system-ui;
     color: #555;
+    user-select: none;
 }
 button {
     outline: none;
@@ -35,6 +36,7 @@ a {
 header {
     display: flex;
     gap: .5em;
+    padding-right: 2em;
     position: sticky;
     top: 0;
     background-color: #fff;
@@ -381,10 +383,6 @@ div.wrapper.stg03 > *:not(div.header, div.done) {
     }
     .prev_btn {
         visibility: visible;
-    }
-    div.download_more {
-        left: 50%;
-        transform: translateX(-50%);
     }
     .usr {
         width: 3em;

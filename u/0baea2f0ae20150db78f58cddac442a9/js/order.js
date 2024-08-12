@@ -177,6 +177,7 @@ function loadOrders (querySnapshot) {
             discVal.value = docArray[s]?.discount || '', prevDiscount = 0;  //reset discounts
             const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
             const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
+            tfootGT.dataset.id = grandtotal - Number(discVal.value);
             tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
 
             //td input change event
@@ -190,6 +191,7 @@ function loadOrders (querySnapshot) {
                     if (id == 'discount') {
                         const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
                         const grandVal = Number((table.querySelector('tfoot tr:last-child td:last-child').textContent).slice(2));
+                        tfootGT.dataset.id = grandVal + prevDiscount - Number(discVal.value);
                         tfootGT.innerHTML = `&#8358; ${grandVal + prevDiscount - Number(discVal.value)}`;
                         prevDiscount = Number(discVal.value);
                         return;
@@ -199,6 +201,7 @@ function loadOrders (querySnapshot) {
                     td.innerText = q * p;
                     const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
                     const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
+                    tfootGT.dataset.id = grandtotal - Number(discVal.value);
                     tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
                 });
             });
@@ -246,10 +249,11 @@ fidYesBtn.forEach(btn => {
 });
 
 async function confirmOrder(uid, oid, stat, loadingElem) {
-    const deposit = Number(document.querySelector('input#bal').value) || 0;
-    console.log('deposit', deposit);
-    
+    const grandtotal = Number(table.querySelector('tfoot tr:last-child td:last-child').dataset.id);
+    const deposit = stat == 3 ? grandtotal : Number(document.querySelector('input#bal').value) || 0;
+    // console.log('deposit', deposit);
     loadingElem.classList.replace('stg01', 'stg02');
+    
     const batch = writeBatch(db);
     const orderRef = doc(db, "users", uid, "Orders", oid);
     batch.update(orderRef, {'oid': reviewData, 'status': stat, 'discount': prevDiscount, 'deposit': deposit}); // use batch.set.merge:true if update doesn't work for discount
@@ -261,5 +265,6 @@ async function confirmOrder(uid, oid, stat, loadingElem) {
         batch.update(doc(db, "products", pid), {'qty': increment(-qty)});
     });
     await batch.commit();
+    
     loadingElem.classList.replace('stg02', 'stg03');
 }
