@@ -123,21 +123,41 @@ main > * {
 aside {
     padding: 1em 0;
     position: relative;
+    /* height: 200px; */
 }
 div.download_more, div.more_icon, div.prev_btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
 }
 div.download_more {
-    position: fixed;
-    bottom: 7px;
-    left: 15%;
-    transform: translateX(-15%);
     background-color: #fff;
-    box-shadow: 0 0 7px #ccc;
+    visibility: hidden;
+    padding: .7em;
+    transition: background-color 150ms ease;
+}
+div.download_more > i {
     display: none;
+    height: 1em;
+    width: 1em;
+    margin-left: 1em;
+    border-radius: 50%;
+    border: 3px solid;
+    border-color: #ccc #ccc #ccc transparent;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+    /* animation-fill-mode: both; */
+}
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+div.download_more.clk {pointer-events: none;}
+div.download_more.clk > i {
+    display: inline-block;
+    animation-name: spin;
 }
 svg {margin: 3px;}
 .button > *,
@@ -152,7 +172,8 @@ svg {margin: 3px;}
     gap: 1.5em;
     padding: 1em;
 }
-.card:hover {
+.card:hover,
+div.download_more:hover {
     background-color: #1a73e811;
 }
 .card.active {
@@ -353,6 +374,9 @@ div.wrapper.stg03 > *:not(div.header, div.done) {
     }
     main.shw > aside div.download_more {
         display: none;
+    }
+    div.download_more.show {
+        display: flex;
     }
     aside {
         padding: 0;

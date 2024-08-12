@@ -1,4 +1,4 @@
-import { fbInitializer, getFirestore, collectionGroup, getDocs, orderBy, query, startAfter, where, doc, updateDoc, increment, writeBatch } from "../../../js/firebase_xp.js";
+import { fbInitializer, getFirestore, collectionGroup, getDocs, orderBy, query, startAfter, where, doc, updateDoc, increment, writeBatch, limit, getCountFromServer } from "../../../js/firebase_xp.js";
 const app = fbInitializer();
 const db = getFirestore(app);
 
@@ -8,10 +8,13 @@ const subMenu = document.querySelector('.submenu');
 const section = document.querySelector('section');
 const table = section.querySelector('table');
 const tbody = table.querySelector('tbody');
-aside.addEventListener('scrollend', (e) => {
-    // console.log(e.target.clientHeight, e.target.scrollHeight);
-    // console.log(e.target.scrollTop);
-});
+const downloadBtn = document.querySelector('div.download_more');
+
+// aside.addEventListener('scrollend', (e) => {
+//     console.log(e.target.clientHeight, e.target.scrollHeight);
+//     console.log(e.target.scrollTop);
+// });
+
 //prev_btn
 const prevBtn = document.querySelector('div.prev_btn');
 prevBtn.addEventListener('click', (e) => {
@@ -24,6 +27,7 @@ prevBtn.addEventListener('click', (e) => {
     }
 })
 //nav btns
+let navBtnOrderCount;
 const asideTemplate = aside.querySelector('template');
 const navBtns = document.querySelectorAll('nav > a');
 let docArray, docIds, lastVisible, reviewData, username, prevDiscount = 0;
@@ -36,109 +40,195 @@ navBtns.forEach((navBtn, index) => {
         docArray = [], docIds = [];  //empty docArray
         const discVal = document.getElementById('discount');
         discVal.value = '', prevDiscount = 0;  //reset discounts
-        //query collectionGroup for [new orders | reviewed orders | fulfilled orders]
-        
-        const newOrders = query(collectionGroup(db, 'Orders'), where('status', '==', Number(navBtn.dataset.status)), orderBy('orderDate', 'desc')); //limit(20)
+
+        //order count
+        const status = Number(navBtn.dataset.status);
+        const snap = await getCountFromServer(query(collectionGroup(db, 'Orders'), where('status', '==', status)));
+        navBtnOrderCount = snap.data().count;
+        downloadBtn.style.visibility = 'visible';
+        const newOrders = query(collectionGroup(db, 'Orders'), where('status', '==', status), orderBy('orderDate', 'desc'), limit(2));
         const querySnapshot = await getDocs(newOrders);
         // console.log(querySnapshot.size)
         document.querySelectorAll("aside > *:not(div.download_more, template)").forEach(elem => elem.remove());
-        if (querySnapshot.empty) return alert("No order exists for this context.");
-        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-        querySnapshot.forEach(doc => {
-            docIds.push(doc.id);
-            docArray.push(doc.data());
-            const clone = asideTemplate.content.cloneNode(true);
-            clone.querySelector('.usr').style.backgroundColor = doc.data().hex;
-            clone.querySelector('.usr').id = doc.data().uid;
-            clone.querySelector('.abbr').textContent = doc.data().alias;
-            clone.querySelector('.name').textContent = doc.data().uname;
-            clone.querySelector('.date').textContent = new Intl.DateTimeFormat('en-US').format(new Date(doc.data().orderDate));
-            aside.appendChild(clone);
-        });
-        for (let s = 0; s < querySnapshot.size; s++) {
-            document.querySelectorAll('.card')[s].addEventListener('click', (e) => {
-                document.querySelectorAll('.card').forEach(card => card.classList.toggle('active', card == e.target));
-                username = e.target.lastElementChild.firstElementChild.textContent;
-                prevBtn.click();    //for mobile responsive design
-                subMenu.style.visibility = 'visible';
-                tbody.innerHTML = '', reviewData = docArray[s].oid;
-                document.querySelector('.submenu > menu').id = docIds[s];
-                document.querySelector('.submenu > menu').setAttribute('data-uid', e.target.firstElementChild.id);
-                let items = Object.entries(docArray[s].oid);
-                let c = 1;
-                for (let [k, v] of items) {
-                    const i = v[0];
-                    const p = v[1];
-                    const q = v[2];
-                    tbody.insertAdjacentHTML('beforeend', `
-                        <tr>
-                            <td>${c++}</td>
-                            <td>${i}</td>
-                            <td>${p}</td>
-                            <td><input type='number' id='${k}' name='${i}' placeholder='Qty' value='${q}' data-price='${p}' min='0'/></td>
-                            <td>${p * q}</td>
-                        </tr>
-                    `);
-                }
-                const discVal = document.getElementById('discount');
-                discVal.value = docArray[s]?.discount || '', prevDiscount = 0;  //reset discounts
-                const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
-                const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
-                tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
+        if (querySnapshot.empty) return alert("Orders empty.");
+        loadOrders(querySnapshot);
+        // lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        // querySnapshot.forEach(doc => {
+        //     docIds.push(doc.id);
+        //     docArray.push(doc.data());
+        //     const clone = asideTemplate.content.cloneNode(true);
+        //     clone.querySelector('.usr').style.backgroundColor = doc.data().hex;
+        //     clone.querySelector('.usr').id = doc.data().uid;
+        //     clone.querySelector('.abbr').textContent = doc.data().alias;
+        //     clone.querySelector('.name').textContent = doc.data().uname;
+        //     clone.querySelector('.date').textContent = new Intl.DateTimeFormat('en-US').format(new Date(doc.data().orderDate));
+        //     aside.insertBefore(clone, downloadBtn);
+        // });
+        // for (let s = 0; s < querySnapshot.size; s++) {
+        //     document.querySelectorAll('.card')[s].addEventListener('click', (e) => {
+        //         document.querySelectorAll('.card').forEach(card => card.classList.toggle('active', card == e.target));
+        //         username = e.target.lastElementChild.firstElementChild.textContent;
+        //         prevBtn.click();    //for mobile responsive design
+        //         subMenu.style.visibility = 'visible';
+        //         tbody.innerHTML = '', reviewData = docArray[s].oid;
+        //         document.querySelector('.submenu > menu').id = docIds[s];
+        //         document.querySelector('.submenu > menu').setAttribute('data-uid', e.target.firstElementChild.id);
+        //         let items = Object.entries(docArray[s].oid);
+        //         let c = 1;
+        //         for (let [k, v] of items) {
+        //             const i = v[0];
+        //             const p = v[1];
+        //             const q = v[2];
+        //             tbody.insertAdjacentHTML('beforeend', `
+        //                 <tr>
+        //                     <td>${c++}</td>
+        //                     <td>${i}</td>
+        //                     <td>${p}</td>
+        //                     <td><input type='number' id='${k}' name='${i}' placeholder='Qty' value='${q}' data-price='${p}' min='0'/></td>
+        //                     <td>${p * q}</td>
+        //                 </tr>
+        //             `);
+        //         }
+        //         const discVal = document.getElementById('discount');
+        //         discVal.value = docArray[s]?.discount || '', prevDiscount = 0;  //reset discounts
+        //         const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
+        //         const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
+        //         tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
 
-                //td input change event
-                const QtyInputs = document.querySelectorAll('td > input');
-                QtyInputs.forEach(input => {
-                    input.addEventListener('change', (e) => {
-                        const id = e.target.id;
-                        const i = e.target.name;
-                        const q = e.target.value;
-                        const p = e.target.dataset.price;
-                        if (id == 'discount') {
-                            const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
-                            const grandVal = Number((table.querySelector('tfoot tr:last-child td:last-child').textContent).slice(2));
-                            tfootGT.innerHTML = `&#8358; ${grandVal + prevDiscount - Number(discVal.value)}`;
-                            prevDiscount = Number(discVal.value);
-                            return;
-                        }
-                        reviewData[id] = [i, p, q];
-                        const td = e.target.parentElement.nextElementSibling;
-                        td.innerText = q * p;
-                        const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
-                        const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
-                        tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
-                    });
-                });
-            });
-        }
+        //         //td input change event
+        //         const QtyInputs = document.querySelectorAll('td > input');
+        //         QtyInputs.forEach(input => {
+        //             input.addEventListener('change', (e) => {
+        //                 const id = e.target.id;
+        //                 const i = e.target.name;
+        //                 const q = e.target.value;
+        //                 const p = e.target.dataset.price;
+        //                 if (id == 'discount') {
+        //                     const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
+        //                     const grandVal = Number((table.querySelector('tfoot tr:last-child td:last-child').textContent).slice(2));
+        //                     tfootGT.innerHTML = `&#8358; ${grandVal + prevDiscount - Number(discVal.value)}`;
+        //                     prevDiscount = Number(discVal.value);
+        //                     return;
+        //                 }
+        //                 reviewData[id] = [i, p, q];
+        //                 const td = e.target.parentElement.nextElementSibling;
+        //                 td.innerText = q * p;
+        //                 const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
+        //                 const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
+        //                 tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
+        //             });
+        //         });
+        //     });
+        // }
         aside.classList.remove('ldg');
     });
 });
 
 //more downloads
-const downloadBtn = document.querySelector('div.download_more');
 downloadBtn.addEventListener('click', async (e) => {
     const status = document.querySelector('nav > a.active').dataset.status;
-    const newOrders = query(collectionGroup(db, 'Orders'), where('status', '==', status), startAfter(lastVisible), orderBy('orderDate', 'desc')); //limit(20)
+    downloadBtn.firstChild.textContent = '';
+    downloadBtn.classList.add('clk');
+    
+    const newOrders = query(collectionGroup(db, 'Orders'), where('status', '==', Number(status)), orderBy('orderDate', 'desc'), startAfter(lastVisible), limit(2));
     const querySnapshot = await getDocs(newOrders);
-    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-    querySnapshot.forEach(doc => {
-        docArray.push(doc.data());
-        const clone = asideTemplate.content.cloneNode(true);
-        clone.querySelector('.usr').style.backgroundColor = doc.data().hex;
-        clone.querySelector('.abbr').textContent = doc.data().alias;
-        clone.querySelector('.name').textContent = doc.data().uname;
-        clone.querySelector('.date').textContent = new Intl.DateTimeFormat('en-GB').format(new Date(doc.data().orderDate));
+    loadOrders(querySnapshot);
+    
+    // lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+    // querySnapshot.forEach(doc => {
+    //     docArray.push(doc.data());
+    //     const clone = asideTemplate.content.cloneNode(true);
+    //     clone.querySelector('.usr').style.backgroundColor = doc.data().hex;
+    //     clone.querySelector('.abbr').textContent = doc.data().alias;
+    //     clone.querySelector('.name').textContent = doc.data().uname;
+    //     clone.querySelector('.date').textContent = new Intl.DateTimeFormat('en-GB').format(new Date(doc.data().orderDate));
 
-        clone.addEventListener('click', (e) => {
-            console.log('my clone');
-        });
-        aside.appendChild(clone);
-    });
-    aside.classList.remove('ldg');
+    //     clone.addEventListener('click', (e) => {
+    //         console.log('my clone');
+    //     });
+    //     aside.appendChild(clone);
+    // });
+    
+    // aside.classList.remove('ldg');
     //hide downloadBtn at the end
 });
 
+function loadOrders (querySnapshot) {
+    lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+    querySnapshot.forEach(doc => {
+        docIds.push(doc.id);
+        docArray.push(doc.data());
+        const clone = asideTemplate.content.cloneNode(true);
+        clone.querySelector('.usr').style.backgroundColor = doc.data().hex;
+        clone.querySelector('.usr').id = doc.data().uid;
+        clone.querySelector('.abbr').textContent = doc.data().alias;
+        clone.querySelector('.name').textContent = doc.data().uname;
+        clone.querySelector('.date').textContent = new Intl.DateTimeFormat('en-US').format(new Date(doc.data().orderDate));
+        aside.insertBefore(clone, downloadBtn);
+    });
+    for (let s = 0; s < querySnapshot.size; s++) {
+        document.querySelectorAll('.card')[s].addEventListener('click', (e) => {
+            document.querySelectorAll('.card').forEach(card => card.classList.toggle('active', card == e.target));
+            username = e.target.lastElementChild.firstElementChild.textContent;
+            prevBtn.click();    //for mobile responsive design
+            subMenu.style.visibility = 'visible';
+            tbody.innerHTML = '', reviewData = docArray[s].oid;
+            document.querySelector('.submenu > menu').id = docIds[s];
+            document.querySelector('.submenu > menu').setAttribute('data-uid', e.target.firstElementChild.id);
+            let items = Object.entries(docArray[s].oid);
+            let c = 1;
+            for (let [k, v] of items) {
+                const i = v[0];
+                const p = v[1];
+                const q = v[2];
+                tbody.insertAdjacentHTML('beforeend', `
+                    <tr>
+                        <td>${c++}</td>
+                        <td>${i}</td>
+                        <td>${p}</td>
+                        <td><input type='number' id='${k}' name='${i}' placeholder='Qty' value='${q}' data-price='${p}' min='0'/></td>
+                        <td>${p * q}</td>
+                    </tr>
+                `);
+            }
+            const discVal = document.getElementById('discount');
+            discVal.value = docArray[s]?.discount || '', prevDiscount = 0;  //reset discounts
+            const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
+            const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
+            tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
+
+            //td input change event
+            const QtyInputs = document.querySelectorAll('td > input');
+            QtyInputs.forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const id = e.target.id;
+                    const i = e.target.name;
+                    const q = e.target.value;
+                    const p = e.target.dataset.price;
+                    if (id == 'discount') {
+                        const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
+                        const grandVal = Number((table.querySelector('tfoot tr:last-child td:last-child').textContent).slice(2));
+                        tfootGT.innerHTML = `&#8358; ${grandVal + prevDiscount - Number(discVal.value)}`;
+                        prevDiscount = Number(discVal.value);
+                        return;
+                    }
+                    reviewData[id] = [i, p, q];
+                    const td = e.target.parentElement.nextElementSibling;
+                    td.innerText = q * p;
+                    const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
+                    const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
+                    tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
+                });
+            });
+        });
+    }
+    if (docIds.length >= navBtnOrderCount) {
+        downloadBtn.style.visibility = 'hidden';
+    } else {
+        downloadBtn.classList.remove('clk');
+        downloadBtn.firstChild.textContent = 'Load more';
+    }
+}
 //order-form
 // const orderForm = document.querySelector('#order-form');
 // orderForm.addEventListener('submit', (e) => {
