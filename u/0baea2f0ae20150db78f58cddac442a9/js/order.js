@@ -133,24 +133,6 @@ downloadBtn.addEventListener('click', async (e) => {
     const newOrders = query(collectionGroup(db, 'Orders'), where('status', '==', Number(status)), orderBy('orderDate', 'desc'), startAfter(lastVisible), limit(2));
     const querySnapshot = await getDocs(newOrders);
     loadOrders(querySnapshot);
-    
-    // lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-    // querySnapshot.forEach(doc => {
-    //     docArray.push(doc.data());
-    //     const clone = asideTemplate.content.cloneNode(true);
-    //     clone.querySelector('.usr').style.backgroundColor = doc.data().hex;
-    //     clone.querySelector('.abbr').textContent = doc.data().alias;
-    //     clone.querySelector('.name').textContent = doc.data().uname;
-    //     clone.querySelector('.date').textContent = new Intl.DateTimeFormat('en-GB').format(new Date(doc.data().orderDate));
-
-    //     clone.addEventListener('click', (e) => {
-    //         console.log('my clone');
-    //     });
-    //     aside.appendChild(clone);
-    // });
-    
-    // aside.classList.remove('ldg');
-    //hide downloadBtn at the end
 });
 
 function loadOrders (querySnapshot) {
@@ -166,7 +148,7 @@ function loadOrders (querySnapshot) {
         clone.querySelector('.date').textContent = new Intl.DateTimeFormat('en-US').format(new Date(doc.data().orderDate));
         aside.insertBefore(clone, downloadBtn);
     });
-    for (let s = 0; s < querySnapshot.size; s++) {
+    for (let s = 0; s < docIds.length; s++) {
         document.querySelectorAll('.card')[s].addEventListener('click', (e) => {
             document.querySelectorAll('.card').forEach(card => card.classList.toggle('active', card == e.target));
             username = e.target.lastElementChild.firstElementChild.textContent;
@@ -224,20 +206,12 @@ function loadOrders (querySnapshot) {
     }
     if (docIds.length >= navBtnOrderCount) {
         downloadBtn.style.visibility = 'hidden';
+        downloadBtn.classList.remove('clk');
     } else {
         downloadBtn.classList.remove('clk');
         downloadBtn.firstChild.textContent = 'Load more';
     }
 }
-//order-form
-// const orderForm = document.querySelector('#order-form');
-// orderForm.addEventListener('submit', (e) => {
-//     e.preventDefault();
-//     const fd = new FormData(orderForm);
-//     for (const [k, v] of fd.entries()) {
-//         console.log(k, v, 'end');
-//     }
-// });
 
 //menu btns
 let orderParams;
