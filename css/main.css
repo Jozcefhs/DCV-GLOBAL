@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 * {
     padding: 0;margin: 0;box-sizing: border-box;
 }
@@ -7,9 +8,15 @@
 }
 html, body {
     background-color: #f1f1f1;
-    font: 14px 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font: 15px system-ui;
 }
-button {
+body {
+    height: 100vh;
+    height: 100dvh;
+    color: #555;
+    position: relative;
+}
+button, .link {
     cursor: pointer;
     font-size: 1em;
 }
@@ -25,82 +32,81 @@ a {
     text-decoration: none;
     color: unset;
 }
-body {
-    height: 100vh;
-    height: 100dvh;
-    color: #555;
-    position: relative;
-}
-nav, #backdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-}
-nav {
-    padding: 20px;
-    right: 10%;
-    background-color: #fff;
-    z-index: 2; /*same for menu hamburger*/
-    transform: translateX(-100%);
-    transition: transform 500ms ease 50ms;
-}
-nav > ul {
-    margin-top: 40px;
-}
-nav > ul > li > a {
+header {
     display: flex;
     align-items: center;
-    padding: 8px 20px;
-    margin: 5px auto;
-    border-radius: 20px;
-    transition: box-shadow 250ms ease;
+    justify-content: space-between;
+    padding: 1em;
 }
-nav > ul > li > a:hover,
-nav > ul > li > a.active {
-    box-shadow: var(--bx-shdw);
+#logo {
+    margin-right: auto;
 }
-#backdrop {
-    z-index: -1;
-    opacity: 0;
-    right: 0;
-    background-color: rgb(0,0,0);   /*box-shadow inset or linear-gradient or radial-gradient*/
-    transition: opacity 500ms ease 50ms;
+.more_icon {
+    visibility: hidden;
 }
-nav.active {
-    transform: translateX(0);
+.menu > span {
+    padding: 0 1em;
+    font-weight: 500;
+    transition: color 100ms ease;
 }
-nav.active + #backdrop {
-    z-index: 1;
-    opacity: .4;
+.menu > span:hover {
+    color: #1a73e8;
 }
-#nav-header {
-    padding: 20px;
-    direction: rtl;
+#owner {
+    width:max-content;
+    margin: 2em auto 1em;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-weight: 600;
+    font-size: 4em;
+    color: #1a73e8;
 }
-img[alt="user-img"] {
-    display: block;
-    width: 40px;
-    aspect-ratio: 1;
-    background-color: var(--rgba-dark5);
-    border: 2px solid #fff;
+#owner > sup {
+    position: absolute;
+    font-family: system-ui;
+    font-size: .3em;
+    color: #555;
+}
+form button > * {
+    pointer-events: none;
+}
+form#search-site {
+    margin: 0 auto;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    min-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    transition: box-shadow 100ms ease-out;
+    overflow: hidden;
+}
+form#search-site:hover {
+    box-shadow: 0 0 7px #aaa;
+}
+form#search-site > input {
+    flex: 1;
+    font-size: 1em;
+    padding: 0 2em;
+    color: #333;
+    height: 3em;
+}
+form#search-site:has(input:focus) {
+    box-shadow: 0 0 7px #aaa;
+}
+form#search-site > button {
+    height: 2em;
+    width: 2em;
+    padding: 1.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
-    outline: 2px solid var(--rgba-dark5);
 }
-#nav-header span {
-    display: block;
+form#search-site > button:hover {
+    background-color: rgba(0, 0, 0, .05);
 }
-span.large {
-    font-size: 1.2em;
-}
-span.small {
-    font-size: 0.8em;
-}
-main {
-    height: 100%;
-}
-main > iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
+form#search-site > button:last-of-type {
+    margin-right: 1em;
 }
