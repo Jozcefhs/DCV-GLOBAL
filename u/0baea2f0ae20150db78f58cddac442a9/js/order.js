@@ -46,80 +46,12 @@ navBtns.forEach((navBtn, index) => {
         const snap = await getCountFromServer(query(collectionGroup(db, 'Orders'), where('status', '==', status)));
         navBtnOrderCount = snap.data().count;
         downloadBtn.style.visibility = 'visible';
-        const newOrders = query(collectionGroup(db, 'Orders'), where('status', '==', status), orderBy('orderDate', 'desc'), limit(2));
+        const newOrders = query(collectionGroup(db, 'Orders'), where('status', '==', status), orderBy('orderDate', 'desc'), limit(10));
         const querySnapshot = await getDocs(newOrders);
         // console.log(querySnapshot.size)
         document.querySelectorAll("aside > *:not(div.download_more, template)").forEach(elem => elem.remove());
         if (querySnapshot.empty) return alert("Orders empty.");
         loadOrders(querySnapshot);
-        // lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-        // querySnapshot.forEach(doc => {
-        //     docIds.push(doc.id);
-        //     docArray.push(doc.data());
-        //     const clone = asideTemplate.content.cloneNode(true);
-        //     clone.querySelector('.usr').style.backgroundColor = doc.data().hex;
-        //     clone.querySelector('.usr').id = doc.data().uid;
-        //     clone.querySelector('.abbr').textContent = doc.data().alias;
-        //     clone.querySelector('.name').textContent = doc.data().uname;
-        //     clone.querySelector('.date').textContent = new Intl.DateTimeFormat('en-US').format(new Date(doc.data().orderDate));
-        //     aside.insertBefore(clone, downloadBtn);
-        // });
-        // for (let s = 0; s < querySnapshot.size; s++) {
-        //     document.querySelectorAll('.card')[s].addEventListener('click', (e) => {
-        //         document.querySelectorAll('.card').forEach(card => card.classList.toggle('active', card == e.target));
-        //         username = e.target.lastElementChild.firstElementChild.textContent;
-        //         prevBtn.click();    //for mobile responsive design
-        //         subMenu.style.visibility = 'visible';
-        //         tbody.innerHTML = '', reviewData = docArray[s].oid;
-        //         document.querySelector('.submenu > menu').id = docIds[s];
-        //         document.querySelector('.submenu > menu').setAttribute('data-uid', e.target.firstElementChild.id);
-        //         let items = Object.entries(docArray[s].oid);
-        //         let c = 1;
-        //         for (let [k, v] of items) {
-        //             const i = v[0];
-        //             const p = v[1];
-        //             const q = v[2];
-        //             tbody.insertAdjacentHTML('beforeend', `
-        //                 <tr>
-        //                     <td>${c++}</td>
-        //                     <td>${i}</td>
-        //                     <td>${p}</td>
-        //                     <td><input type='number' id='${k}' name='${i}' placeholder='Qty' value='${q}' data-price='${p}' min='0'/></td>
-        //                     <td>${p * q}</td>
-        //                 </tr>
-        //             `);
-        //         }
-        //         const discVal = document.getElementById('discount');
-        //         discVal.value = docArray[s]?.discount || '', prevDiscount = 0;  //reset discounts
-        //         const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
-        //         const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
-        //         tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
-
-        //         //td input change event
-        //         const QtyInputs = document.querySelectorAll('td > input');
-        //         QtyInputs.forEach(input => {
-        //             input.addEventListener('change', (e) => {
-        //                 const id = e.target.id;
-        //                 const i = e.target.name;
-        //                 const q = e.target.value;
-        //                 const p = e.target.dataset.price;
-        //                 if (id == 'discount') {
-        //                     const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
-        //                     const grandVal = Number((table.querySelector('tfoot tr:last-child td:last-child').textContent).slice(2));
-        //                     tfootGT.innerHTML = `&#8358; ${grandVal + prevDiscount - Number(discVal.value)}`;
-        //                     prevDiscount = Number(discVal.value);
-        //                     return;
-        //                 }
-        //                 reviewData[id] = [i, p, q];
-        //                 const td = e.target.parentElement.nextElementSibling;
-        //                 td.innerText = q * p;
-        //                 const grandtotal = [...tbody.querySelectorAll('tr td:last-child')].map(x => Number(x.innerText)).reduce((a, c) => a + c);
-        //                 const tfootGT = table.querySelector('tfoot tr:last-child td:last-child');
-        //                 tfootGT.innerHTML = `&#8358; ${grandtotal - Number(discVal.value)}`;
-        //             });
-        //         });
-        //     });
-        // }
         aside.classList.remove('ldg');
     });
 });
@@ -130,7 +62,7 @@ downloadBtn.addEventListener('click', async (e) => {
     downloadBtn.firstChild.textContent = '';
     downloadBtn.classList.add('clk');
     
-    const newOrders = query(collectionGroup(db, 'Orders'), where('status', '==', Number(status)), orderBy('orderDate', 'desc'), startAfter(lastVisible), limit(2));
+    const newOrders = query(collectionGroup(db, 'Orders'), where('status', '==', Number(status)), orderBy('orderDate', 'desc'), startAfter(lastVisible), limit(10));
     const querySnapshot = await getDocs(newOrders);
     loadOrders(querySnapshot);
 });
@@ -253,7 +185,7 @@ async function confirmOrder(uid, oid, stat, loadingElem) {
     const deposit = stat == 3 ? grandtotal : Number(document.querySelector('input#bal').value) || 0;
     // console.log('deposit', deposit);
     loadingElem.classList.replace('stg01', 'stg02');
-    
+
     const batch = writeBatch(db);
     const orderRef = doc(db, "users", uid, "Orders", oid);
     batch.update(orderRef, {'oid': reviewData, 'status': stat, 'discount': prevDiscount, 'deposit': deposit}); // use batch.set.merge:true if update doesn't work for discount

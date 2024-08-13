@@ -38,6 +38,7 @@ header {
     position: sticky;
     top: 0;
     background-color: #fff;
+    z-index: 2;
 }
 header img[alt="logo"] {
     width: 3em;
@@ -79,6 +80,9 @@ section > div.heading {
 }
 .section_content_wrapper {
     padding: 1em;
+}
+.content_wrapper {
+    margin-bottom: 3em;
 }
 .content_wrapper > h3 {
     padding: 0 2em;
@@ -204,8 +208,21 @@ iframe {
         max-width: 720px;
         aspect-ratio: 2/2;
     }
+    .content {
+        gap: 1em;
+        padding: 1em 0;
+    }
+    .card {
+        width: 6em;
+    }
+    .card > p {
+        margin: 85% auto 0;
+    }
 }
 @media screen and (max-width: 667px) {
+    header {
+        padding: .5em;
+    }
     main {
         padding-top: 0;
     }
@@ -219,7 +236,7 @@ iframe {
     #frame-holder {
         top: 0;
         width: 100%;
-        height: auto;
+        height: 100%;
     }
     iframe {
         min-width: 0;
