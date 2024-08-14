@@ -222,7 +222,7 @@ logoutBtn.addEventListener('click', (e) => {
     //remove ss and ls
     sessionStorage.removeItem('shelf'), localStorage.removeItem('user');
     //reload index.html
-    document.location.reload();
+    document.location.replace('/');
 });
 
 //add links to nav menu
@@ -384,33 +384,6 @@ main.addEventListener("scrollend", (e) => {
     }
     console.log(scrollHeight, combo)
 })
-// document.addEventListener("scrollend", (e) => {
-//     const scrollHeight = e.target.scrollingElement.scrollHeight;
-    
-//     const combo = e.target.scrollingElement.scrollTop + e.target.scrollingElement.clientHeight;
-//     if (scrollHeight == combo) {
-//         console.log("Run function to await new products")
-//         // main.insertAdjacentHTML("beforeend", clone);
-//     }
-//     console.log(scrollHeight, combo)
-// })
-
-// const cards = document.querySelectorAll(".card");
-// cards.forEach(card => {
-//     card.addEventListener("click", (e) => {
-//         console.log(e.target.id);
-//         const pid = e.target.id;
-//         const c = products.filter(({id}) => id == pid);
-//         console.log(c)
-//         // const asideBody = document.querySelector("aside .body");
-//         // for (const i of c) {
-//         //     console.log(i)
-//         // }
-//         // const addToCartBtn = document.querySelector("aside button#add-to-cart");
-//         // addToCartBtn.querySelector("span").innerText = "The price from 'c'";
-//     });
-//     console.log(products);
-// });
 
 const chevrons = document.querySelectorAll(".chevron.jsChevron");   //add more or less items to cart
 chevrons.forEach(chv => {

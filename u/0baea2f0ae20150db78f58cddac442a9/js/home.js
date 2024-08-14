@@ -2,6 +2,7 @@ import { fbInitializer, getFirestore, collectionGroup, getDocs, orderBy, query, 
 const app = fbInitializer();
 const db = getFirestore(app);
 
+let ME = JSON.parse(localStorage.getItem('user'));
 //count New orders
 window.addEventListener('load', async () => {
     const orderNoticeElem = document.querySelector('.order .number');
@@ -10,6 +11,32 @@ window.addEventListener('load', async () => {
     const orders = await getCountFromServer(orderRef);
     orderNoticeElem.classList.replace('searching', 'searched');
     document.querySelector('.number > i').innerText = orders.data().count;
+});
+
+let activeMenu;
+//toggle context menus off
+window.addEventListener('click', (e) => {
+    if (activeMenu) activeMenu.classList.remove('show');
+}, true);
+
+//setting up user profile
+const userProfile = document.querySelector('#user-profile');
+
+userProfile.querySelector('#user-bio').firstElementChild.innerText = ME.profile.uname;
+userProfile.querySelector('#user-bio').lastElementChild.innerText = ME.profile.email;
+const userPhoto = document.querySelector('#user-photo');
+userPhoto.addEventListener('click', (e) => {
+    userProfile.classList.toggle('show');
+    activeMenu = userProfile;
+}, true);
+
+//logout function
+const logoutBtn = document.querySelector('div#logout');
+logoutBtn.addEventListener('click', (e) => {
+    //remove ls
+    localStorage.removeItem('user');
+    //reload index.html
+    document.location.replace('../../../main.html');
 });
 
 const dialog = document.querySelector("#frame-holder");

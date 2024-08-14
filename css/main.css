@@ -15,8 +15,9 @@ body {
     height: 100dvh;
     color: #555;
     position: relative;
+    user-select: none;
 }
-button, .link {
+button, .link, input[type="submit"] {
     cursor: pointer;
     font-size: 1em;
 }
@@ -109,4 +110,66 @@ form#search-site > button:hover {
 }
 form#search-site > button:last-of-type {
     margin-right: 1em;
+}
+dialog {
+    margin: 10em auto;
+    outline: none;
+    border: 0;
+    border-radius: 7px;
+    overflow: hidden;
+}
+/* #login-form */
+dialog > form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    min-width: 350px;
+    padding: 1em 2em;
+    color: #555;
+}
+.fm_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1em 0 2em;
+}
+.fm_header > span {
+    font-size: 1.1em;
+    font-weight: 500;
+}
+.fm_header > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: .4em;
+}
+.fm_header > button:hover {
+    background-color: rgba(0, 0, 0, .05);
+}
+dialog > form input {
+    padding: .7em;
+    font-size: 1em;
+}
+dialog > form > input:not(input[type="submit"]) {
+    border-bottom: 3px solid #1a73e8;
+    background-color: transparent;
+}
+dialog > form input:focus {
+    background-color: transparent;
+}
+dialog > form > input[type="submit"] {
+    margin: 2em 0;
+    background-color: #1a73e8;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 7px;
+    transition: background-color 200ms ease;
+}
+dialog > form > input[type="submit"]:hover {
+    background-color: #005eda;
+}
+.disabled {
+    pointer-events: none;
+    opacity: .8;
 }

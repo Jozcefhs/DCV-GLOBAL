@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -18,7 +19,7 @@ a {
     text-decoration: none;
     color: unset;
 }
-.card, .bar_btn {
+.card, .bar_btn, .link {
     cursor: pointer;
 }
 header, .content, .order > .number, #bar, .bar_btn {
@@ -47,10 +48,10 @@ header img[alt="logo"] {
     background-color: #f3f3f3;
 }
 header > .site_name {
-    font-family: monospace;
+    font-family: 'Dancing Script';
+    font-size: 2em;
     font-weight: 600;
-    border-bottom: 3px solid #fab005;
-    padding: .3em 0;
+    color: #1a73e8;
 }
 #user-photo {
     width: 2em;
@@ -60,6 +61,40 @@ header > .site_name {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+}
+#user-profile {
+    position: absolute;
+    right: 20px;
+    top: 0px;
+    z-index: 2;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 7px #bbb;
+    visibility: hidden;
+    transition: visibility 150ms ease-out, top 250ms ease-out;
+}
+#user-profile.show {
+    top: 20px;
+    visibility: visible;
+}
+#user-profile > div {
+    padding: .5em 1em;
+}
+#user-bio {
+    border-bottom: 1px solid #ccc;
+}
+#user-bio > div:nth-of-type(1) {
+    font-weight: 500;
+    font-size: 1.1em;
+}
+#logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: text-shadow 150ms ease;
+}
+#logout:hover {
+    text-shadow: 0 0 #555;
 }
 main {
     position: relative;

@@ -79,7 +79,7 @@ div#user-pic::before {
 #user-profile {
     position: absolute;
     right: 20px;
-    top: 50px;
+    top: 0px;
     z-index: 2;
     background-color: #fff;
     border-radius: 10px;
@@ -88,7 +88,7 @@ div#user-pic::before {
     transition: visibility 150ms ease-out, top 250ms ease-out;
 }
 #user-profile.show {
-    top: 70px;
+    top: 20px;
     visibility: visible;
 }
 #user-profile > div {
@@ -109,7 +109,6 @@ div#user-pic::before {
 }
 #logout:hover {
     text-shadow: 0 0 #555;
-    /* stroke: #ffa500; */
 }
 .svg { /*appears to be redundant (check with .link selector)*/
     position: relative;

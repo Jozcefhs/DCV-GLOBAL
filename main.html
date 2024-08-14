@@ -6,13 +6,13 @@
     <title>Administrator</title>
     <link rel="stylesheet" href="./css/main.css"/>
 </head>
-<body>
+<body style="display: none;">
     <header>
         <span id="logo">Logo</span>
         <span class="more_icon"><img src="./img/icon_more_vert.svg"></span>
         <span class="menu">
-            <span class="link">SIGN UP</span>
-            <span class="link">LOGIN</span>
+            <span class="link" data-href="#dlg-sgp">SIGN UP</span>
+            <span class="link" data-href="#dlg-lgn">LOGIN</span>
         </span>
     </header>
     <div id="owner">Chris' Stores<sup>mgr</sup></div>
@@ -27,6 +27,31 @@
     </form>
     <main></main>
     <footer></footer>
-    <script src="./js/main.js"></script>
+    <dialog id="dlg-sgp">
+        <form action="">
+            <div class="fm_header">
+                <span>Sign Up form</span>
+                <button type="button" class="close">
+                    <img src="./img/close-outline.svg" alt="clear-search">
+                </button>
+            </div>
+            <input type="text" name="uname" id="uname">
+            <input type="password" name="pword" id="pword">
+        </form>
+    </dialog>
+    <dialog id="dlg-lgn">
+        <form name="login-form" id="login-form">
+            <div class="fm_header">
+                <span>Login form</span>
+                <button type="button" class="close">
+                    <img src="./img/close-outline.svg" alt="clear-search">
+                </button>
+            </div>
+            <input type="text" name="username" id="username" placeholder="Enter username or email">
+            <input type="password" name="password" id="password" placeholder="Enter password">
+            <input type="submit" value="LOGIN">
+        </form>
+    </dialog>
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>
