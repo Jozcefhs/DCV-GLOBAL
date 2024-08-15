@@ -28,14 +28,13 @@ const userPhoto = document.querySelector('#user-photo');
 userPhoto.addEventListener('click', (e) => {
     userProfile.classList.toggle('show');
     activeMenu = userProfile;
-}, true);
+});
 
 //logout function
 const logoutBtn = document.querySelector('div#logout');
 logoutBtn.addEventListener('click', (e) => {
     //remove ls
     localStorage.removeItem('user');
-    //reload index.html
     document.location.replace('../../../main.html');
 });
 

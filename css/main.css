@@ -73,11 +73,11 @@ form button > * {
 }
 form#search-site {
     margin: 0 auto;
-    width: 30%;
+    width: 33%;
     display: flex;
     align-items: center;
     gap: .5em;
-    min-width: 400px;
+    min-width: 500px;
     border: 1px solid #ccc;
     border-radius: 40px;
     transition: box-shadow 100ms ease-out;
@@ -148,10 +148,11 @@ dialog > form {
     background-color: rgba(0, 0, 0, .05);
 }
 dialog > form input {
-    padding: .7em;
+    width: 100%;
+    padding: 1em .7em;
     font-size: 1em;
 }
-dialog > form > input:not(input[type="submit"]) {
+dialog > form input:not(input[type="submit"]) {
     border-bottom: 3px solid #1a73e8;
     background-color: transparent;
 }
@@ -168,6 +169,20 @@ dialog > form > input[type="submit"] {
 }
 dialog > form > input[type="submit"]:hover {
     background-color: #005eda;
+}
+.fm_group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.fm_group > svg {
+    position: absolute;
+    right: 7px;
+    cursor: pointer;
+}
+.opq {
+    display: none;
+    pointer-events: none;
 }
 .disabled {
     pointer-events: none;

@@ -22,6 +22,37 @@ forms[0].addEventListener('submit', (e) => {
     if (searchValue) window.location.href = `https://www.google.com/search?q=${searchValue}`;
 });
 
+const passwords = document.querySelectorAll('#pword, #cpword');
+function checkPasswordMatch() {
+    console.log(passwords[0].value, passwords[1].value);
+    if (passwords[0].value !== passwords[1].value) {
+        // passwords[1].setCustomValidity('The passwords do not match.');
+        return false;
+    } else {
+        return true;
+        // passwords[1].setCustomValidity("");   //reset custom message
+    }
+    // passwords[1].reportValidity();
+}
+//sign up form
+passwords[1].addEventListener('change', (e) => {
+    if (e.target.value === passwords[0].value) {
+        passwords[1].setCustomValidity('');
+    } else {
+        passwords[1].setCustomValidity('The passwords do not match.');
+    }
+})
+forms[1].addEventListener('submit', (e) => {
+    e.preventDefault();
+    //verify password union
+    
+    console.log("Firebase await.");
+    /*
+    e.submitter.classList.add('disabled');
+    e.submitter.value = '. . .';
+    */
+    //check for existence of email address
+})
 //login form event
 forms[2].addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -57,5 +88,16 @@ const closeBtns = document.querySelectorAll('.close');
 closeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         btn.closest('dialog').close();
+    });
+});
+
+//svg
+const svgs = document.querySelectorAll('.fm_group > svg');
+svgs.forEach(svg => {
+    svg.addEventListener('click', (e) => {
+        const parent = svg.closest('.fm_group');
+        const input = e.target.parentNode.firstElementChild;
+        input.type == 'password' ? parent.firstElementChild.setAttribute('type', 'text') : parent.firstElementChild.setAttribute('type', 'password');
+        e.target.parentElement.querySelectorAll('svg').forEach(s => s.classList.toggle('opq'));
     });
 });
