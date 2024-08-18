@@ -1,4 +1,4 @@
-import { and, collection, doc, fbInitializer, getCountFromServer, getDoc, getDocs, getFirestore, limit, mainJSDoc, or, query, serverTimestamp, where } from "./firebase_xp.js";
+import { addDoc, and, collection, doc, fbInitializer, getCountFromServer, getDoc, getDocs, getFirestore, limit, mainJSDoc, or, query, serverTimestamp, where } from "./firebase_xp.js";
 const app = fbInitializer();
 const db = getFirestore(app);
 
@@ -27,22 +27,31 @@ const password = document.querySelectorAll('#pword');
 //sign up form
 forms[1].addEventListener('submit', async (e) => {
     e.preventDefault();
+    e.submitter.classList.add('disabled');
+    e.submitter.value = '. . .';
     const fd = new FormData(forms[1]);
     //match key
     const mstr = await getDoc(doc(db, 'users', mainJSDoc));
     const key = sha256(fd.get('key'));
-    if (key != mstr.data().suk) return alert("Incorrect key.");
+    if (key != mstr.data().suk) {
+        alert("Incorrect key.");
+        e.submitter.classList.remove('disabled');
+        e.submitter.value = 'SIGN UP';
+        return;
+    }
     //check for existing email
-    const email = fd.get('email');
+    const email = fd.get('email').trim();
     const foundEmail = await getCountFromServer(query(collection(db, 'users'), where('email', '==', email)));
-    console.log(foundEmail.data().count);
-    if (foundEmail.data().count) return alert("Email already exists.");
-
-    alert("Go ahead and create admin account.");
-    /*
-    fd.append('userPath', '0baea2f0ae20150db78f58cddac442a9');
-    fd.append('key', sha224(mstr.data().suk));
-    fd.set('pword', sha256(fd.get('pword')));
+    if (foundEmail.data().count) {
+        alert("Email already exists.");
+        e.submitter.classList.remove('disabled');
+        e.submitter.value = 'SIGN UP';
+        return;
+    }
+    // alert("Go ahead and create admin account.");
+    fd.set('email', email);
+    fd.set('pword', sha256(fd.get('pword').trim()));
+    fd.delete('key');
 
     let obj = {
         createdOn: Date.now(),
@@ -50,18 +59,18 @@ forms[1].addEventListener('submit', async (e) => {
         isSubscriber: false,
         isStaffer: false,
         isSuperuser: true,
+        userPath: '0baea2f0ae20150db78f58cddac442a9',
     }
     for (const [i, j] of fd.entries()) {
         obj[i] = j;
     }
-
-    console.log(obj);
-    */
-    /*
-    e.submitter.classList.add('disabled');
-    e.submitter.value = '. . .';
-    */
+    const snapshot = await addDoc(collection(db, 'users'), obj);
+    const newUser = await getDoc(doc(db, "users", snapshot.id));    
+    localStorage.setItem('user', JSON.stringify({id: newUser.id, profile: newUser.data()}));
+    ME = JSON.parse(localStorage.getItem('user'));
+    searchUser();
 });
+
 //login form event
 forms[2].addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -70,7 +79,7 @@ forms[2].addEventListener('submit', async (e) => {
 
     const fd = new FormData(e.target);
     const uname = fd.get('username');
-    const pword = fd.get('password');
+    const pword = sha256(fd.get('password').trim());
 
     const q = query(collection(db, "users"), and(where('pword', '==', pword), or(where('uname', '==', uname), where('email', '==', uname))), limit(1));
     const snap = await getDocs(q);
@@ -84,7 +93,8 @@ forms[2].addEventListener('submit', async (e) => {
     ME = JSON.parse(localStorage.getItem('user'));
     searchUser();
 });
-//sign up and login btns
+
+//btns for sign up and login
 const headerMenus = document.querySelectorAll('header .menu > span');
 headerMenus.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -110,3 +120,8 @@ svgs.forEach(svg => {
         e.target.parentElement.querySelectorAll('svg').forEach(s => s.classList.toggle('opq'));
     });
 });
+
+// function salt(email) {
+//     //salting to avoid password collision
+//     return md5(email);
+// }
