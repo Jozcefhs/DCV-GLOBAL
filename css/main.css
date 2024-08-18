@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap'); */
 * {
     padding: 0;margin: 0;box-sizing: border-box;
 }
@@ -180,11 +180,24 @@ dialog > form > input[type="submit"]:hover {
     right: 7px;
     cursor: pointer;
 }
+input#key + svg {
+    transform: rotate(225deg);
+    cursor: default;
+}
 .opq {
-    display: none;
+    opacity: 0;
     pointer-events: none;
 }
 .disabled {
     pointer-events: none;
     opacity: .8;
+}
+@media screen and (max-width: 768px) {
+    #owner {
+        font-size: 2em;
+    }
+    form#search-site {
+        width: 75%;
+        min-width: 0;
+    }
 }

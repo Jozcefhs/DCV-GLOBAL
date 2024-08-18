@@ -1,4 +1,4 @@
-import { and, collection, doc, fbInitializer, getDocs, getFirestore, limit, or, query, where } from "./firebase_xp.js";
+import { and, collection, doc, fbInitializer, getCountFromServer, getDoc, getDocs, getFirestore, limit, mainJSDoc, or, query, serverTimestamp, where } from "./firebase_xp.js";
 const app = fbInitializer();
 const db = getFirestore(app);
 
@@ -22,37 +22,46 @@ forms[0].addEventListener('submit', (e) => {
     if (searchValue) window.location.href = `https://www.google.com/search?q=${searchValue}`;
 });
 
-const passwords = document.querySelectorAll('#pword, #cpword');
-function checkPasswordMatch() {
-    console.log(passwords[0].value, passwords[1].value);
-    if (passwords[0].value !== passwords[1].value) {
-        // passwords[1].setCustomValidity('The passwords do not match.');
-        return false;
-    } else {
-        return true;
-        // passwords[1].setCustomValidity("");   //reset custom message
-    }
-    // passwords[1].reportValidity();
-}
+const password = document.querySelectorAll('#pword');
+
 //sign up form
-passwords[1].addEventListener('change', (e) => {
-    if (e.target.value === passwords[0].value) {
-        passwords[1].setCustomValidity('');
-    } else {
-        passwords[1].setCustomValidity('The passwords do not match.');
-    }
-})
-forms[1].addEventListener('submit', (e) => {
+forms[1].addEventListener('submit', async (e) => {
     e.preventDefault();
-    //verify password union
-    
-    console.log("Firebase await.");
+    const fd = new FormData(forms[1]);
+    //match key
+    const mstr = await getDoc(doc(db, 'users', mainJSDoc));
+    const key = sha256(fd.get('key'));
+    if (key != mstr.data().suk) return alert("Incorrect key.");
+    //check for existing email
+    const email = fd.get('email');
+    const foundEmail = await getCountFromServer(query(collection(db, 'users'), where('email', '==', email)));
+    console.log(foundEmail.data().count);
+    if (foundEmail.data().count) return alert("Email already exists.");
+
+    alert("Go ahead and create admin account.");
+    /*
+    fd.append('userPath', '0baea2f0ae20150db78f58cddac442a9');
+    fd.append('key', sha224(mstr.data().suk));
+    fd.set('pword', sha256(fd.get('pword')));
+
+    let obj = {
+        createdOn: Date.now(),
+        lastModified: serverTimestamp(),
+        isSubscriber: false,
+        isStaffer: false,
+        isSuperuser: true,
+    }
+    for (const [i, j] of fd.entries()) {
+        obj[i] = j;
+    }
+
+    console.log(obj);
+    */
     /*
     e.submitter.classList.add('disabled');
     e.submitter.value = '. . .';
     */
-    //check for existence of email address
-})
+});
 //login form event
 forms[2].addEventListener('submit', async (e) => {
     e.preventDefault();

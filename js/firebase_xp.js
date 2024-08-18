@@ -17,6 +17,7 @@ export function fbInitializer() {
     // let db = getFirestore(app);
     return app;
 }
+export const mainJSDoc = 'r7YUVQQQ42A5FiitRoVV';
 
 export { deleteApp, addDoc, and, collection, collectionGroup, deleteDoc, deleteField, doc, getCountFromServer, setDoc, getDoc, getDocs, limit, or, orderBy, query, serverTimestamp, startAfter, where, writeBatch };
 export {disableNetwork, enableNetwork, getFirestore, increment, initializeFirestore, memoryLocalCache, onSnapshot, persistentLocalCache, persistentMultipleTabManager, runTransaction, updateDoc};
