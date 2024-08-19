@@ -6,5 +6,6 @@ self.addEventListener('push', (event) => {
         body: data.body,
         icon: data.icon
     });
+    console.log('data:', data);
 });
 console.log('This is "firebase-messaging-sw.js" file.');
