@@ -10,7 +10,6 @@ getToken(messaging, {vapidKey: "BOBajgOp6r-0H6xWPZj29zqG3QjzZ2wU2aCEACEkkb06ohUs
     } else {
         // Show permission request UI
         console.log('No registration token available. Request permission to generate one.');
-        // ...
     }
 }).catch((err) => {
     console.log('An error occurred while retrieving token. ', err);
