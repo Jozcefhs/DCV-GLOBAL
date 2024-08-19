@@ -2,11 +2,21 @@ import { addDoc, and, collection, doc, fbInitializer, getCountFromServer, getDoc
 import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-messaging.js";
 const app = fbInitializer();
 const db = getFirestore(app);
+//register service worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('../firebase-messaging-sw.js')
+        .then((registration) => {
+            console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch((error) => {
+            console.error('Service Worker registration failed:', error);
+        });
+}
 
 const messaging = getMessaging(app);
 //Add public key generated from the console
 getToken(messaging, {vapidKey: "BOBajgOp6r-0H6xWPZj29zqG3QjzZ2wU2aCEACEkkb06ohUshrBp0IWR8BVZucLsJASTpe4-E9taKmNots5tYeQ"}).then((currentToken) => {
-    if (currentToken) { //eYg9ZZmG0Z3QWtM7-3eWwT:APA91bFaTdrNFPGOiv-G5N0_mYxWXL7dYmXV2BmABYWbG-KCLrflfE6pZAwk1hXz8ddLxHek58EHIdrIR0iX_y7rDEITC8Z100hXEEr5ghutrwz2ngtBsm7GIRKWL8uomdH6pl-BeZJm
+    if (currentToken) {
         console.log(currentToken);
         // Send the token to your server and update the UI if necessary
         // ...
