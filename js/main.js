@@ -2,6 +2,7 @@ import { addDoc, and, collection, doc, fbInitializer, getCountFromServer, getDoc
 import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-messaging.js";
 const app = fbInitializer();
 const db = getFirestore(app);
+/*
 //register service worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('../firebase-messaging-sw.js')
@@ -30,6 +31,7 @@ getToken(messaging, {vapidKey: "BOBajgOp6r-0H6xWPZj29zqG3QjzZ2wU2aCEACEkkb06ohUs
 });
 
 onMessage(messaging, (payload) => console.log("Message received: ", payload));
+*/
 
 let ME = JSON.parse(localStorage.getItem('user'));
 

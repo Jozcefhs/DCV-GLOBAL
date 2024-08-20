@@ -45,7 +45,7 @@ const cards = document.querySelectorAll(".card");
 cards.forEach((card, idx) => {
     card.addEventListener("click", (e) => {
         frameTitle.innerText = card.querySelector("p").innerText;
-        dialog.showModal();
+        dialog.classList.remove('hdn');
         const visited = card.classList.contains("on");
         if (!visited) {
             for (let c = 0; c < cards.length; c++) cards[c].classList.toggle("on", card.dataset.cardNumber == c);
@@ -56,5 +56,8 @@ cards.forEach((card, idx) => {
 
 const barBtn = document.querySelector(".bar_btn");
 barBtn.onclick = () => {
-    barBtn.closest("dialog").close();
+    dialog.classList.add('hdn');
 }
+
+//remove display:none from dialog after CSS file loaded
+dialog.removeAttribute("style");
