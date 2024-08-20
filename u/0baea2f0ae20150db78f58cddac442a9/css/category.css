@@ -57,7 +57,6 @@ aside#left {
 aside#left > div:last-child {
     position: sticky;
     bottom: 0;
-    /* border: 1px solid green; */
     background-color: inherit;
     text-align: center;
 }
@@ -67,7 +66,6 @@ aside#left > h4 {
     font-weight: 600;
     display: flex;
     align-items: center;
-    /* border-bottom: 1px solid #ddd; */
 }
 aside#left > h4 > button {
     display: none;
@@ -79,7 +77,6 @@ aside#left > *:not(ul) {
     padding: 1em;
 }
 aside#left > h4, .actionBtn {
-    /* width: 100%; */
     text-align: center;
 }
 .actionBtn {
@@ -154,7 +151,6 @@ button:has(img[alt="menu-svg"]) {
     flex-direction: column;
     gap: 2em;
 }
-/* form > *:not(.image_header, input[type="file"]) { */
 .outer_form input:not([type="file"]) {
     width: 100%;
     border-radius: 5px;
@@ -167,7 +163,6 @@ button:has(img[alt="menu-svg"]) {
     cursor: default;
 }
 .label {
-    /* border: 1px solid #ccc; */
     position: relative;
 }
 .label > button {
@@ -177,9 +172,6 @@ button:has(img[alt="menu-svg"]) {
     transform: translate(-3%, -50%);
     transition: background-color 200ms ease;
 }
-/* .label > button:hover {
-    background-color: rgba(170,170,170,.1);
-} */
 .outer_form .legend {
     padding: 0 1.2em;
     font-size: .8em;
@@ -187,7 +179,6 @@ button:has(img[alt="menu-svg"]) {
 .btn_img_svg {
     width: 30px;
     height: 30px;
-    /* pointer-events: none; */
 }
 .image_header {
     text-align: center;
@@ -385,7 +376,7 @@ main.tpt ~ output#success {
         padding: .5em 0;
         background-color: #fff;
         box-shadow: 0 3px 5px #ccc;
-        /* display: none; */
+        display: none;
     }
     .more_btn:hover + .actionBtn_wrapper {
         display: inline-block;
